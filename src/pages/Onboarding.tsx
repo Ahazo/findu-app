@@ -63,7 +63,7 @@ export function Onboarding() {
               end={{x: 0, y: 1}}
               style={{ borderRadius: 22 }}
             >
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SingIn')}>
                 <Text style={styles.buttonText}>
                   PRÓXIMA
                 </Text>
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.body_light,
     fontSize: 16,
+    marginTop: 15,
   },
   contentButton: {
 
