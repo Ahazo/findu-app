@@ -10,8 +10,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import ahazoLogo from '../assets/ahazowhite.png';
-
 import fonts from '../styles/fonts';
 import colors from '../styles/colors';
 import { useNavigation } from '@react-navigation/core';
@@ -27,7 +25,7 @@ export function Welcome() {
       />
       <View style={styles.wrapper}>
         <Image
-          source={ahazoLogo}
+          source={{uri: 'https://storage.googleapis.com/images-ahazo-dev/dev-images/ahazo-logo-white.png'}}
           resizeMode='contain'
           style={styles.logo}
         />

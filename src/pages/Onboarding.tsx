@@ -1,23 +1,75 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
   Image,
-  Dimensions
+  Dimensions,
+  ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-
-import cel from '../assets/cel.png';
-
 import fonts from '../styles/fonts';
 import colors from '../styles/colors';
 import { useNavigation } from '@react-navigation/core';
 
+interface ISlider {
+  currentPage: number;
+}
+
+interface IIntroProps {
+  title: string;
+  subtitle: string;
+  imageSource: string;
+  buttonText: string;
+}
+
+const { width, height } = Dimensions.get('window');
+
 export function Onboarding() {
   const navigation = useNavigation();
+  const [sliderState, setSliderState] = useState<ISlider>({ currentPage: 0 })
+
+  const [introContent, setIntroContent] = useState<IIntroProps[]>([])
+
+  useEffect(() => {
+    setIntroContent([
+      {
+        title: 'Indique e use indicações!',
+        subtitle: 'Indique marcas que são a sua cara e fique \npor dentro das indicações dos seus amigos.',
+        imageSource: 'https://storage.googleapis.com/images-ahazo-dev/dev-images/phone.png',
+        buttonText: 'PRÓXIMA'
+      },
+      {
+        title: 'Aqui as indicações são valiosas!',
+        subtitle: 'Receba cashback quando utilizar uma \nindicação de um(a) amigo(a) e também \nquando algum(a) amigo(a) usar a sua!',
+        imageSource: 'https://storage.googleapis.com/images-ahazo-dev/dev-images/bag.png',
+        buttonText: 'PRÓXIMA'
+      },
+      {
+        title: 'Use seu cashback Ahazo',
+        subtitle: 'Pague menos na sua próxima compra \ndentro das marcas que você ama e indica.',
+        imageSource: 'https://storage.googleapis.com/images-ahazo-dev/dev-images/happiness.png',
+        buttonText: 'ENTRAR'
+      },
+    ])
+  }, [])
+
+  const setSliderPage = (event: any) => {
+    const { currentPage } = sliderState;
+    const { x: axis } = event.nativeEvent.contentOffset;
+    const indexOfNextScreen = Math.floor(axis / width);
+
+    if (indexOfNextScreen !== currentPage) {
+      setSliderState({
+        ...sliderState,
+        currentPage: indexOfNextScreen,
+      })
+    }
+  }
+
+  const { currentPage: pageIndex } = sliderState;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,42 +87,68 @@ export function Onboarding() {
           end={{x: 0, y: 1}}
         />
       </View>
-      <View style={styles.headerContainer}>    
-        <View style={styles.imageContainer}>
-          <Image
-            source={cel}
-            resizeMode='contain'
-            style={styles.image}
-          >
-          </Image>
-        </View>
-      </View>
-      <View style={styles.wrapper}>
-        <View style={styles.content}>
-          <View style={styles.contentText}>
-            <Text style={styles.title}>
-              Indique e use indicações!
-            </Text>
-            <Text style={styles.subtitle}>
-              Indique marcas que são a sua cara e fique {'\n'}
-              por dentro das indicações dos seus amigos!
-            </Text>
-          </View>
-          <View style={styles.contentButton}>
-            <LinearGradient
-              colors={[colors.purple, colors.blue_light]}
-              start={{x: 1, y: 0}}
-              end={{x: 0, y: 1}}
-              style={{ borderRadius: 22 }}
-            >
-              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SingIn')}>
-                <Text style={styles.buttonText}>
-                  PRÓXIMA
-                </Text>
-              </TouchableOpacity>
-            </LinearGradient>
-          </View>
-        </View>
+      <ScrollView
+        style={{flex: 1}}
+        horizontal={true}
+        scrollEventThrottle={16}
+        pagingEnabled={true}
+        showsHorizontalScrollIndicator={false}
+        onScroll={(event: any) => {
+          setSliderPage(event)
+        }}
+      >
+        {introContent.map((item, key) => {
+          return (
+            <View style={styles.contentContainer} key={key}>
+              <View style={styles.headerContainer}>    
+                <View style={styles.imageContainer}>
+                  <Image
+                    source={{uri: item.imageSource}}
+                    resizeMode='contain'
+                    style={styles.image}
+                  >
+                  </Image>
+                </View>
+              </View>
+              <View style={styles.wrapper}>
+                <View style={styles.content}>
+                  <View style={styles.contentText}>
+                    <Text style={styles.title}>
+                      {item.title}
+                    </Text>
+                    <Text style={styles.subtitle}>
+                      {item.subtitle}
+                    </Text>
+                  </View>
+                  <View style={styles.contentButton}>
+                    <LinearGradient
+                      colors={[colors.purple, colors.blue_light]}
+                      start={{x: 0, y: 1}}
+                      end={{x: 1, y: 0}}
+                      style={{ borderRadius: 22 }}
+                    >
+                      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SingIn')}>
+                        <Text style={styles.buttonText}>
+                          {item.buttonText}
+                        </Text>
+                      </TouchableOpacity>
+                    </LinearGradient>
+                  </View>
+                </View>
+              </View>
+            </View>
+          );
+        })}
+      </ScrollView>
+      <View style={styles.paginationWrapper}>
+        {Array.from(Array(3).keys()).map((key, index) => (
+          <View style={[styles.paginationDots, { opacity: pageIndex === index ? 1 : 0.2 }]} key={index} />
+        ))}
+        <TouchableOpacity style={styles.skipButton} onPress={() => navigation.navigate('SingIn')}>
+          <Text style={styles.skipButtonText}>
+            SKIP
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -80,6 +158,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
+  },
+  contentContainer: {
+    width: width
   },
   headerContainer: {
     flex: 1,
@@ -94,6 +175,7 @@ const styles = StyleSheet.create({
     right: 0,
     height: '50%',
     borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
     overflow: 'hidden',
     position: 'absolute'
   },
@@ -101,7 +183,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.white,
     borderRadius: 40,
-    padding: Dimensions.get('window').width * 0.1,
+    padding: width * 0.1,
     shadowColor: colors.black,
     shadowOffset: {
       width: 0,
@@ -110,11 +192,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 6.27,
     elevation: 10,
-    marginTop: Dimensions.get('window').height * 0.2,
+    marginTop: height * 0.2,
   },
   image: {
-    width: Dimensions.get('window').width * 0.55,
-    height: Dimensions.get('window').height * 0.3,
+    width: width * 0.55,
+    height: height * 0.3,
   },
   wrapper: {
     flex: 1,
@@ -156,4 +238,28 @@ const styles = StyleSheet.create({
     fontSize: 16,
     letterSpacing: 1,
   },
+  paginationWrapper: {
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  paginationDots: {
+    height: 10,
+    width: 10,
+    borderRadius: 10 / 2,
+    backgroundColor: colors.blue,
+    marginLeft: 10,
+  },
+  skipButton: {
+    position: 'absolute',
+    right: 0,
+    marginRight: width * 0.05,
+    padding: 10,
+  },
+  skipButtonText: {
+    color: colors.body_light,
+    fontFamily: fonts.text,
+    fontSize: 11
+  }
 })

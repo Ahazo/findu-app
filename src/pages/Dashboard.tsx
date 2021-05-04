@@ -9,4 +9,4 @@ export function Dashboard() {
       </Text>
     </View>
   );
-}
+} 

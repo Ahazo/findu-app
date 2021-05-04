@@ -13,8 +13,6 @@ import {
 import { LinearGradient } from 'expo-linear-gradient'; 
 
 import { Feather } from '@expo/vector-icons'; 
-
-import ahazoLogo from '../assets/ahazowhite.png';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import { useNavigation } from '@react-navigation/core';
@@ -38,7 +36,7 @@ export function SignIn() {
           end={{x: 0, y: 1}}
         />
         <Image
-          source={ahazoLogo}
+          source={{uri: 'https://storage.googleapis.com/images-ahazo-dev/dev-images/ahazo-logo-white.png'}}
           resizeMode='contain'
           style={styles.logo}
         />
@@ -169,7 +167,8 @@ const styles = StyleSheet.create({
     height: '80%',
   },
   forgotPassword: {
-    padding: 10,
+    paddingVertical: 10,
+    paddingLeft: 10,
     width: '60%',
     alignSelf: 'flex-end',
   },
