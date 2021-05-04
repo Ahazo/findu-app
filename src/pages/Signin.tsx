@@ -8,11 +8,11 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient'; 
+import { LinearGradient } from 'expo-linear-gradient';
 
-import { Feather } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import { useNavigation } from '@react-navigation/core';
@@ -32,59 +32,62 @@ export function SignIn() {
             left: 0,
             right: 0,
           }}
-          start={{x: 1, y: 0}}
-          end={{x: 0, y: 1}}
+          start={{ x: 1, y: 0 }}
+          end={{ x: 0, y: 1 }}
         />
         <Image
-          source={{uri: 'https://storage.googleapis.com/images-ahazo-dev/dev-images/ahazo-logo-white.png'}}
-          resizeMode='contain'
+          source={{
+            uri:
+              'https://storage.googleapis.com/images-ahazo-dev/dev-images/ahazo-logo-white.png',
+          }}
+          resizeMode="contain"
           style={styles.logo}
         />
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.formContainer}>
-          <Text style={styles.title}>
-            Vamos lá!
-          </Text>
+          <Text style={styles.title}>Vamos lá!</Text>
           <Text style={styles.subtitle}>
             Entre com seus dados ou crie uma conta.
           </Text>
           <View style={styles.inputContainer}>
             <View style={styles.formInputContainer}>
-              <Feather name='user' size={24} color={colors.body_light}/>
-              <TextInput style={styles.formInput} placeholder='Usuário'/>
+              <Feather name="user" size={24} color={colors.body_light} />
+              <TextInput style={styles.formInput} placeholder="Usuário" />
             </View>
             <View style={styles.formInputContainer}>
-              <Feather name='lock' size={24} color={colors.body_light}/>
-              <TextInput style={styles.formInput} placeholder='Senha' secureTextEntry={true}/>
+              <Feather name="lock" size={24} color={colors.body_light} />
+              <TextInput
+                style={styles.formInput}
+                placeholder="Senha"
+                secureTextEntry={true}
+              />
             </View>
           </View>
           <TouchableOpacity style={styles.forgotPassword}>
-            <Text style={styles.forgotPasswordText}>
-              esqueci minha senha
-            </Text>
+            <Text style={styles.forgotPasswordText}>esqueci minha senha</Text>
           </TouchableOpacity>
           <LinearGradient
             colors={[colors.purple, colors.blue_light]}
-            start={{x: 1, y: 0}}
-            end={{x: 0, y: 1}}
+            start={{ x: 1, y: 0 }}
+            end={{ x: 0, y: 1 }}
             style={styles.buttonBackground}
           >
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Dashboard')}>
-              <Text style={styles.buttonText}>
-                ENTRAR
-              </Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate('Dashboard')}
+            >
+              <Text style={styles.buttonText}>ENTRAR</Text>
             </TouchableOpacity>
           </LinearGradient>
         </View>
         <View style={styles.singupContainer}>
-          <Text style={styles.singupTitle}>
-            Ainda não tem uma conta?
-          </Text>
-          <TouchableOpacity style={styles.singupButton} onPress={() => navigation.navigate('SingUp')}>
-            <Text style={styles.signupSubtitle}>
-              Cadastre Gratuitamente
-            </Text>
+          <Text style={styles.singupTitle}>Ainda não tem uma conta?</Text>
+          <TouchableOpacity
+            style={styles.singupButton}
+            onPress={() => navigation.navigate('SingUp')}
+          >
+            <Text style={styles.signupSubtitle}>Cadastre Gratuitamente</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -122,7 +125,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: Dimensions.get('window').width * 0.85,
-    height: Dimensions.get('window').height * 0.5,
+    // height: Dimensions.get('window').height * 0.5,
     backgroundColor: colors.white,
     borderRadius: 40,
     shadowColor: colors.black,
@@ -133,23 +136,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 6.27,
     justifyContent: 'flex-start',
-    padding: 30,
+    padding: 20,
     elevation: 10,
   },
   title: {
     color: colors.heading,
     fontFamily: fonts.extrabold,
     fontSize: 22,
-    marginTop: 20,
     letterSpacing: 1,
   },
   subtitle: {
     color: colors.body_light,
     fontFamily: fonts.heading,
-    fontSize: 14
+    fontSize: 14,
   },
   inputContainer: {
-    marginTop: 15
+    marginTop: 15,
   },
   formInputContainer: {
     width: Dimensions.get('window').width * 0.7,
@@ -214,4 +216,4 @@ const styles = StyleSheet.create({
     fontFamily: fonts.extrabold,
     fontSize: 22,
   },
-})
+});
