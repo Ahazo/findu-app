@@ -59,7 +59,11 @@ export function Onboarding() {
   const setSliderPage = (event: any) => {
     const { currentPage } = sliderState;
     const { x: axis } = event.nativeEvent.contentOffset;
-    const indexOfNextScreen = Math.floor(axis / width);
+    const indexOfNextScreen = Math.ceil(axis / width);
+
+    console.log(width);
+    console.log('axis...', axis);
+    console.log(indexOfNextScreen)
 
     if (indexOfNextScreen !== currentPage) {
       setSliderState({
@@ -120,7 +124,7 @@ export function Onboarding() {
                       {item.subtitle}
                     </Text>
                   </View>
-                  <View style={styles.contentButton}>
+                  <View>
                     <LinearGradient
                       colors={[colors.purple, colors.blue_light]}
                       start={{x: 0, y: 1}}
@@ -142,7 +146,7 @@ export function Onboarding() {
       </ScrollView>
       <View style={styles.paginationWrapper}>
         {Array.from(Array(3).keys()).map((key, index) => (
-          <View style={[styles.paginationDots, { opacity: pageIndex === index ? 1 : 0.2 }]} key={index} />
+          <View style={[styles.paginationDots, { opacity: pageIndex === index ? 1 : 0.1 }]} key={index} />
         ))}
         <TouchableOpacity style={styles.skipButton} onPress={() => navigation.navigate('SingIn')}>
           <Text style={styles.skipButtonText}>
@@ -173,7 +177,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: '50%',
+    height: '45%',
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
     overflow: 'hidden',
@@ -223,9 +227,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 15,
   },
-  contentButton: {
-
-  },
   button: {
     width: Dimensions.get('window').width * 0.8,
     alignItems: 'center',
@@ -247,7 +248,7 @@ const styles = StyleSheet.create({
   paginationDots: {
     height: 10,
     width: 10,
-    borderRadius: 10 / 2,
+    borderRadius: 5,
     backgroundColor: colors.blue,
     marginLeft: 10,
   },

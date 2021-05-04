@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: Dimensions.get('window').width * 0.85,
-    height: Dimensions.get('window').height * 0.48,
+    height: Dimensions.get('window').height * 0.5,
     backgroundColor: colors.white,
     borderRadius: 40,
     shadowColor: colors.black,
@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6.27,
     justifyContent: 'flex-start',
     padding: 30,
+    elevation: 10,
   },
   title: {
     color: colors.heading,
@@ -180,13 +181,13 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: Dimensions.get('window').height * 0.02,
   },
   button: {
     width: Dimensions.get('window').width * 0.8,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: Dimensions.get('screen').height * 0.02,
+    padding: Dimensions.get('window').height * 0.02,
   },
   buttonText: {
     color: colors.white,
