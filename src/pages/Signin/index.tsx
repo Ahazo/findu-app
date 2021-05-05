@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   View,
   SafeAreaView,
@@ -13,18 +13,18 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { useNavigation } from '@react-navigation/core';
-
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import Input from '../../components/Input';
-import * as yup from 'yup';
-
+import { Feather } from '@expo/vector-icons';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import { useNavigation } from '@react-navigation/core';
+import Input from '../../components/Input';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { Header } from '../../components/Header';
+import { height, width } from '../../constants';
 
 type FormDataType = {
   username: string;
@@ -59,28 +59,7 @@ export function SignIn() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.backgroundContainer}>
-        <LinearGradient
-          colors={[colors.purple, colors.blue_light]}
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            top: 0,
-            left: 0,
-            right: 0,
-          }}
-          start={{ x: 1, y: 0 }}
-          end={{ x: 0, y: 1 }}
-        />
-        <Image
-          source={{
-            uri:
-              'https://storage.googleapis.com/images-ahazo-dev/dev-images/ahazo-logo-white.png',
-          }}
-          resizeMode="contain"
-          style={styles.logo}
-        />
-      </View>
+      <Header heightPercentage={60} logoDimensions={{height: height * 0.17, width: width * 0.3}}/>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <KeyboardAvoidingView
           style={styles.contentContainer}
@@ -110,7 +89,7 @@ export function SignIn() {
                   />
                 )}
                 name="username"
-                defaultValue=""
+                defaultValue=" "
               />
 
               <Controller
