@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import {
   View,
   SafeAreaView,
@@ -13,26 +13,27 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
+
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { Feather } from '@expo/vector-icons';
-import colors from '../styles/colors';
-import fonts from '../styles/fonts';
 import { useNavigation } from '@react-navigation/core';
-import Input from '../components/Input';
+
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Input from '../../components/Input';
 import * as yup from 'yup';
 
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
+
 type FormDataType = {
-  email: string;
+  username: string;
   password: string;
 };
 
 const schema = yup.object().shape({
-  email: yup
+  username: yup
     .string()
-    .email('Digite um email válido')
     .required('Campo Obrigatório'),
   password: yup
     .string()
@@ -98,7 +99,7 @@ export function SignIn() {
                     autoCapitalize="none"
                     iconSize={24}
                     iconName="user"
-                    inputField="email"
+                    inputField="text"
                     iconColor={colors.body_light}
                     placeholder="Usuário"
                     inputValue={value}
@@ -108,7 +109,7 @@ export function SignIn() {
                     onSubmitEditing={() => passwordRef.current?.focus()}
                   />
                 )}
-                name="email"
+                name="username"
                 defaultValue=""
               />
 
