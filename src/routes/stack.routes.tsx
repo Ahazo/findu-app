@@ -6,7 +6,7 @@ import { Welcome } from '../pages/Welcome';
 import { Onboarding } from '../pages/Onboarding';
 import { SignIn } from '../pages/Signin';
 import { Dashboard } from '../pages/Dashboard';
-import { SignUp } from '../pages/SignUp';
+import { SignUp } from '../pages/Signup';
 
 const stackRoutes = createStackNavigator();
 

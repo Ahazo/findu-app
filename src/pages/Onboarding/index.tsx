@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,9 +10,9 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import fonts from '../styles/fonts';
-import colors from '../styles/colors';
 import { useNavigation } from '@react-navigation/core';
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 interface ISlider {
   currentPage: number;
@@ -28,53 +28,67 @@ interface IIntroProps {
 const { width, height } = Dimensions.get('window');
 
 export function Onboarding() {
+  const scrollRef = useRef<ScrollView | null>(null);
   const navigation = useNavigation();
-  const [sliderState, setSliderState] = useState<ISlider>({ currentPage: 0 })
+  const [sliderState, setSliderState] = useState<ISlider>({ currentPage: 0 });
 
-  const [introContent, setIntroContent] = useState<IIntroProps[]>([])
+  const [introContent, setIntroContent] = useState<IIntroProps[]>([]);
 
   useEffect(() => {
     setIntroContent([
       {
         title: 'Indique e use indicações!',
-        subtitle: 'Indique marcas que são a sua cara e fique \npor dentro das indicações dos seus amigos.',
-        imageSource: 'https://storage.googleapis.com/images-ahazo-dev/dev-images/phone.png',
-        buttonText: 'PRÓXIMA'
+        subtitle:
+          'Indique marcas que são a sua cara e fique \npor dentro das indicações dos seus amigos.',
+        imageSource:
+          'https://storage.googleapis.com/images-ahazo-dev/dev-images/phone.png',
+        buttonText: 'PRÓXIMA',
       },
       {
         title: 'Aqui as indicações são valiosas!',
-        subtitle: 'Receba cashback quando utilizar uma \nindicação de um(a) amigo(a) e também \nquando algum(a) amigo(a) usar a sua!',
-        imageSource: 'https://storage.googleapis.com/images-ahazo-dev/dev-images/bag.png',
-        buttonText: 'PRÓXIMA'
+        subtitle:
+          'Receba cashback quando utilizar uma \nindicação de um(a) amigo(a) e também \nquando algum(a) amigo(a) usar a sua!',
+        imageSource:
+          'https://storage.googleapis.com/images-ahazo-dev/dev-images/bag.png',
+        buttonText: 'PRÓXIMA',
       },
       {
         title: 'Use seu cashback Ahazo',
-        subtitle: 'Pague menos na sua próxima compra \ndentro das marcas que você ama e indica.',
-        imageSource: 'https://storage.googleapis.com/images-ahazo-dev/dev-images/happiness.png',
-        buttonText: 'ENTRAR'
+        subtitle:
+          'Pague menos na sua próxima compra \ndentro das marcas que você ama e indica.',
+        imageSource:
+          'https://storage.googleapis.com/images-ahazo-dev/dev-images/happiness.png',
+        buttonText: 'ENTRAR',
       },
-    ])
-  }, [])
+    ]);
+  }, []);
 
   const setSliderPage = (event: any) => {
     const { currentPage } = sliderState;
     const { x: axis } = event.nativeEvent.contentOffset;
     const indexOfNextScreen = Math.ceil(axis / width);
 
-    console.log(width);
-    console.log('axis...', axis);
-    console.log(indexOfNextScreen)
-
     if (indexOfNextScreen !== currentPage) {
       setSliderState({
         ...sliderState,
         currentPage: indexOfNextScreen,
-      })
+      });
     }
-  }
+  };
 
   const { currentPage: pageIndex } = sliderState;
 
+  const handleNextSlide = () => {
+    const { currentPage } = sliderState;
+    if (currentPage === 2) {
+      navigation.navigate('SingIn');
+    }
+
+    scrollRef.current?.scrollTo({
+      x: Math.floor(width * (currentPage + 1)),
+      animated: true,
+    });
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.backgroundContainer}>
@@ -87,54 +101,51 @@ export function Onboarding() {
             left: 0,
             right: 0,
           }}
-          start={{x: 1, y: 0}}
-          end={{x: 0, y: 1}}
+          start={{ x: 1, y: 0 }}
+          end={{ x: 0, y: 1 }}
         />
       </View>
       <ScrollView
-        style={{flex: 1}}
+        ref={scrollRef}
+        style={{ flex: 1 }}
         horizontal={true}
         scrollEventThrottle={16}
         pagingEnabled={true}
         showsHorizontalScrollIndicator={false}
         onScroll={(event: any) => {
-          setSliderPage(event)
+          setSliderPage(event);
         }}
       >
         {introContent.map((item, key) => {
           return (
             <View style={styles.contentContainer} key={key}>
-              <View style={styles.headerContainer}>    
+              <View style={styles.headerContainer}>
                 <View style={styles.imageContainer}>
                   <Image
-                    source={{uri: item.imageSource}}
-                    resizeMode='contain'
+                    source={{ uri: item.imageSource }}
+                    resizeMode="contain"
                     style={styles.image}
-                  >
-                  </Image>
+                  ></Image>
                 </View>
               </View>
               <View style={styles.wrapper}>
                 <View style={styles.content}>
                   <View style={styles.contentText}>
-                    <Text style={styles.title}>
-                      {item.title}
-                    </Text>
-                    <Text style={styles.subtitle}>
-                      {item.subtitle}
-                    </Text>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.subtitle}>{item.subtitle}</Text>
                   </View>
                   <View>
                     <LinearGradient
                       colors={[colors.purple, colors.blue_light]}
-                      start={{x: 0, y: 1}}
-                      end={{x: 1, y: 0}}
+                      start={{ x: 0, y: 1 }}
+                      end={{ x: 1, y: 0 }}
                       style={{ borderRadius: 22 }}
                     >
-                      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SingIn')}>
-                        <Text style={styles.buttonText}>
-                          {item.buttonText}
-                        </Text>
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={handleNextSlide}
+                      >
+                        <Text style={styles.buttonText}>{item.buttonText}</Text>
                       </TouchableOpacity>
                     </LinearGradient>
                   </View>
@@ -146,12 +157,19 @@ export function Onboarding() {
       </ScrollView>
       <View style={styles.paginationWrapper}>
         {Array.from(Array(3).keys()).map((key, index) => (
-          <View style={[styles.paginationDots, { opacity: pageIndex === index ? 1 : 0.1 }]} key={index} />
+          <View
+            style={[
+              styles.paginationDots,
+              { opacity: pageIndex === index ? 1 : 0.1 },
+            ]}
+            key={index}
+          />
         ))}
-        <TouchableOpacity style={styles.skipButton} onPress={() => navigation.navigate('SingIn')}>
-          <Text style={styles.skipButtonText}>
-            SKIP
-          </Text>
+        <TouchableOpacity
+          style={styles.skipButton}
+          onPress={() => navigation.navigate('SingIn')}
+        >
+          <Text style={styles.skipButtonText}>SKIP</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -164,12 +182,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   contentContainer: {
-    width: width
+    width: width,
   },
   headerContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   backgroundContainer: {
     flex: 1,
@@ -181,7 +199,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
     overflow: 'hidden',
-    position: 'absolute'
+    position: 'absolute',
   },
   imageContainer: {
     alignItems: 'center',
@@ -211,10 +229,10 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   contentText: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     color: colors.heading,
@@ -240,10 +258,11 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   paginationWrapper: {
-    marginTop: 20,
+    marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    paddingVertical: 20,
   },
   paginationDots: {
     height: 10,
@@ -261,6 +280,6 @@ const styles = StyleSheet.create({
   skipButtonText: {
     color: colors.body_light,
     fontFamily: fonts.text,
-    fontSize: 11
-  }
-})
+    fontSize: 14,
+  },
+});

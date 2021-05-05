@@ -1,19 +1,19 @@
 import React from 'react';
 import {
   View,
-  StyleSheet
+  StyleSheet,
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/core';
+
 export function SignUp() {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.container}>
-      
-    </View>
+    <View></View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-  }
+
 })

@@ -5,13 +5,13 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import fonts from '../styles/fonts';
-import colors from '../styles/colors';
+import fonts from '../../styles/fonts';
+import colors from '../../styles/colors';
 import { useNavigation } from '@react-navigation/core';
 
 export function Welcome() {
