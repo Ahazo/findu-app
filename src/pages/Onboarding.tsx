@@ -77,10 +77,6 @@ export function Onboarding() {
     const { x: axis } = event.nativeEvent.contentOffset;
     const indexOfNextScreen = Math.ceil(axis / width);
 
-    console.log('width...', width);
-    console.log('axis...', axis);
-    console.log('indexNextScreen...', indexOfNextScreen);
-
     if (indexOfNextScreen !== currentPage) {
       setSliderState({
         ...sliderState,
@@ -93,8 +89,6 @@ export function Onboarding() {
 
   const handleNextSlide = () => {
     const { currentPage } = sliderState;
-    console.log('current page...', currentPage);
-
     if (currentPage === 2) {
       navigation.navigate('SingIn');
     }
@@ -295,6 +289,6 @@ const styles = StyleSheet.create({
   skipButtonText: {
     color: colors.body_light,
     fontFamily: fonts.text,
-    fontSize: 11,
+    fontSize: 14 ,
   },
 });

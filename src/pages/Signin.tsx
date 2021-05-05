@@ -65,7 +65,7 @@ export function SignIn() {
             </View>
           </View>
           <TouchableOpacity style={styles.forgotPassword}>
-            <Text style={styles.forgotPasswordText}>esqueci minha senha</Text>
+            <Text style={styles.forgotPasswordText}>esqueceu sua senha?</Text>
           </TouchableOpacity>
           <LinearGradient
             colors={[colors.purple, colors.blue_light]}
@@ -122,10 +122,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 30,
   },
   formContainer: {
     width: Dimensions.get('window').width * 0.85,
-    // height: Dimensions.get('window').height * 0.5,
     backgroundColor: colors.white,
     borderRadius: 40,
     shadowColor: colors.black,
@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.extrabold,
     fontSize: 22,
     letterSpacing: 1,
+    marginTop: 10,
   },
   subtitle: {
     color: colors.body_light,
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   formInputContainer: {
-    width: Dimensions.get('window').width * 0.7,
+    width: '100%',
     height: Dimensions.get('window').height * 0.08,
     backgroundColor: colors.grey,
     marginTop: 10,
@@ -166,18 +167,19 @@ const styles = StyleSheet.create({
   },
   formInput: {
     color: colors.body,
-    width: '80%',
-    height: '80%',
+    width: '100%',
+    height: '100%',
+    paddingLeft: 10,
   },
   forgotPassword: {
     paddingVertical: 10,
     paddingLeft: 10,
-    width: '60%',
     alignSelf: 'flex-end',
   },
   forgotPasswordText: {
     color: colors.body_light,
     fontFamily: fonts.text,
+    letterSpacing: 0.2,
   },
   buttonBackground: {
     borderRadius: 22,
@@ -208,8 +210,8 @@ const styles = StyleSheet.create({
     color: colors.body_light,
   },
   singupButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 70,
+    paddingTop: 10,
+    paddingHorizontal: 30,
   },
   signupSubtitle: {
     color: colors.heading,
