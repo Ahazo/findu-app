@@ -2,13 +2,14 @@ import React from 'react';
 import {
   View,
   SafeAreaView,
-  ScrollView,
   Dimensions,
   Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -44,7 +45,7 @@ export function SignIn() {
           style={styles.logo}
         />
       </View>
-      <View style={styles.contentContainer}>
+      <KeyboardAvoidingView style={styles.contentContainer} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <View style={styles.formContainer}>
           <Text style={styles.title}>Vamos lá!</Text>
           <Text style={styles.subtitle}>
@@ -90,7 +91,7 @@ export function SignIn() {
             <Text style={styles.signupSubtitle}>Cadastre Gratuitamente</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
