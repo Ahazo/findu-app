@@ -1,12 +1,74 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import { TextInput, TextInputProps, ViewStyle } from 'react-native';
+import { FieldErrors } from 'react-hook-form';
+import { ContainerInput, InputText, InputError } from './styles';
 
-import { Container } from './styles';
+import { Feather } from '@expo/vector-icons';
 
-export function Input() {
-  return (
-    <View>
-
-    </View>
-  );
+export interface InputHandleInterface {
+  focus: () => void;
 }
+
+interface IInputProps extends TextInputProps {
+  iconName?: any;
+  inputField: string;
+  iconColor: string;
+  iconSize: number;
+  placeholder: string;
+  isSecure?: boolean;
+  inputValue: any;
+  errors: FieldErrors;
+}
+
+const Input: React.ForwardRefRenderFunction<
+  InputHandleInterface,
+  IInputProps
+> = (
+  {
+    inputField,
+    iconName,
+    iconColor,
+    iconSize,
+    placeholder,
+    inputValue,
+    errors,
+
+    ...rest
+  },
+  ref,
+) => {
+  const inputElementRef = useRef<TextInput>(null);
+
+  // use that to use ref inside a child component
+  useImperativeHandle(ref, () => ({
+    focus() {
+      inputElementRef.current?.focus();
+    },
+  }));
+
+  return (
+    <>
+      <ContainerInput error={Boolean(errors[inputField])}>
+        {iconName && (
+          <Feather
+            name={iconName}
+            color={Boolean(errors[inputField]) ? '#fc5663' : iconColor}
+            size={iconSize}
+          />
+        )}
+        <InputText
+          placeholder={placeholder}
+          value={inputValue}
+          ref={inputElementRef}
+          {...rest}
+        />
+      </ContainerInput>
+      {/* Erro de input */}
+      {errors[inputField] && (
+        <InputError>{errors[inputField].message}</InputError>
+      )}
+    </>
+  );
+};
+
+export default forwardRef(Input);

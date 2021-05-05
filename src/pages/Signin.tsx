@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import {
   View,
   SafeAreaView,
@@ -11,7 +11,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -19,9 +19,42 @@ import { Feather } from '@expo/vector-icons';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import { useNavigation } from '@react-navigation/core';
+import Input from '../components/Input';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+type FormDataType = {
+  email: string;
+  password: string;
+};
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Digite um email válido')
+    .required('Campo Obrigatório'),
+  password: yup
+    .string()
+    .required('Campo Obrigatório')
+    .min(6, 'Senha no mínimo com 6 caracteres'),
+});
 
 export function SignIn() {
   const navigation = useNavigation();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const passwordRef = useRef<TextInput>(null);
+
+  function onSubmit(data: FormDataType) {
+    console.log(data);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -48,25 +81,60 @@ export function SignIn() {
         />
       </View>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <KeyboardAvoidingView style={styles.contentContainer} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <KeyboardAvoidingView
+          style={styles.contentContainer}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
           <View style={styles.formContainer}>
             <Text style={styles.title}>Vamos lá!</Text>
             <Text style={styles.subtitle}>
               Entre com seus dados ou crie uma conta.
             </Text>
             <View style={styles.inputContainer}>
-              <View style={styles.formInputContainer}>
-                <Feather name="user" size={24} color={colors.body_light} />
-                <TextInput style={styles.formInput} placeholder="Usuário" />
-              </View>
-              <View style={styles.formInputContainer}>
-                <Feather name="lock" size={24} color={colors.body_light} />
-                <TextInput
-                  style={styles.formInput}
-                  placeholder="Senha"
-                  secureTextEntry={true}
-                />
-              </View>
+              <Controller
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    autoCapitalize="none"
+                    iconSize={24}
+                    iconName="user"
+                    inputField="email"
+                    iconColor={colors.body_light}
+                    placeholder="Usuário"
+                    inputValue={value}
+                    errors={errors}
+                    onChangeText={value => onChange(value)}
+                    returnKeyType="next"
+                    onSubmitEditing={() => passwordRef.current?.focus()}
+                  />
+                )}
+                name="email"
+                defaultValue=""
+              />
+
+              <Controller
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    ref={passwordRef}
+                    autoCapitalize="none"
+                    iconSize={24}
+                    iconName="lock"
+                    inputField="password"
+                    iconColor={colors.body_light}
+                    placeholder="Senha"
+                    inputValue={value}
+                    secureTextEntry
+                    errors={errors}
+                    textContentType="password"
+                    onChangeText={value => onChange(value)}
+                    returnKeyType="send"
+                    onSubmitEditing={handleSubmit(onSubmit)}
+                  />
+                )}
+                name="password"
+                defaultValue=""
+              />
             </View>
             <TouchableOpacity style={styles.forgotPassword}>
               <Text style={styles.forgotPasswordText}>esqueceu sua senha?</Text>
@@ -79,7 +147,7 @@ export function SignIn() {
             >
               <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('Dashboard')}
+                onPress={handleSubmit(onSubmit)}
               >
                 <Text style={styles.buttonText}>ENTRAR</Text>
               </TouchableOpacity>

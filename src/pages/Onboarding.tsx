@@ -1,12 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  MutableRefObject,
-  LegacyRef,
-  RefObject,
-  createRef,
-} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -15,7 +7,6 @@ import {
   Image,
   Dimensions,
   ScrollView,
-  ScrollViewProps,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -289,6 +280,6 @@ const styles = StyleSheet.create({
   skipButtonText: {
     color: colors.body_light,
     fontFamily: fonts.text,
-    fontSize: 14 ,
+    fontSize: 14,
   },
 });
