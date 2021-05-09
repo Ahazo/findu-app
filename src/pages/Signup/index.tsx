@@ -51,9 +51,9 @@ export function SignUp() {
   }
 
   return (
-    // <>
+    <>
       <SafeAreaView style={{flex: 1}}>
-        <Header heightPercentage={20} hasBackButton={true}/>
+        <Header heightPercentage={20} hasBackButton={true} />
         <ScrollView style={{flex: 1}}>
           <View style={styles.afterHeader}>
           <Text style={styles.welcomeText}> 
@@ -76,8 +76,8 @@ export function SignUp() {
 
           </Text>
           </View>
-          <ScrollView>
-          <View style={styles.containerEmail}>
+         
+          <View style={styles.componentField}>
           <Controller
                 control={control}
                 render={({ field: { onChange, value } }) => (
@@ -92,7 +92,7 @@ export function SignUp() {
                     inputValue={value}
                     secureTextEntry
                     errors={errors}
-                    // textContentType="password"
+                    textContentType = "emailAddress"
                     onChangeText={value => onChange(value)}
                     returnKeyType="send"
                     onSubmitEditing={handleSubmit(onSubmit)}
@@ -103,7 +103,7 @@ export function SignUp() {
               />
                
           </View>
-          <View style={styles.containerFirstPassword}>
+          <View style={styles.componentField}>
           <Controller
                 control={control}
                 render={({ field: { onChange, value } }) => (
@@ -129,7 +129,7 @@ export function SignUp() {
               />
                
           </View>
-          <View style={styles.containerSecondPassword}>
+          <View style={styles.componentField}>
           <Controller
                 control={control}
                 render={({ field: { onChange, value } }) => (
@@ -142,7 +142,7 @@ export function SignUp() {
                     iconColor={colors.body_light}
                     placeholder="Repita a senha"
                     inputValue={value}
-                    secureTextEntry
+                    secureTextEntry 
                     errors={errors}
                     textContentType="password"
                     onChangeText={value => onChange(value)}
@@ -155,8 +155,8 @@ export function SignUp() {
               />
                
           </View>
-          </ScrollView>
-          <ScrollView>
+          
+          
           <View style={styles.secondForm}>
           <Text style={styles.textSecondForm}> 
             
@@ -164,7 +164,7 @@ export function SignUp() {
 
           </Text>
           </View>
-          <View style={styles.containerEmail}>
+          <View style={styles.componentField}>
           <Controller
                 control={control}
                 render={({ field: { onChange, value } }) => (
@@ -179,7 +179,7 @@ export function SignUp() {
                     inputValue={value}
                     secureTextEntry
                     errors={errors}
-                    // textContentType="password"
+                    textContentType="name"
                     onChangeText={value => onChange(value)}
                     returnKeyType="send"
                     onSubmitEditing={handleSubmit(onSubmit)}
@@ -189,7 +189,7 @@ export function SignUp() {
                 defaultValue=""
               />
           </View>
-          <View style={styles.containerEmail}>
+          <View style={styles.componentField}>
           <Controller
                 control={control}
                 render={({ field: { onChange, value } }) => (
@@ -204,7 +204,7 @@ export function SignUp() {
                     inputValue={value}
                     secureTextEntry
                     errors={errors}
-                    // textContentType="password"
+                    textContentType="middleName"
                     onChangeText={value => onChange(value)}
                     returnKeyType="send"
                     onSubmitEditing={handleSubmit(onSubmit)}
@@ -214,20 +214,94 @@ export function SignUp() {
                 defaultValue=""
               />
           </View>
-          
-          </ScrollView>
+          <View style={styles.componentField}>
+          <Controller
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    ref={passwordRef}
+                    autoCapitalize="none"
+                    iconSize={0}
+                    // iconName="mail"
+                    inputField="text"
+                    iconColor={colors.body_light}
+                    placeholder="Gênero"
+                    inputValue={value}
+                    secureTextEntry
+                    errors={errors}
+                    // textContentType="z"
+                    onChangeText={value => onChange(value)}
+                    returnKeyType="send"
+                    onSubmitEditing={handleSubmit(onSubmit)}
+                  />
+                )}
+                name="name"
+                defaultValue=""
+              />
+          </View>
+          <View style={styles.componentField}>
+          <Controller
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    ref={passwordRef}
+                    autoCapitalize="none"
+                    iconSize={0}
+                    // iconName="mail"
+                    inputField="number"
+                    iconColor={colors.body_light}
+                    placeholder="Celular"
+                    inputValue={value}
+                    secureTextEntry
+                    errors={errors}
+                    textContentType="telephoneNumber"
+                    onChangeText={value => onChange(value)}
+                    returnKeyType="send"
+                    onSubmitEditing={handleSubmit(onSubmit)}
+                  />
+                )}
+                name="name"
+                defaultValue=""
+              />
+          </View>
+          <View style={styles.componentField}>
+          <Controller
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    ref={passwordRef}
+                    autoCapitalize="none"
+                    iconSize={0}
+                    // iconName="mail"
+                    inputField="number"
+                    iconColor={colors.body_light}
+                    placeholder="CPF"
+                    inputValue={value}
+                    secureTextEntry
+                    errors={errors}
+                    textContentType="creditCardNumber"
+                    onChangeText={value => onChange(value)}
+                    returnKeyType="send"
+                    onSubmitEditing={handleSubmit(onSubmit)}
+                  />
+                )}
+                name="name"
+                defaultValue=""
+              />
+          </View>
         </ScrollView>
       </SafeAreaView>
-    // </>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
+
   afterHeader: {
     flex: 1,
     paddingTop: 185,
-
   }, 
+
   welcomeText: {
     flex: 1,
     textAlign: 'center',
@@ -236,19 +310,23 @@ const styles = StyleSheet.create({
     fontSize: 22,
     paddingRight: 100,
   }, 
+
   subHeader: {
     flex: 1,
   }, 
+
   subWelcomeText: {
     color: colors.body_light,
     fontFamily: fonts.heading,
     fontSize: 12,
     paddingLeft: 50,
   },
+
   startForm: {
     flex: 1,
     paddingTop: 16,
   }, 
+
   textStartForm: {
     textAlign: 'center',
     color: colors.heading,
@@ -256,23 +334,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingRight: 120,
   }, 
-  containerEmail: {
+
+  componentField: {
     width: 325,
     marginLeft: 30,
   },
-  containerFirstPassword: {
-    flex: 1,
-    width: 325,
-    marginLeft: 30,
-  },
-  containerSecondPassword: {
-    flex: 1,
-    width: 325,
-    marginLeft: 30,
-  }, 
+
   secondForm: {
     flex: 1,
   },
+  
   textSecondForm: {
     textAlign: 'center',
     color: colors.heading,
@@ -280,7 +351,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingRight: 200,
     paddingTop: 30,
-  }
+  },
 
 
 
