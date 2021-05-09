@@ -22,6 +22,8 @@ import { useNavigation } from '@react-navigation/core';
 import Input from '../../components/Input';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 import * as yup from 'yup';
 import { Header } from '../../components/Header';
 import { height, width } from '../../constants';
@@ -32,9 +34,7 @@ type FormDataType = {
 };
 
 const schema = yup.object().shape({
-  username: yup
-    .string()
-    .required('Campo Obrigatório'),
+  username: yup.string().required('Campo Obrigatório'),
   password: yup
     .string()
     .required('Campo Obrigatório')
@@ -119,19 +119,14 @@ export function SignIn() {
             <TouchableOpacity style={styles.forgotPassword}>
               <Text style={styles.forgotPasswordText}>esqueceu sua senha?</Text>
             </TouchableOpacity>
-            <LinearGradient
-              colors={[colors.purple, colors.blue_light]}
-              start={{ x: 1, y: 0 }}
-              end={{ x: 0, y: 1 }}
-              style={styles.buttonBackground}
-            >
-              <TouchableOpacity
-                style={styles.button}
-                onPress={handleSubmit(onSubmit)}
-              >
-                <Text style={styles.buttonText}>ENTRAR</Text>
-              </TouchableOpacity>
-            </LinearGradient>
+
+            <Button
+              text="ENTRAR"
+              onPress={handleSubmit(onSubmit)}
+              containerButtonStyle={{
+                marginTop: Dimensions.get('window').height * 0.02,
+              }}
+            />
           </View>
           <View style={styles.singupContainer}>
             <Text style={styles.singupTitle}>Ainda não tem uma conta?</Text>
@@ -233,24 +228,6 @@ const styles = StyleSheet.create({
     color: colors.body_light,
     fontFamily: fonts.text,
     letterSpacing: 0.2,
-  },
-  buttonBackground: {
-    borderRadius: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: Dimensions.get('window').height * 0.02,
-  },
-  button: {
-    width: Dimensions.get('window').width * 0.8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: Dimensions.get('window').height * 0.02,
-  },
-  buttonText: {
-    color: colors.white,
-    fontFamily: fonts.heading,
-    fontSize: 16,
-    letterSpacing: 1,
   },
   singupContainer: {
     position: 'absolute',
