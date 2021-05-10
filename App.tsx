@@ -13,6 +13,7 @@ import {
 
 import AppProvider from './src/context/index';
 import Routes from './src/routes';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -21,6 +22,17 @@ export default function App() {
     Nunito_700Bold,
     Nunito_800ExtraBold
   })
+
+  // useEffect(() => {
+  //   async function removeAllLocalStorage() {
+  //     await AsyncStorage.multiRemove([
+  //       '@Ahazo:token',
+  //       '@Ahazo:user'
+  //     ]);
+  //   }
+
+  //   removeAllLocalStorage();
+  // }, []);
 
   if (!isFontsLoaded) {
     return <AppLoading/>

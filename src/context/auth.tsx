@@ -2,6 +2,21 @@ import React, { createContext, useState, useContext, useEffect, useCallback } fr
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import api from '../services/api';
+import { Status } from '../constants/status';
+
+interface User {
+  campaigns_count: number;
+  created_at: Date,
+  experience: number,
+  followers_count: number,
+  id: number,
+  password: string,
+  person_id: number,
+  recommendations_count: number,
+  status: Status,
+  updated_at: Date,
+  username: string,
+}
 
 interface ISignIn {
   username: string;
@@ -9,12 +24,12 @@ interface ISignIn {
 }
 
 interface IAuthState {
-  user: object;
+  user: User;
   token: string;
 }
 
 interface IAuthContext {
-  user: object;
+  user: User;
   signIn(credentials: ISignIn): Promise<void>;
   signOut(): void;
   isLoading: boolean;
@@ -54,7 +69,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
     AsyncStorage.multiSet([
       ['@Ahazo:token', token],
-      ['@Ahazo:user', user],  
+      ['@Ahazo:user', JSON.stringify(user)],  
     ]);
 
     api.defaults.headers.authorization = `Bearer ${token}`;
