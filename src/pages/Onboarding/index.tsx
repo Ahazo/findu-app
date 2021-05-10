@@ -13,6 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/core';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import Button from '../../components/Button';
 
 interface ISlider {
   currentPage: number;
@@ -81,7 +82,7 @@ export function Onboarding() {
   const handleNextSlide = () => {
     const { currentPage } = sliderState;
     if (currentPage === 2) {
-      navigation.navigate('SingIn');
+      navigation.navigate('SignIn');
     }
 
     scrollRef.current?.scrollTo({
@@ -135,19 +136,7 @@ export function Onboarding() {
                     <Text style={styles.subtitle}>{item.subtitle}</Text>
                   </View>
                   <View>
-                    <LinearGradient
-                      colors={[colors.purple, colors.blue_light]}
-                      start={{ x: 0, y: 1 }}
-                      end={{ x: 1, y: 0 }}
-                      style={{ borderRadius: 22 }}
-                    >
-                      <TouchableOpacity
-                        style={styles.button}
-                        onPress={handleNextSlide}
-                      >
-                        <Text style={styles.buttonText}>{item.buttonText}</Text>
-                      </TouchableOpacity>
-                    </LinearGradient>
+                    <Button text={item.buttonText} onPress={handleNextSlide} />
                   </View>
                 </View>
               </View>
@@ -167,7 +156,7 @@ export function Onboarding() {
         ))}
         <TouchableOpacity
           style={styles.skipButton}
-          onPress={() => navigation.navigate('SingIn')}
+          onPress={() => navigation.navigate('SignIn')}
         >
           <Text style={styles.skipButtonText}>SKIP</Text>
         </TouchableOpacity>
@@ -245,18 +234,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 15,
   },
-  button: {
-    width: Dimensions.get('window').width * 0.8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: Dimensions.get('screen').height * 0.02,
-  },
-  buttonText: {
-    color: colors.white,
-    fontFamily: fonts.heading,
-    fontSize: 16,
-    letterSpacing: 1,
-  },
+
   paginationWrapper: {
     marginTop: 10,
     justifyContent: 'center',
