@@ -20,7 +20,7 @@ import * as yup from 'yup';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { Header } from '../../components/Header';
+import Header from '../../components/Header';
 
 import { useAuth } from '../../context/auth';
 
