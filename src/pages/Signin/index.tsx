@@ -1,9 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import {
   View,
   SafeAreaView,
   Dimensions,
-  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -13,20 +12,21 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-
-import { Feather } from '@expo/vector-icons';
-import colors from '../../styles/colors';
-import fonts from '../../styles/fonts';
 import { useNavigation } from '@react-navigation/core';
-import Input from '../../components/Input';
+
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import * as yup from 'yup';
 import { Header } from '../../components/Header';
+
+import { useAuth } from '../../context/auth';
+
 import { height, width } from '../../constants';
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 type FormDataType = {
   username: string;
@@ -38,11 +38,12 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .required('Campo Obrigatório')
-    .min(6, 'Senha no mínimo com 6 caracteres'),
+    .min(5, 'Senha no mínimo com 5 caracteres'),
 });
 
 export function SignIn() {
   const navigation = useNavigation();
+  const { signIn, user } = useAuth();
   const {
     control,
     handleSubmit,
@@ -53,8 +54,18 @@ export function SignIn() {
 
   const passwordRef = useRef<TextInput>(null);
 
-  function onSubmit(data: FormDataType) {
-    console.log(data);
+  async function onSubmit(data: FormDataType) {
+    await signIn({
+      username: data.username,
+      password: data.password
+    });
+
+    if (!user) {
+      throw new Error('Usuário não encontrado.')
+    }
+
+    // navigation.navigate('Dashboard');
+    console.log(user);
   }
 
   return (
@@ -89,7 +100,7 @@ export function SignIn() {
                   />
                 )}
                 name="username"
-                defaultValue=" "
+                defaultValue=""
               />
 
               <Controller
@@ -132,7 +143,7 @@ export function SignIn() {
             <Text style={styles.singupTitle}>Ainda não tem uma conta?</Text>
             <TouchableOpacity
               style={styles.singupButton}
-              onPress={() => navigation.navigate('SingUp')}
+              onPress={() => navigation.navigate('SignUp')}
             >
               <Text style={styles.signupSubtitle}>Cadastre Gratuitamente</Text>
             </TouchableOpacity>
