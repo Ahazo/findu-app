@@ -40,4 +40,5 @@ export const BackButton = styled.TouchableOpacity`
   left: 0px;
   bottom: 20px;
   top: 80px;
+  borderWidth: 2px;
 `;
