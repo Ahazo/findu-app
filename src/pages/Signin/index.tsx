@@ -19,7 +19,6 @@ import { Feather } from '@expo/vector-icons';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import { useNavigation } from '@react-navigation/core';
-import Input from '../../components/Input';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '../../components/Input';
@@ -27,6 +26,7 @@ import Button from '../../components/Button';
 import * as yup from 'yup';
 import { Header } from '../../components/Header';
 import { height, width } from '../../constants';
+import { useAuth } from '../../context/auth';
 
 type FormDataType = {
   username: string;
@@ -38,11 +38,12 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .required('Campo Obrigatório')
-    .min(6, 'Senha no mínimo com 6 caracteres'),
+    .min(5, 'Senha no mínimo com 5 caracteres'),
 });
 
 export function SignIn() {
   const navigation = useNavigation();
+  const { signIn } = useAuth();
   const {
     control,
     handleSubmit,
@@ -53,8 +54,13 @@ export function SignIn() {
 
   const passwordRef = useRef<TextInput>(null);
 
-  function onSubmit(data: FormDataType) {
+  async function onSubmit(data: FormDataType) {
     console.log(data);
+
+    await signIn({
+      username: data.username,
+      password: data.password
+    })
   }
 
   return (

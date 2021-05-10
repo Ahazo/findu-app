@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
 
 import {
   useFonts,
@@ -10,6 +11,7 @@ import {
   Nunito_800ExtraBold
 } from '@expo-google-fonts/nunito'
 
+import AppProvider from './src/context/index';
 import Routes from './src/routes';
 
 export default function App() {
@@ -25,8 +27,12 @@ export default function App() {
   } else {
     return (
       <>
-        <Routes/>
-        <StatusBar style="light" />
+        <NavigationContainer>
+          <AppProvider>
+            <Routes/>
+            <StatusBar style="light" />
+          </AppProvider>
+        </NavigationContainer>
       </>
     );
   }

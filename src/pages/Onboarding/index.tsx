@@ -82,7 +82,7 @@ export function Onboarding() {
   const handleNextSlide = () => {
     const { currentPage } = sliderState;
     if (currentPage === 2) {
-      navigation.navigate('SingIn');
+      navigation.navigate('SignIn');
     }
 
     scrollRef.current?.scrollTo({
@@ -156,7 +156,7 @@ export function Onboarding() {
         ))}
         <TouchableOpacity
           style={styles.skipButton}
-          onPress={() => navigation.navigate('SingIn')}
+          onPress={() => navigation.navigate('SignIn')}
         >
           <Text style={styles.skipButtonText}>SKIP</Text>
         </TouchableOpacity>
