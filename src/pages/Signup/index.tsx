@@ -245,7 +245,7 @@ export function SignUp() {
               defaultValue=""
             />
           </View> 
-          <Button text="Cadastrar"/>
+          <Button text="CADASTRAR"/>
         </ScrollView>
       </SafeAreaView> 
     </>
