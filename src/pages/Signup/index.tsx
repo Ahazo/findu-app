@@ -6,15 +6,20 @@ import {
   ScrollView,
   Text, 
   TextInput,
+  Dimensions,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
-import { Header } from '../../components/Header';
-import { height, width } from '../../constants';
-import Input from '../../components/Input';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
+
 import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+import { Header } from '../../components/Header';
+import Input from '../../components/Input';
+// import Button from '../../components/Button';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -54,57 +59,41 @@ export function SignUp() {
     <>
       <SafeAreaView style={{flex: 1}}>
         <Header heightPercentage={20} hasBackButton={true} />
-        <ScrollView style={{flex: 1}}>
-          <View style={styles.afterHeader}>
-          <Text style={styles.welcomeText}> 
-            
-            Vai ser um AHAZO! 
-
-          </Text>
-          </View>
-          <View style={styles.subHeader}>
-          <Text style={styles.subWelcomeText}> 
-            
-            Preencha os campos para finalizar o seu cadastro
-
-          </Text>
-          </View>
-          <View style={styles.startForm}>
-          <Text style={styles.textStartForm}> 
-            
-            Informações de usuário
-
-          </Text>
-          </View>
-         
-          <View style={styles.componentField}>
-          <Controller
+        <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}>
+          <ScrollView style={styles.container}>
+            <View style={styles.introductionContent}>
+              <Text style={styles.title}> 
+                Vai ser um AHAZO! 
+              </Text>
+              <Text style={styles.subtitle}> 
+                Preencha os campos para finalizar o seu cadastro
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.formIntro}> 
+                Informações de usuário
+              </Text>
+              <Controller
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <Input
-                    ref={passwordRef}
                     autoCapitalize="none"
                     iconSize={24}
-                    iconName="mail"
+                    iconName="at-sign"
                     inputField="text"
                     iconColor={colors.body_light}
-                    placeholder="Email"
+                    placeholder="Usuário"
                     inputValue={value}
-                    secureTextEntry
                     errors={errors}
-                    textContentType = "emailAddress"
+                    textContentType = "username"
                     onChangeText={value => onChange(value)}
-                    returnKeyType="send"
-                    onSubmitEditing={handleSubmit(onSubmit)}
+                    returnKeyType="next"
                   />
                 )}
-                name="email"
+                name="username"
                 defaultValue=""
               />
-               
-          </View>
-          <View style={styles.componentField}>
-          <Controller
+              <Controller
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <Input
@@ -120,21 +109,17 @@ export function SignUp() {
                     errors={errors}
                     textContentType="password"
                     onChangeText={value => onChange(value)}
-                    returnKeyType="send"
-                    onSubmitEditing={handleSubmit(onSubmit)}
+                    returnKeyType="next"
                   />
                 )}
                 name="password"
                 defaultValue=""
               />
-               
-          </View>
-          <View style={styles.componentField}>
-          <Controller
+              <Controller
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <Input
-                    ref={passwordRef}
+                    // ref={passwordConfirmRef}
                     autoCapitalize="none"
                     iconSize={24}
                     iconName="lock"
@@ -146,213 +131,156 @@ export function SignUp() {
                     errors={errors}
                     textContentType="password"
                     onChangeText={value => onChange(value)}
-                    returnKeyType="send"
-                    onSubmitEditing={handleSubmit(onSubmit)}
+                    returnKeyType="next"
                   />
                 )}
-                name="repeat-password"
+                name="passwordConfirm"
                 defaultValue=""
               />
-               
-          </View>
-          
-          
-          <View style={styles.secondForm}>
-          <Text style={styles.textSecondForm}> 
-            
-              Meus Dados
-
-          </Text>
-          </View>
-          <View style={styles.componentField}>
-          <Controller
+            <Text style={styles.formIntro}> 
+                Meus Dados
+            </Text>
+              <Controller
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <Input
-                    ref={passwordRef}
+                    // ref={mailRef}
                     autoCapitalize="none"
-                    iconSize={0}
-                    // iconName="mail"
+                    iconSize={24}
+                    iconName="mail"
+                    inputField="text"
+                    iconColor={colors.body_light}
+                    placeholder="E-mail"
+                    inputValue={value}
+                    secureTextEntry
+                    errors={errors}
+                    onChangeText={value => onChange(value)}
+                    returnKeyType="next"
+                    textContentType="emailAddress"
+                  />
+                )}
+                name="email"
+                defaultValue=""
+              />
+              <Controller
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    // ref={nameRef}
+                    autoCapitalize="none"
+                    iconSize={24}
+                    iconName="user"
                     inputField="text"
                     iconColor={colors.body_light}
                     placeholder="Nome"
                     inputValue={value}
-                    secureTextEntry
                     errors={errors}
                     textContentType="name"
                     onChangeText={value => onChange(value)}
-                    returnKeyType="send"
-                    onSubmitEditing={handleSubmit(onSubmit)}
-                  />
+                    returnKeyType="next"                  />
                 )}
                 name="name"
                 defaultValue=""
               />
-          </View>
-          <View style={styles.componentField}>
-          <Controller
+              <Controller
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <Input
-                    ref={passwordRef}
+                    // ref={lastNameRef}
                     autoCapitalize="none"
-                    iconSize={0}
-                    // iconName="mail"
+                    iconSize={24}
+                    iconName="users"
                     inputField="text"
                     iconColor={colors.body_light}
                     placeholder="Sobrenome"
                     inputValue={value}
-                    secureTextEntry
                     errors={errors}
                     textContentType="middleName"
                     onChangeText={value => onChange(value)}
-                    returnKeyType="send"
-                    onSubmitEditing={handleSubmit(onSubmit)}
+                    returnKeyType="next"
                   />
                 )}
-                name="name"
+                name="lastName"
                 defaultValue=""
               />
-          </View>
-          <View style={styles.componentField}>
-          <Controller
+              <Controller
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <Input
                     ref={passwordRef}
                     autoCapitalize="none"
-                    iconSize={0}
-                    // iconName="mail"
-                    inputField="text"
-                    iconColor={colors.body_light}
-                    placeholder="Gênero"
-                    inputValue={value}
-                    secureTextEntry
-                    errors={errors}
-                    // textContentType="z"
-                    onChangeText={value => onChange(value)}
-                    returnKeyType="send"
-                    onSubmitEditing={handleSubmit(onSubmit)}
-                  />
-                )}
-                name="name"
-                defaultValue=""
-              />
-          </View>
-          <View style={styles.componentField}>
-          <Controller
-                control={control}
-                render={({ field: { onChange, value } }) => (
-                  <Input
-                    ref={passwordRef}
-                    autoCapitalize="none"
-                    iconSize={0}
-                    // iconName="mail"
-                    inputField="number"
+                    iconSize={24}
+                    iconName="smartphone"
+                    inputField="cellphoneNumber"
                     iconColor={colors.body_light}
                     placeholder="Celular"
                     inputValue={value}
-                    secureTextEntry
                     errors={errors}
                     textContentType="telephoneNumber"
                     onChangeText={value => onChange(value)}
-                    returnKeyType="send"
-                    onSubmitEditing={handleSubmit(onSubmit)}
+                    returnKeyType="next"
+                    onSubmitEditing={() => passwordRef.current?.focus()}
                   />
                 )}
-                name="name"
+                name="cellphoneNumber"
                 defaultValue=""
               />
-          </View>
-          <View style={styles.componentField}>
-          <Controller
+              <Controller
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <Input
                     ref={passwordRef}
                     autoCapitalize="none"
-                    iconSize={0}
-                    // iconName="mail"
+                    iconSize={24}
+                    iconName="file-text"
                     inputField="number"
                     iconColor={colors.body_light}
                     placeholder="CPF"
                     inputValue={value}
-                    secureTextEntry
                     errors={errors}
-                    textContentType="creditCardNumber"
                     onChangeText={value => onChange(value)}
-                    returnKeyType="send"
-                    onSubmitEditing={handleSubmit(onSubmit)}
+                    returnKeyType="next"
                   />
                 )}
-                name="name"
+                name="cpf"
                 defaultValue=""
               />
-          </View>
-        </ScrollView>
+            </View>
+            {/* <Button/> */}
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-
-  afterHeader: {
-    flex: 1,
-    paddingTop: 185,
-  }, 
-
-  welcomeText: {
-    flex: 1,
-    textAlign: 'center',
-    color: colors.heading,
-    fontFamily: fonts.extrabold,
-    fontSize: 22,
-    paddingRight: 100,
-  }, 
-
-  subHeader: {
-    flex: 1,
-  }, 
-
-  subWelcomeText: {
-    color: colors.body_light,
+  container: {
+    position: 'relative',
+    width: '100%',
+    paddingHorizontal: 30,
+    zIndex: -1,
+    marginTop: Dimensions.get('window').height * 0.125,
+    marginBottom: 10,
+  },
+  introductionContent: {
+    paddingVertical: 10,
+  },
+  title: {
     fontFamily: fonts.heading,
-    fontSize: 12,
-    paddingLeft: 50,
-  },
-
-  startForm: {
-    flex: 1,
-    paddingTop: 16,
-  }, 
-
-  textStartForm: {
-    textAlign: 'center',
     color: colors.heading,
-    fontFamily: fonts.extrabold,
-    fontSize: 16,
-    paddingRight: 120,
+    fontSize: 22,
+    marginBottom: 10,
   }, 
-
-  componentField: {
-    width: 325,
-    marginLeft: 30,
-  },
-
-  secondForm: {
-    flex: 1,
-  },
-  
-  textSecondForm: {
-    textAlign: 'center',
-    color: colors.heading,
-    fontFamily: fonts.extrabold,
+  subtitle: {
+    fontFamily: fonts.text,
+    color: colors.body,
     fontSize: 16,
-    paddingRight: 200,
-    paddingTop: 30,
+  }, 
+  formIntro: {
+    paddingTop: 15,
+    fontFamily: fonts.semibold,
+    color: colors.body_light,
+    fontSize: 18,
   },
-
-
-
 })
