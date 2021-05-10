@@ -1,6 +1,8 @@
 import React from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, TouchableOpacityProps } from 'react-native';
+
+import { LinearGradient } from 'expo-linear-gradient';
+
 import colors from '../../styles/colors';
 import { Container, ButtonText } from './styles';
 

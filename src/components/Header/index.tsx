@@ -20,7 +20,7 @@ interface IHeaderProps {
   };
 }
 
-export const Header = ( data: IHeaderProps ) => {
+const Header = ( data: IHeaderProps ) => {
   const navigation = useNavigation();
 
   return(
@@ -53,3 +53,5 @@ export const Header = ( data: IHeaderProps ) => {
     </Container>
   )
 }
+
+export default Header;
