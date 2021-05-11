@@ -1,13 +1,13 @@
-import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
-import { SignIn } from '../pages/Signin'
-import { SignUp } from '../pages/Signup'
-import { Dashboard } from '../pages/Dashboard';
-import { Welcome } from '../pages/Welcome';
-import { Onboarding } from '../pages/Onboarding';
-import colors from '../styles/colors';
+import { createStackNavigator } from '@react-navigation/stack';
 
+import { SignIn } from '../pages/Auth/Signin'
+import { SignUp } from '../pages/Auth/Signup'
+import { Welcome } from '../pages/Auth/Welcome';
+import { Onboarding } from '../pages/Auth/Onboarding';
+
+import colors from '../styles/colors';
 
 const Auth = createStackNavigator();
 

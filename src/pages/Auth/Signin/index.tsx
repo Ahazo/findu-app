@@ -18,15 +18,15 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import Input from '../../components/Input';
-import Button from '../../components/Button';
-import Header from '../../components/Header';
+import Input from '../../../components/Input';
+import Button from '../../../components/Button';
+import Header from '../../../components/Header';
 
-import { useAuth } from '../../context/auth';
+import { useAuth } from '../../../context/auth';
 
-import { height, width } from '../../constants';
-import colors from '../../styles/colors';
-import fonts from '../../styles/fonts';
+import { height, width } from '../../../constants';
+import colors from '../../../styles/colors';
+import fonts from '../../../styles/fonts';
 
 type FormDataType = {
   username: string;
@@ -157,20 +157,6 @@ export function SignIn() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  backgroundContainer: {
-    flex: 1,
-    bottom: 0,
-    top: 0,
-    left: 0,
-    right: 0,
-    height: '60%',
-    borderBottomLeftRadius: 40,
-    borderBottomRightRadius: 40,
-    overflow: 'hidden',
-    position: 'absolute',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
   },
   logo: {
     marginTop: Dimensions.get('window').height * 0.13,

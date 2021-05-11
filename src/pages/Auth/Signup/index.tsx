@@ -7,8 +7,6 @@ import {
   Text, 
   TextInput,
   Dimensions,
-  KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
@@ -17,12 +15,12 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import Header from '../../components/Header';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import Header from '../../../components/Header';
+import Input from '../../../components/Input';
+import Button from '../../../components/Button';
 
-import colors from '../../styles/colors';
-import fonts from '../../styles/fonts';
+import colors from '../../../styles/colors';
+import fonts from '../../../styles/fonts';
 
 type FormDataType = {
   username: string;
