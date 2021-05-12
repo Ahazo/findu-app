@@ -3,11 +3,10 @@ import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 
 import AuthRoutes from './auth.routes';
-import AppRoutes from './app.routes';
+import TabRoutes from './tab.routes';
 
 import { useAuth } from '../context/auth';
 import colors from '../styles/colors';
-
 
 const Routes: React.FC = () => {
 
@@ -21,7 +20,7 @@ const Routes: React.FC = () => {
 		) 
 	}
 
-	return Object.keys(user).length === 0 ? <AuthRoutes /> : <AppRoutes /> ;
+	return Object.keys(user).length === 0 ? <AuthRoutes /> : <TabRoutes /> ;
 }
 
 export default Routes;

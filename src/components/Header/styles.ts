@@ -13,18 +13,18 @@ interface ILogoProps {
 }
 
 export const Container = styled.View`
+  height: ${(props: IContainerProps) => props.containerHeight}%;
   width: 100%;
   right: 0;
   left: 0;
   top: 0;
   bottom: 0;
-  height: ${(props: IContainerProps) => props.containerHeight}%;
   position: absolute;
   borderBottomLeftRadius: 40px;
   borderBottomRightRadius: 40px;
   overflow: hidden;
-  justifyContent: flex-start;
   alignItems: center;
+  justify-content: flex-start;
   paddingVertical: 60px;
 `;
 
@@ -34,10 +34,5 @@ export const Logo = styled.Image`
 `;
 
 export const BackButton = styled.TouchableOpacity`
-  padding: 10px;
-  marginLeft: 20px;
-  position: absolute;
-  left: 0px;
-  bottom: 20px;
-  top: 80px;
+
 `;
