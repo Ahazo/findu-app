@@ -64,10 +64,10 @@ const AuthProvider: React.FC = ({ children }) => {
     const response = await api.post('/api/session', {
       username,
       password
-    })
+    });
     const { token, user } = response.data;
 
-    AsyncStorage.multiSet([
+    await AsyncStorage.multiSet([
       ['@Ahazo:token', token],
       ['@Ahazo:user', JSON.stringify(user)],  
     ]);

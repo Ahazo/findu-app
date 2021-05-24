@@ -44,6 +44,7 @@ const schema = yup.object().shape({
 export function SignIn() {
   const navigation = useNavigation();
   const { signIn, user } = useAuth();
+ 
   const {
     control,
     handleSubmit,
@@ -64,8 +65,7 @@ export function SignIn() {
       throw new Error('Usuário não encontrado.')
     }
 
-    // navigation.navigate('Dashboard');
-    console.log(user);
+    navigation.navigate('Dashboard');
   }
 
   return (
