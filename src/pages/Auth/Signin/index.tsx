@@ -44,7 +44,7 @@ const schema = yup.object().shape({
 export function SignIn() {
   const navigation = useNavigation();
   const { signIn, user } = useAuth();
- 
+
   const {
     control,
     handleSubmit,
@@ -58,11 +58,11 @@ export function SignIn() {
   async function onSubmit(data: FormDataType) {
     await signIn({
       username: data.username,
-      password: data.password
+      password: data.password,
     });
 
     if (!user) {
-      throw new Error('Usuário não encontrado.')
+      throw new Error('Usuário não encontrado.');
     }
 
     navigation.navigate('Dashboard');
@@ -70,7 +70,10 @@ export function SignIn() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header heightPercentage={60} logoDimensions={{height: height * 0.17, width: width * 0.3}}/>
+      <Header
+        heightPercentage={height * 0.5}
+        logoDimensions={{ height: height * 0.17, width: width * 0.3 }}
+      />
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <KeyboardAvoidingView
           style={styles.contentContainer}

@@ -1,21 +1,27 @@
-import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+} from 'react';
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api';
 import { Status } from '../constants/status';
 
 interface User {
   campaigns_count: number;
-  created_at: Date,
-  experience: number,
-  followers_count: number,
-  id: number,
-  password: string,
-  person_id: number,
-  recommendations_count: number,
-  status: Status,
-  updated_at: Date,
-  username: string,
+  created_at: Date;
+  experience: number;
+  followers_count: number;
+  id: number;
+  password: string;
+  person_id: number;
+  recommendations_count: number;
+  status: Status;
+  updated_at: Date;
+  username: string;
 }
 
 interface ISignIn {
@@ -43,10 +49,10 @@ const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     async function loadStorageData() {
-      const [ token, user ] = await AsyncStorage.multiGet([
+      const [token, user] = await AsyncStorage.multiGet([
         '@Ahazo:token',
-        '@Ahazo:user'
-      ])
+        '@Ahazo:user',
+      ]);
 
       console.log(token, user);
 
@@ -58,18 +64,18 @@ const AuthProvider: React.FC = ({ children }) => {
     }
 
     loadStorageData();
-  }, [])
+  }, []);
 
   const signIn = useCallback(async ({ username, password }) => {
     const response = await api.post('/api/session', {
       username,
-      password
+      password,
     });
     const { token, user } = response.data;
 
     await AsyncStorage.multiSet([
       ['@Ahazo:token', token],
-      ['@Ahazo:user', JSON.stringify(user)],  
+      ['@Ahazo:user', JSON.stringify(user)],
     ]);
 
     api.defaults.headers.authorization = `Bearer ${token}`;
@@ -78,35 +84,33 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove([
-      '@Ahazo:token',
-      '@Ahazo:user'
-    ]);
+    await AsyncStorage.multiRemove(['@Ahazo:token', '@Ahazo:user']);
 
     setUserData({} as IAuthState);
   }, []);
 
-
   return (
-    <AuthContext.Provider value={{
-      user: userData,
-      isLoading,
-      signIn,
-      signOut
-    }}>
+    <AuthContext.Provider
+      value={{
+        user: userData.user,
+        isLoading,
+        signIn,
+        signOut,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export function useAuth(): IAuthContext {
-	const context = useContext(AuthContext);
+  const context = useContext(AuthContext);
 
-	if (!context){
-		throw new Error ('useAuth must be used within an AuthProvider');
-	}
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
 
-	return context;
+  return context;
 }
 
 export default AuthProvider;

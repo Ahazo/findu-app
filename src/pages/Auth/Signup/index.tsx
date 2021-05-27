@@ -1,12 +1,14 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import {
   View,
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  Text, 
+  Text,
   TextInput,
   Dimensions,
+  Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
@@ -21,6 +23,7 @@ import Button from '../../../components/Button';
 
 import colors from '../../../styles/colors';
 import fonts from '../../../styles/fonts';
+import { height, width } from '../../../constants';
 
 type FormDataType = {
   username: string;
@@ -28,9 +31,7 @@ type FormDataType = {
 };
 
 const schema = yup.object().shape({
-  username: yup
-    .string()
-    .required('Campo Obrigatório'),
+  username: yup.string().required('Campo Obrigatório'),
   password: yup
     .string()
     .required('Campo Obrigatório')
@@ -46,7 +47,7 @@ export function SignUp() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  
+
   const passwordRef = useRef<TextInput>(null);
 
   function onSubmit(data: FormDataType) {
@@ -55,21 +56,18 @@ export function SignUp() {
 
   return (
     <>
-      <SafeAreaView style={{flex: 1}}>
-        <Header heightPercentage={20} hasBackButton={true} />
+      <SafeAreaView style={{ flex: 1 }}>
+        <Header heightPercentage={height * 0.2} hasBackButton={true} />
         <ScrollView style={styles.container}>
           <View style={styles.introductionContent}>
-            <Text style={styles.title}> 
-              Vai ser um AHAZO! 
-            </Text>
-            <Text style={styles.subtitle}> 
+            <Text style={styles.title}>Vai ser um AHAZO!</Text>
+            <Text style={styles.subtitle}>
               Preencha os campos para finalizar o seu cadastro
             </Text>
           </View>
+
           <View style={styles.formContainer}>
-            <Text style={styles.formIntro}> 
-              Informações de usuário
-            </Text>
+            <Text style={styles.formIntro}>Informações de usuário</Text>
             <Controller
               control={control}
               render={({ field: { onChange, value } }) => (
@@ -82,7 +80,7 @@ export function SignUp() {
                   placeholder="Usuário"
                   inputValue={value}
                   errors={errors}
-                  textContentType = "username"
+                  textContentType="username"
                   onChangeText={value => onChange(value)}
                   returnKeyType="next"
                 />
@@ -124,7 +122,7 @@ export function SignUp() {
                   iconColor={colors.body_light}
                   placeholder="Repita a senha"
                   inputValue={value}
-                  secureTextEntry 
+                  secureTextEntry
                   errors={errors}
                   textContentType="password"
                   onChangeText={value => onChange(value)}
@@ -134,9 +132,7 @@ export function SignUp() {
               name="passwordConfirm"
               defaultValue=""
             />
-          <Text style={styles.formIntro}> 
-              Meus Dados
-          </Text>
+            <Text style={styles.formIntro}>Meus Dados</Text>
             <Controller
               control={control}
               render={({ field: { onChange, value } }) => (
@@ -174,7 +170,8 @@ export function SignUp() {
                   errors={errors}
                   textContentType="name"
                   onChangeText={value => onChange(value)}
-                  returnKeyType="next"                  />
+                  returnKeyType="next"
+                />
               )}
               name="name"
               defaultValue=""
@@ -242,21 +239,20 @@ export function SignUp() {
               name="cpf"
               defaultValue=""
             />
-          </View> 
-          <Button text="CADASTRAR"/>
+          </View>
+
+          <Button text="CADASTRAR" />
         </ScrollView>
-      </SafeAreaView> 
+      </SafeAreaView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
-    width: '100%',
     paddingHorizontal: 30,
-    zIndex: -1,
-    marginTop: Dimensions.get('window').height * 0.125,
+    zIndex: 1,
+    marginTop: height * 0.2,
     marginBottom: 10,
   },
   introductionContent: {
@@ -267,7 +263,7 @@ const styles = StyleSheet.create({
     color: colors.heading,
     fontSize: 22,
     marginBottom: 10,
-  }, 
+  },
   subtitle: {
     fontFamily: fonts.text,
     color: colors.body,
@@ -282,4 +278,4 @@ const styles = StyleSheet.create({
     color: colors.body_light,
     fontSize: 18,
   },
-})
+});
