@@ -4,16 +4,13 @@ export const UserInfoContainer = styled.View`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 12%;
-  position: absolute;
-  top: 22%;
 `;
 
 export const UserInfoContent = styled.View`
   background-color: white;
-  width: 90%;
+  width: 100%;
   height: 100%;
-  border-radius: 25;
+  border-radius: 25px;
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
@@ -24,3 +21,9 @@ export const ImageContainer = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+export const ContainerIndication = styled.View``;
+
+export const Indication = styled.View``;
+
+export const UsedIndication = styled.View``;
