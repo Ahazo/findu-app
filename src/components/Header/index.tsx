@@ -6,17 +6,19 @@ import {
   BackButton,
 } from './styles';
 
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import Feather from '@expo/vector-icons/Feather'
 import colors from '../../styles/colors';
 import { useNavigation } from '@react-navigation/core';
-import { useAuth } from '../../context/auth';
-import { height } from '../../constants';
+
+import { SvgUri } from 'react-native-svg';
 
 interface IHeaderProps {
   hasBackButton?: boolean;
+  hasSettingsButton?: boolean;
+  hasRecommendationButton?: boolean;
   heightPercentage: number;
   logoDimensions?: {
     height?: number;
@@ -53,11 +55,22 @@ const Header = ( data: IHeaderProps ) => {
           resizeMode="contain"
           dimensions={{height: data.logoDimensions?.height, width: data.logoDimensions?.width}}
         />
-        <View style={{
-          ...styles.backbuttonfake,
-          height: data.logoDimensions?.height,
-        }}>
-        </View>
+        
+          <View style={{
+            ...styles.backbuttonfake,
+            height: data.logoDimensions?.height,
+          }}>
+          {data.hasSettingsButton && (
+            <TouchableOpacity>
+              <SvgUri
+                width="25"
+                height="25"
+                uri='https://storage.googleapis.com/images-ahazo-dev/dev-images/settings.svg'
+              />
+            </TouchableOpacity>
+          )}
+          </View>
+        
       </LinearGradient>
     </Container>
   )
