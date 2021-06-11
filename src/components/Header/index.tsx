@@ -2,26 +2,29 @@ import React from 'react';
 
 import { Container, Logo, BackButton } from './styles';
 
-import { StyleSheet, View, Text, ViewStyle } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import Feather from '@expo/vector-icons/Feather';
 import colors from '../../styles/colors';
 import { useNavigation } from '@react-navigation/core';
-import { useAuth } from '../../context/auth';
-import { height } from '../../constants';
+
+import { SvgUri } from 'react-native-svg';
 
 interface IHeaderProps {
   hasBackButton?: boolean;
   backButtonSize?: number;
+  hasSettingsButton?: boolean;
+  hasRecommendationButton?: boolean;
   heightPercentage: number;
   logoDimensions?: {
     height?: number;
     width?: number;
   };
   position?: 'flex-start' | 'center' | 'flex-end';
-  RightComponent?: React.ReactNode;
   contentStyle?: ViewStyle;
+  backButtonFakeStyle?: ViewStyle;
+  backButtonFake2Style?: ViewStyle;
 }
 const Header = (data: IHeaderProps) => {
   const SizeBackButton = data.backButtonSize || 35;
@@ -44,14 +47,10 @@ const Header = (data: IHeaderProps) => {
           style={[
             styles.content,
             data.contentStyle,
-            { alignItems: data.position },
+            { alignItems: data.position, justifyContent: 'space-between' },
           ]}
         >
-          <View
-            style={{
-              ...styles.backbuttonfake,
-            }}
-          >
+          <View style={[styles.backbuttonfake, data.backButtonFakeStyle]}>
             {data.hasBackButton && (
               <BackButton onPress={() => navigation.goBack()}>
                 <Feather
@@ -66,7 +65,7 @@ const Header = (data: IHeaderProps) => {
             style={{
               flex: 1,
               marginLeft:
-                data.hasBackButton && !data.RightComponent
+                data.hasBackButton && !data.hasSettingsButton
                   ? -SizeBackButton
                   : 0,
               // quando tiver back button deixará a imagem centraliza baseada no tamanho do backbutto
@@ -81,12 +80,16 @@ const Header = (data: IHeaderProps) => {
               width: data.logoDimensions?.width,
             }}
           />
-          <View
-            style={{
-              ...styles.backbuttonfake2,
-            }}
-          >
-            {data.RightComponent}
+          <View style={[styles.backbuttonfake2, data.backButtonFakeStyle]}>
+            {data.hasSettingsButton && (
+              <TouchableOpacity>
+                <SvgUri
+                  width="25"
+                  height="25"
+                  uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/settings.svg"
+                />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </LinearGradient>
