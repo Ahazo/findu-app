@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, SafeAreaView, StyleSheet } from 'react-native';
-
+import { View, StyleSheet } from 'react-native';
 import Header from '../../../components/Header';
 import { height, width } from '../../../constants';
 import colors from '../../../styles/colors';
@@ -29,20 +28,30 @@ import {
   BudgetContainer,
   BudgetInfoContainer,
   BudgetTextContainer,
-  ActivityContainer
+  ActivityContainer,
 } from './styles';
 
 import { SvgUri } from 'react-native-svg';
 import { ProgressBar } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export function Profile() {
   return (
     <>
-      <SafeAreaView style={{ flex: 1, borderWidth: 1 }}>
+      <View style={{ flex: 1 }}>
         <Header
-          heightPercentage={height * 0.3}
-          logoDimensions={{ height: height * 0.13 }}
+          heightPercentage={height * 0.2}
+          position="flex-end"
+          logoDimensions={{ height: height * 0.07 }}
           hasSettingsButton
+          settingButtonStyle={{
+            position: 'absolute',
+            right: 10,
+            paddingBottom: 4,
+          }}
+          contentStyle={{
+            marginBottom: height * 0.07,
+          }}
         />
         <Container>
           <UserInfoContainer>
@@ -50,7 +59,8 @@ export function Profile() {
               <ProfileContainer>
                 <ProfilePhoto
                   source={{
-                    uri: 'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+                    uri:
+                      'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
                   }}
                   resizeMode="contain"
                 />
@@ -59,115 +69,146 @@ export function Profile() {
                 <UserName>Júlia Alves</UserName>
                 <LevelDescription>Mestra da Indicação</LevelDescription>
                 <LevelTitle>Nivel 3</LevelTitle>
-                <ProgressBar progress={0.31} color={colors.purple_dark} style={{borderRadius: 47}}/>
+                <ProgressBar
+                  progress={0.31}
+                  color={colors.purple_dark}
+                  style={{ borderRadius: 47 }}
+                />
               </InfoContainer>
               <BadgeContainer>
                 <SvgUri
-                  width="100"
-                  height="100"
-                  uri='https://storage.googleapis.com/images-ahazo-dev/dev-images/bagbadge.svg'
+                  width="100%"
+                  height="100%"
+                  uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/bagbadge.svg"
                   style={{
                     position: 'absolute',
-                    top: -38,
+                    top: -30,
                   }}
                 />
               </BadgeContainer>
             </UserInfoContent>
           </UserInfoContainer>
 
-          <ContainerIndication>
-            <HeaderIndication>
-              <HeadingText>
-                Meu AHAZO
-              </HeadingText>
-              <TabNavigationContainer>
-                <TabTextActive style={{marginRight: 10}}>
-                  PERFIL
-                </TabTextActive>
-                <TabText>
-                  AMIGOS
-                </TabText>
-              </TabNavigationContainer>
-            </HeaderIndication>
-            <ProfileIndicationContainer>
-              <Indication style={styles.shadow}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{
+              flex: 1,
+            }}
+            contentContainerStyle={{
+              padding: 20,
+              paddingBottom: 100,
+            }}
+          >
+            <ContainerIndication>
+              <HeaderIndication>
+                <HeadingText>Meu AHAZO</HeadingText>
+                <TabNavigationContainer>
+                  <TabTextActive style={{ marginRight: 10 }}>
+                    PERFIL
+                  </TabTextActive>
+                  <TabText>AMIGOS</TabText>
+                </TabNavigationContainer>
+              </HeaderIndication>
+              <ProfileIndicationContainer>
+                <Indication style={styles.shadow}>
+                  <SvgUri
+                    width="24"
+                    height="24"
+                    uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/feedback.svg"
+                  />
+                  <View style={{ marginLeft: 10 }}>
+                    <TitleText>Indiquei</TitleText>
+                    <SubTitleText>4 vezes</SubTitleText>
+                  </View>
+                </Indication>
+                <Indication style={styles.shadow}>
+                  <SvgUri
+                    width="24"
+                    height="24"
+                    uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/discountblue.svg"
+                  />
+
+                  <View style={{ marginLeft: 10 }}>
+                    <TitleText>Ahazei</TitleText>
+                    <SubTitleText>2 vezes</SubTitleText>
+                  </View>
+                </Indication>
+              </ProfileIndicationContainer>
+            </ContainerIndication>
+
+            <BudgetContainer>
+              <HeadingText>Minha Carteira</HeadingText>
+
+              <BudgetInfoContainer
+                style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
+              >
                 <SvgUri
-                  width="24"
-                  height="24"
-                  uri='https://storage.googleapis.com/images-ahazo-dev/dev-images/feedback.svg'
+                  width="40"
+                  height="40"
+                  uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/recommendation.svg"
                 />
-                <View style={{ marginLeft: 10 }}>
-                  <TitleText>
-                    Indiquei
+                <BudgetTextContainer>
+                  <TitleText style={{ color: colors.heading }}>
+                    5 indicações adquiridas
                   </TitleText>
-                  <SubTitleText>
-                    4 vezes
-                  </SubTitleText>
-                </View>
-              </Indication>
-              <Indication style={styles.shadow}>
+                  <SubTitleText>Clique para ver</SubTitleText>
+                </BudgetTextContainer>
+              </BudgetInfoContainer>
+              <BudgetInfoContainer
+                style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
+              >
                 <SvgUri
-                  width="24"
-                  height="24"
-                  uri='https://storage.googleapis.com/images-ahazo-dev/dev-images/discountblue.svg'
+                  width="40"
+                  height="40"
+                  uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
                 />
-
-                <View style={{ marginLeft: 10 }}>
-                  <TitleText>
-                    Ahazei
+                <BudgetTextContainer>
+                  <TitleText style={{ color: colors.heading }}>
+                    3 Campanhas participantes
                   </TitleText>
-                  <SubTitleText>
-                    2 vezes
-                  </SubTitleText>
-                </View>
-              </Indication>
-            </ProfileIndicationContainer>
-          </ContainerIndication>
+                  <SubTitleText>Clique para ver</SubTitleText>
+                </BudgetTextContainer>
+              </BudgetInfoContainer>
 
-          <BudgetContainer>
-            <HeadingText>
-              Minha Carteira
-            </HeadingText>
+              <BudgetInfoContainer
+                style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
+              >
+                <SvgUri
+                  width="40"
+                  height="40"
+                  uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
+                />
+                <BudgetTextContainer>
+                  <TitleText style={{ color: colors.heading }}>
+                    3 Campanhas participantes
+                  </TitleText>
+                  <SubTitleText>Clique para ver</SubTitleText>
+                </BudgetTextContainer>
+              </BudgetInfoContainer>
 
-            <BudgetInfoContainer style={[{borderTopLeftRadius: 8}, styles.shadow]}>
-              <SvgUri
-                width="40"
-                height="40"
-                uri='https://storage.googleapis.com/images-ahazo-dev/dev-images/recommendation.svg'
-              />
-              <BudgetTextContainer>
-                <TitleText style={{color: colors.heading}}>
-                  5 indicações adquiridas
-                </TitleText>
-                <SubTitleText>
-                  Clique para ver
-                </SubTitleText>
-              </BudgetTextContainer>
-            </BudgetInfoContainer>
-            <BudgetInfoContainer style={[{borderTopLeftRadius: 8}, styles.shadow]}>
-              <SvgUri
-                width="40"
-                height="40"
-                uri='https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg'
-              />
-              <BudgetTextContainer>
-                <TitleText style={{color: colors.heading}}>
-                  3 Campanhas participantes
-                </TitleText>
-                <SubTitleText>
-                  Clique para ver
-                </SubTitleText>
-              </BudgetTextContainer>
-            </BudgetInfoContainer>
-          </BudgetContainer>
+              <BudgetInfoContainer
+                style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
+              >
+                <SvgUri
+                  width="40"
+                  height="40"
+                  uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
+                />
+                <BudgetTextContainer>
+                  <TitleText style={{ color: colors.heading }}>
+                    3 Campanhas participantes
+                  </TitleText>
+                  <SubTitleText>Clique para ver</SubTitleText>
+                </BudgetTextContainer>
+              </BudgetInfoContainer>
+            </BudgetContainer>
 
-          <ActivityContainer>
-            <HeadingText>
-              Atividades
-            </HeadingText>
-          </ActivityContainer>
+            <ActivityContainer>
+              <HeadingText>Atividades</HeadingText>
+            </ActivityContainer>
+          </ScrollView>
         </Container>
-      </SafeAreaView>
+      </View>
     </>
   );
 }
@@ -182,5 +223,5 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.5,
-  }
-})
+  },
+});

@@ -6,16 +6,16 @@ import fonts from '../../../styles/fonts';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 0 20px;
+  margin-top: -${height * 0.05}px;
 `;
 
 export const UserInfoContainer = styled.View`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: ${height * 0.13};
-  margin-top: ${height * 0.16};
+  height: ${height * 0.13}px;
   margin-bottom: 10px;
+  padding: 0 20px;
 `;
 
 export const UserInfoContent = styled.View`
@@ -23,7 +23,7 @@ export const UserInfoContent = styled.View`
   width: 100%;
   height: 80%;
   border-radius: 30px;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
 `;
@@ -37,7 +37,7 @@ export const ProfileContainer = styled.View`
 export const ProfilePhoto = styled.Image`
   height: 52px;
   width: 52px;
-  border-radius: 16px;
+  border-radius: 20px;
 `;
 
 export const InfoContainer = styled.View`
@@ -54,7 +54,7 @@ export const LevelDescription = styled.Text`
   font-family: ${fonts.semibold};
   font-size: 14px;
   color: ${colors.body};
-`
+`;
 
 export const LevelTitle = styled.Text`
   font-family: ${fonts.semibold};
@@ -131,7 +131,7 @@ export const BudgetContainer = styled.View`
 `;
 
 export const BudgetInfoContainer = styled.View`
-  background-color: #FFF;
+  background-color: #fff;
   width: 100%;
   height: ${height * 0.1}px;
   margin-top: 15px;

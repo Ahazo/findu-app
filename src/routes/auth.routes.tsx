@@ -22,10 +22,10 @@ export default function AuthRoutes() {
         },
       }}
     >
-      {/* <Auth.Screen name='Welcome' component={Welcome} />
-      <Auth.Screen name='Onboarding' component={Onboarding} /> */}
+      <Auth.Screen name="Welcome" component={Welcome} />
+      <Auth.Screen name="Onboarding" component={Onboarding} />
 
-      {/* <Auth.Screen name="SignIn" component={SignIn} /> */}
+      <Auth.Screen name="SignIn" component={SignIn} />
       <Auth.Screen name="SignUp" component={SignUp} />
     </Auth.Navigator>
   );

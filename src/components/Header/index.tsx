@@ -15,7 +15,6 @@ interface IHeaderProps {
   hasBackButton?: boolean;
   backButtonSize?: number;
   hasSettingsButton?: boolean;
-  hasRecommendationButton?: boolean;
   heightPercentage: number;
   logoDimensions?: {
     height?: number;
@@ -24,7 +23,7 @@ interface IHeaderProps {
   position?: 'flex-start' | 'center' | 'flex-end';
   contentStyle?: ViewStyle;
   backButtonFakeStyle?: ViewStyle;
-  backButtonFake2Style?: ViewStyle;
+  settingButtonStyle?: ViewStyle;
 }
 const Header = (data: IHeaderProps) => {
   const SizeBackButton = data.backButtonSize || 35;
@@ -64,11 +63,6 @@ const Header = (data: IHeaderProps) => {
           <Logo
             style={{
               flex: 1,
-              marginLeft:
-                data.hasBackButton && !data.hasSettingsButton
-                  ? -SizeBackButton
-                  : 0,
-              // quando tiver back button deixará a imagem centraliza baseada no tamanho do backbutto
             }}
             source={{
               uri:
@@ -80,7 +74,7 @@ const Header = (data: IHeaderProps) => {
               width: data.logoDimensions?.width,
             }}
           />
-          <View style={[styles.backbuttonfake2, data.backButtonFakeStyle]}>
+          <View style={[styles.backbuttonfake2, data.settingButtonStyle]}>
             {data.hasSettingsButton && (
               <TouchableOpacity>
                 <SvgUri
