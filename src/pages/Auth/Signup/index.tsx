@@ -49,7 +49,11 @@ const schema = yup.object().shape({
     .trim()
     .oneOf([yup.ref('password'), null], 'Senhas não são iguais')
     .required('Campo Obrigatório'),
-  email: yup.string().trim().email().required('Campo Obrigatório'),
+  email: yup
+    .string()
+    .trim()
+    .email('Digite um email válido')
+    .required('Campo Obrigatório'),
   name: yup.string().trim().required('Campo Obrigatório'),
   lastName: yup.string().trim().required('Campo Obrigatório'),
   cellphoneNumber: yup
