@@ -10,6 +10,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  StatusBar,
   ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
@@ -27,7 +28,6 @@ import { useAuth } from '../../../context/auth';
 import { height } from '../../../constants';
 import colors from '../../../styles/colors';
 import fonts from '../../../styles/fonts';
-import { StatusBar } from 'expo-status-bar';
 
 type FormDataType = {
   username: string;
@@ -75,18 +75,21 @@ export function SignIn() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
           <ScrollView style={{ flex: 1 }}>
-            <StatusBar hidden />
-
             <Header
+              logoDimensions={{ height: height * 0.06 }}
+              heightPercentage={height * 0.4}
               hasBackButton
+              backButtonFakeStyle={{
+                position: 'absolute',
+                top: '5%',
+                left: 20,
+              }}
               contentStyle={{
-                marginTop: 40,
+                marginTop: height * 0.1,
               }}
               position="flex-start"
-              heightPercentage={height * 0.4}
-              logoDimensions={{ height: height * 0.06 }}
             />
 
             <View style={styles.contentContainer}>
@@ -169,7 +172,7 @@ export function SignIn() {
               </View>
             </View>
           </ScrollView>
-        </SafeAreaView>
+        </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );

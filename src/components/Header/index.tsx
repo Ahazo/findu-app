@@ -98,9 +98,11 @@ const styles = StyleSheet.create({
   },
   backbuttonfake: {
     flexDirection: 'column',
+    zIndex: 2, // voce precisa do zIndex 2 para os botoes funcionarem
   },
   backbuttonfake2: {
     flexDirection: 'column',
+    zIndex: 2,
   },
 });
 

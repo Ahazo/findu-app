@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Platform,
+  StatusBar,
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
@@ -96,14 +97,20 @@ export function SignUp() {
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={{ flex: 1 }}>
+          <StatusBar barStyle="light-content" />
           <Header
-            hasBackButton
-            contentStyle={{
-              marginTop: 40,
-            }}
-            position="flex-start"
             heightPercentage={height * 0.2}
-            logoDimensions={{ height: height * 0.05 }}
+            logoDimensions={{ height: height * 0.07 }}
+            position="flex-end"
+            hasBackButton
+            backButtonFakeStyle={{
+              position: 'absolute',
+              top: '65%',
+              left: 20,
+            }}
+            contentStyle={{
+              marginBottom: height * 0.07,
+            }}
           />
           <ScrollView
             style={styles.container}
