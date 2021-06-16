@@ -1,24 +1,26 @@
 import React from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import { View } from 'react-native';
 
 import Header from '../../../components/Header';
-import { height, width } from '../../../constants';
+import { height } from '../../../constants';
 
 export function Explorer() {
   return (
-    <>
-      <SafeAreaView style={{ flex: 1 }}>
-        <Header
-          heightPercentage={height * 0.2}
-          hasBackButton={true}
-          logoDimensions={{ height: height * 0.11, width: width * 0.2 }}
-        />
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-          <Text>Explorer</Text>
-        </View>
-      </SafeAreaView>
-    </>
+    <View style={{ flex: 1 }}>
+      <Header
+        heightPercentage={height * 0.2}
+        position="flex-end"
+        hasBackButton
+        backButtonFakeStyle={{
+          position: 'absolute',
+          top: '65%',
+          left: 20,
+        }}
+        logoDimensions={{ height: height * 0.07 }}
+        contentStyle={{
+          marginBottom: height * 0.07,
+        }}
+      />
+    </View>
   );
 }

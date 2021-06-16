@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import {
   View,
-  SafeAreaView,
   Dimensions,
   StyleSheet,
   Text,
@@ -11,9 +10,9 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -24,7 +23,7 @@ import Header from '../../../components/Header';
 
 import { useAuth } from '../../../context/auth';
 
-import { height, width } from '../../../constants';
+import { height } from '../../../constants';
 import colors from '../../../styles/colors';
 import fonts from '../../../styles/fonts';
 
@@ -69,91 +68,110 @@ export function SignIn() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header
-        heightPercentage={height * 0.5}
-        logoDimensions={{ height: height * 0.17, width: width * 0.3 }}
-      />
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <KeyboardAvoidingView
-          style={styles.contentContainer}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
-          <View style={styles.formContainer}>
-            <Text style={styles.title}>Vamos lá!</Text>
-            <Text style={styles.subtitle}>
-              Entre com seus dados ou crie uma conta.
-            </Text>
-            <View style={styles.inputContainer}>
-              <Controller
-                control={control}
-                render={({ field: { onChange, value } }) => (
-                  <Input
-                    autoCapitalize="none"
-                    iconSize={24}
-                    iconName="user"
-                    inputField="text"
-                    iconColor={colors.body_light}
-                    placeholder="Usuário"
-                    inputValue={value}
-                    errors={errors}
-                    onChangeText={value => onChange(value)}
-                    returnKeyType="next"
-                    onSubmitEditing={() => passwordRef.current?.focus()}
-                  />
-                )}
-                name="username"
-                defaultValue=""
-              />
-
-              <Controller
-                control={control}
-                render={({ field: { onChange, value } }) => (
-                  <Input
-                    ref={passwordRef}
-                    autoCapitalize="none"
-                    iconSize={24}
-                    iconName="lock"
-                    inputField="password"
-                    iconColor={colors.body_light}
-                    placeholder="Senha"
-                    inputValue={value}
-                    secureTextEntry
-                    errors={errors}
-                    textContentType="password"
-                    onChangeText={value => onChange(value)}
-                    returnKeyType="send"
-                    onSubmitEditing={handleSubmit(onSubmit)}
-                  />
-                )}
-                name="password"
-                defaultValue=""
-              />
-            </View>
-            <TouchableOpacity style={styles.forgotPassword}>
-              <Text style={styles.forgotPasswordText}>esqueceu sua senha?</Text>
-            </TouchableOpacity>
-
-            <Button
-              text="ENTRAR"
-              onPress={handleSubmit(onSubmit)}
-              containerButtonStyle={{
-                marginTop: Dimensions.get('window').height * 0.02,
+        <View style={styles.container}>
+          <ScrollView style={{ flex: 1 }}>
+            <Header
+              logoDimensions={{ height: height * 0.06 }}
+              heightPercentage={height * 0.4}
+              backButtonFakeStyle={{
+                position: 'absolute',
+                top: '5%',
+                left: 20,
               }}
+              contentStyle={{
+                marginTop: height * 0.1,
+              }}
+              position="flex-start"
             />
-          </View>
-          <View style={styles.singupContainer}>
-            <Text style={styles.singupTitle}>Ainda não tem uma conta?</Text>
-            <TouchableOpacity
-              style={styles.singupButton}
-              onPress={() => navigation.navigate('SignUp')}
-            >
-              <Text style={styles.signupSubtitle}>Cadastre Gratuitamente</Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
+
+            <View style={styles.contentContainer}>
+              <View style={styles.formContainer}>
+                <Text style={styles.title}>Vamos lá!</Text>
+                <Text style={styles.subtitle}>
+                  Entre com seus dados ou crie uma conta.
+                </Text>
+                <View style={styles.inputContainer}>
+                  <Controller
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        autoCapitalize="none"
+                        iconSize={24}
+                        iconName="user"
+                        inputField="username"
+                        iconColor={colors.body_light}
+                        placeholder="Usuário"
+                        inputValue={value}
+                        errors={errors}
+                        onChangeText={value => onChange(value)}
+                        returnKeyType="next"
+                        onSubmitEditing={() => passwordRef.current?.focus()}
+                      />
+                    )}
+                    name="username"
+                    defaultValue=""
+                  />
+
+                  <Controller
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        ref={passwordRef}
+                        autoCapitalize="none"
+                        iconSize={24}
+                        iconName="lock"
+                        inputField="password"
+                        iconColor={colors.body_light}
+                        placeholder="Senha"
+                        inputValue={value}
+                        secureTextEntry
+                        errors={errors}
+                        textContentType="password"
+                        onChangeText={value => onChange(value)}
+                        returnKeyType="send"
+                        onSubmitEditing={handleSubmit(onSubmit)}
+                      />
+                    )}
+                    name="password"
+                    defaultValue=""
+                  />
+                </View>
+                <TouchableOpacity style={styles.forgotPassword}>
+                  <Text style={styles.forgotPasswordText}>
+                    esqueceu sua senha?
+                  </Text>
+                </TouchableOpacity>
+
+                <Button
+                  text="ENTRAR"
+                  onPress={handleSubmit(onSubmit)}
+                  containerButtonStyle={{
+                    marginTop: Dimensions.get('window').height * 0.02,
+                  }}
+                />
+              </View>
+
+              <View style={styles.singupContainer}>
+                <Text style={styles.singupTitle}>Ainda não tem uma conta?</Text>
+                <TouchableOpacity
+                  style={styles.singupButton}
+                  onPress={() => navigation.navigate('SignUp')}
+                >
+                  <Text style={styles.signupSubtitle}>
+                    Cadastre Gratuitamente
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
       </TouchableWithoutFeedback>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -161,16 +179,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  logo: {
-    marginTop: Dimensions.get('window').height * 0.13,
-    width: Dimensions.get('window').width * 0.3,
-    height: Dimensions.get('window').height * 0.1,
-  },
   contentContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: -height * 0.2,
   },
   formContainer: {
     width: Dimensions.get('window').width * 0.85,
@@ -230,9 +243,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.2,
   },
   singupContainer: {
-    position: 'absolute',
-    bottom: 0,
-    marginBottom: 40,
+    marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },

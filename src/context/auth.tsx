@@ -86,8 +86,6 @@ const AuthProvider: React.FC = ({ children }) => {
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(['@Ahazo:token', '@Ahazo:user']);
     setUserData({} as IAuthState);
-
-    console.log(`passei aqui`)
   }, []);
 
   return (

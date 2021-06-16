@@ -22,13 +22,16 @@ export const ContainerInput = styled.View<ContainerType>`
 `;
 
 export const InputText = styled(TextInput)`
-  color: ${colors.body};
   width: 100%;
   height: 100%;
   padding-left: 10px;
+  ::placeholder {
+    color: red;
+  }
 `;
 export const InputError = styled.Text`
   text-align: right;
   color: #fc5663;
   font-size: 12px;
+  margin-top: 5px;
 `;
