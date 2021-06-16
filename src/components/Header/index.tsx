@@ -14,6 +14,7 @@ import colors from '../../styles/colors';
 import { useNavigation } from '@react-navigation/core';
 
 import { SvgUri } from 'react-native-svg';
+import { useAuth } from '../../context/auth';
 
 interface IHeaderProps {
   hasBackButton?: boolean;
@@ -28,6 +29,7 @@ interface IHeaderProps {
 
 const Header = ( data: IHeaderProps ) => {
   const navigation = useNavigation();
+  const { signOut } = useAuth();
 
   return(
     <Container containerHeight={data.heightPercentage}>
@@ -41,11 +43,11 @@ const Header = ( data: IHeaderProps ) => {
           ...styles.backbuttonfake2,
           height: data.logoDimensions?.height,
         }}>
-        {data.hasBackButton &&
-          <BackButton onPress={() => navigation.goBack()}>
-            <Feather name="chevron-left" size={35} color={colors.white}/>
-          </BackButton>
-        }
+          {data.hasBackButton &&
+            <BackButton onPress={() => navigation.goBack()}>
+              <Feather name="chevron-left" size={35} color={colors.white}/>
+            </BackButton>
+          }
         </View>
         <Logo
           source={{
@@ -55,22 +57,20 @@ const Header = ( data: IHeaderProps ) => {
           resizeMode="contain"
           dimensions={{height: data.logoDimensions?.height, width: data.logoDimensions?.width}}
         />
-        
-          <View style={{
-            ...styles.backbuttonfake,
-            height: data.logoDimensions?.height,
-          }}>
+        <View style={{
+          ...styles.backbuttonfake,
+          height: data.logoDimensions?.height,
+        }}>
           {data.hasSettingsButton && (
-            <TouchableOpacity>
+            <BackButton onPress={() => signOut()}>
               <SvgUri
                 width="25"
                 height="25"
                 uri='https://storage.googleapis.com/images-ahazo-dev/dev-images/settings.svg'
               />
-            </TouchableOpacity>
+            </BackButton>
           )}
-          </View>
-        
+        </View>
       </LinearGradient>
     </Container>
   )

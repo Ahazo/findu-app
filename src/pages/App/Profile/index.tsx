@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, SafeAreaView, StyleSheet } from 'react-native';
 
 import Header from '../../../components/Header';
@@ -34,8 +34,65 @@ import {
 
 import { SvgUri } from 'react-native-svg';
 import { ProgressBar } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+interface IUserData {
+  person: {
+    id: number;
+    cpf: number;
+    email: string;
+    cellphone: string;
+    first_name: string;
+    last_name: string;
+    birth_date: Date;
+    address_id: number;
+    created_at: Date;
+    updated_at: Date;
+  }
+  id: number;
+  person_id: number;
+  username: string;
+  password: string;
+  status: string;
+  experience: number;
+  recommendations_count: number;
+  followers_count: number;
+  campaigns_count: number;
+  created_at: Date;
+  updated_at: Date;
+}
 
 export function Profile() {
+  const [userData, setUserData] = useState({} as IUserData)
+ 
+  useEffect(() => {
+    const loadUserData = async() => {
+      await AsyncStorage.getItem('@Ahazo:user')
+      .then((value) => {
+        if (value) {
+          setUserData(JSON.parse(value));
+        }
+      })
+    }
+
+    loadUserData();
+  }, [])
+  
+  if (!userData) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        SEM USUÁRIO
+      </View>
+    )
+  }
+
+
   return (
     <>
       <SafeAreaView style={{ flex: 1, borderWidth: 1 }}>
@@ -56,7 +113,7 @@ export function Profile() {
                 />
               </ProfileContainer>
               <InfoContainer>
-                <UserName>Júlia Alves</UserName>
+                <UserName>{userData.person.first_name} {userData.person.last_name}</UserName>
                 <LevelDescription>Mestra da Indicação</LevelDescription>
                 <LevelTitle>Nivel 3</LevelTitle>
                 <ProgressBar progress={0.31} color={colors.purple_dark} style={{borderRadius: 47}}/>
@@ -101,7 +158,7 @@ export function Profile() {
                     Indiquei
                   </TitleText>
                   <SubTitleText>
-                    4 vezes
+                    {userData.recommendations_count} vezes
                   </SubTitleText>
                 </View>
               </Indication>
@@ -117,7 +174,7 @@ export function Profile() {
                     Ahazei
                   </TitleText>
                   <SubTitleText>
-                    2 vezes
+                  {userData.campaigns_count} vezes
                   </SubTitleText>
                 </View>
               </Indication>

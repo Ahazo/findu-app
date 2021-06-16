@@ -33,4 +33,5 @@ export const Logo = styled.Image`
   height: ${(props: ILogoProps) => props.dimensions?.height || height * 0.1}px;
 `;
 
-export const BackButton = styled.TouchableOpacity``;
+export const BackButton = styled.TouchableOpacity`
+`;

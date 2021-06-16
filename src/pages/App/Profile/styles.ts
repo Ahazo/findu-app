@@ -7,14 +7,14 @@ import fonts from '../../../styles/fonts';
 export const Container = styled.View`
   flex: 1;
   padding: 0 20px;
+  margin-top: ${height * 0.15}px;
 `;
 
 export const UserInfoContainer = styled.View`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: ${height * 0.13};
-  margin-top: ${height * 0.16};
+  height: ${height * 0.13}px;
   margin-bottom: 10px;
 `;
 
