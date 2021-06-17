@@ -1,6 +1,7 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import Header from '../../../components/Header';
+import { Friends } from './friends';
 import { height, width } from '../../../constants';
 import colors from '../../../styles/colors';
 
@@ -20,7 +21,6 @@ import {
   HeadingText,
   TabNavigationContainer,
   TabText,
-  TabTextActive,
   Indication,
   ProfileIndicationContainer,
   TitleText,
@@ -36,6 +36,7 @@ import { ProgressBar } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export function Profile() {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <View style={{ flex: 1 }}>
@@ -99,113 +100,145 @@ export function Profile() {
               paddingBottom: 100,
             }}
           >
-            <ContainerIndication>
-              <HeaderIndication>
-                <HeadingText>Meu AHAZO</HeadingText>
-                <TabNavigationContainer>
-                  <TabTextActive style={{ marginRight: 10 }}>
+            <HeaderIndication>
+              <HeadingText>Meu AHAZO</HeadingText>
+              <TabNavigationContainer>
+                <TouchableOpacity onPress={() => setOpen(!open)}>
+                  <TabText active={!open} style={{ marginRight: 10 }}>
                     PERFIL
-                  </TabTextActive>
-                  <TabText>AMIGOS</TabText>
-                </TabNavigationContainer>
-              </HeaderIndication>
-              <ProfileIndicationContainer>
-                <Indication style={styles.shadow}>
-                  <SvgUri
-                    width="24"
-                    height="24"
-                    uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/feedback.svg"
-                  />
-                  <View style={{ marginLeft: 10 }}>
-                    <TitleText>Indiquei</TitleText>
-                    <SubTitleText>4 vezes</SubTitleText>
-                  </View>
-                </Indication>
-                <Indication style={styles.shadow}>
-                  <SvgUri
-                    width="24"
-                    height="24"
-                    uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/discountblue.svg"
-                  />
+                  </TabText>
+                  {!open && (
+                    <View
+                      style={{
+                        width: '50%',
+                        height: 2,
+                        marginRight: 10,
+                        backgroundColor: '#7742FE',
+                        alignSelf: 'center',
+                      }}
+                    />
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setOpen(!open)}>
+                  <TabText active={open}>AMIGOS</TabText>
+                  {open && (
+                    <View
+                      style={{
+                        width: '50%',
+                        height: 2,
+                        marginRight: 2,
+                        backgroundColor: '#7742FE',
+                        alignSelf: 'center',
+                      }}
+                    />
+                  )}
+                </TouchableOpacity>
+              </TabNavigationContainer>
+            </HeaderIndication>
+            {open ? (
+              <Friends />
+            ) : (
+              <>
+                <ContainerIndication>
+                  <ProfileIndicationContainer>
+                    <Indication style={styles.shadow}>
+                      <SvgUri
+                        width="24"
+                        height="24"
+                        uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/feedback.svg"
+                      />
+                      <View style={{ marginLeft: 10 }}>
+                        <TitleText>Indiquei</TitleText>
+                        <SubTitleText>4 vezes</SubTitleText>
+                      </View>
+                    </Indication>
+                    <Indication style={styles.shadow}>
+                      <SvgUri
+                        width="24"
+                        height="24"
+                        uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/discountblue.svg"
+                      />
 
-                  <View style={{ marginLeft: 10 }}>
-                    <TitleText>Ahazei</TitleText>
-                    <SubTitleText>2 vezes</SubTitleText>
-                  </View>
-                </Indication>
-              </ProfileIndicationContainer>
-            </ContainerIndication>
+                      <View style={{ marginLeft: 10 }}>
+                        <TitleText>Ahazei</TitleText>
+                        <SubTitleText>2 vezes</SubTitleText>
+                      </View>
+                    </Indication>
+                  </ProfileIndicationContainer>
+                </ContainerIndication>
 
-            <BudgetContainer>
-              <HeadingText>Minha Carteira</HeadingText>
+                <BudgetContainer>
+                  <HeadingText>Minha Carteira</HeadingText>
 
-              <BudgetInfoContainer
-                style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
-              >
-                <SvgUri
-                  width="40"
-                  height="40"
-                  uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/recommendation.svg"
-                />
-                <BudgetTextContainer>
-                  <TitleText style={{ color: colors.heading }}>
-                    5 indicações adquiridas
-                  </TitleText>
-                  <SubTitleText>Clique para ver</SubTitleText>
-                </BudgetTextContainer>
-              </BudgetInfoContainer>
-              <BudgetInfoContainer
-                style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
-              >
-                <SvgUri
-                  width="40"
-                  height="40"
-                  uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
-                />
-                <BudgetTextContainer>
-                  <TitleText style={{ color: colors.heading }}>
-                    3 Campanhas participantes
-                  </TitleText>
-                  <SubTitleText>Clique para ver</SubTitleText>
-                </BudgetTextContainer>
-              </BudgetInfoContainer>
+                  <BudgetInfoContainer
+                    style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
+                  >
+                    <SvgUri
+                      width="40"
+                      height="40"
+                      uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/recommendation.svg"
+                    />
+                    <BudgetTextContainer>
+                      <TitleText style={{ color: colors.heading }}>
+                        5 indicações adquiridas
+                      </TitleText>
+                      <SubTitleText>Clique para ver</SubTitleText>
+                    </BudgetTextContainer>
+                  </BudgetInfoContainer>
+                  <BudgetInfoContainer
+                    style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
+                  >
+                    <SvgUri
+                      width="40"
+                      height="40"
+                      uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
+                    />
+                    <BudgetTextContainer>
+                      <TitleText style={{ color: colors.heading }}>
+                        3 Campanhas participantes
+                      </TitleText>
+                      <SubTitleText>Clique para ver</SubTitleText>
+                    </BudgetTextContainer>
+                  </BudgetInfoContainer>
 
-              <BudgetInfoContainer
-                style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
-              >
-                <SvgUri
-                  width="40"
-                  height="40"
-                  uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
-                />
-                <BudgetTextContainer>
-                  <TitleText style={{ color: colors.heading }}>
-                    3 Campanhas participantes
-                  </TitleText>
-                  <SubTitleText>Clique para ver</SubTitleText>
-                </BudgetTextContainer>
-              </BudgetInfoContainer>
+                  <BudgetInfoContainer
+                    style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
+                  >
+                    <SvgUri
+                      width="40"
+                      height="40"
+                      uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
+                    />
+                    <BudgetTextContainer>
+                      <TitleText style={{ color: colors.heading }}>
+                        3 Campanhas participantes
+                      </TitleText>
+                      <SubTitleText>Clique para ver</SubTitleText>
+                    </BudgetTextContainer>
+                  </BudgetInfoContainer>
 
-              <BudgetInfoContainer
-                style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
-              >
-                <SvgUri
-                  width="40"
-                  height="40"
-                  uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
-                />
-                <BudgetTextContainer>
-                  <TitleText style={{ color: colors.heading }}>
-                    3 Campanhas participantes
-                  </TitleText>
-                  <SubTitleText>Clique para ver</SubTitleText>
-                </BudgetTextContainer>
-              </BudgetInfoContainer>
-            </BudgetContainer>
+                  <BudgetInfoContainer
+                    style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
+                  >
+                    <SvgUri
+                      width="40"
+                      height="40"
+                      uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
+                    />
+                    <BudgetTextContainer>
+                      <TitleText style={{ color: colors.heading }}>
+                        3 Campanhas participantes
+                      </TitleText>
+                      <SubTitleText>Clique para ver</SubTitleText>
+                    </BudgetTextContainer>
+                  </BudgetInfoContainer>
+                </BudgetContainer>
 
-            <ActivityContainer>
-              <HeadingText>Atividades</HeadingText>
-            </ActivityContainer>
+                <ActivityContainer>
+                  <HeadingText>Atividades</HeadingText>
+                </ActivityContainer>
+              </>
+            )}
           </ScrollView>
         </Container>
       </View>

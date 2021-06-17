@@ -4,6 +4,9 @@ import { height } from '../../../constants';
 import colors from '../../../styles/colors';
 import fonts from '../../../styles/fonts';
 
+type TabProps = {
+  active: boolean;
+};
 export const Container = styled.View`
   flex: 1;
   margin-top: -${height * 0.05}px;
@@ -86,16 +89,11 @@ export const TabNavigationContainer = styled.View`
   flex-direction: row;
 `;
 
-export const TabText = styled.Text`
-  color: ${colors.body};
+export const TabText = styled.Text<TabProps>`
+  color: ${props => (props.active ? colors.heading : colors.body)};
   font-family: ${fonts.heading};
   font-size: 13px;
-`;
-
-export const TabTextActive = styled.Text`
-  color: ${colors.heading};
-  font-family: ${fonts.heading};
-  font-size: 13px;
+  font-weight: bold;
 `;
 
 export const ProfileIndicationContainer = styled.View`
