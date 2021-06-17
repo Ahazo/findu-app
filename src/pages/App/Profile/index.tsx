@@ -145,56 +145,57 @@ export function Profile() {
             </UserInfoContent>
           </UserInfoContainer>
 
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{
-              flex: 1,
-            }}
-            contentContainerStyle={{
-              paddingVertical: 10,
-              paddingTop: 20,
-              paddingBottom: 100,
-            }}
-          >
-            <HeaderIndication>
-              <HeadingText>Meu AHAZO</HeadingText>
-              <TabNavigationContainer>
-                <TouchableOpacity onPress={() => setOpen(!open)}>
-                  <TabText active={!open} style={{ marginRight: 10 }}>
-                    PERFIL
-                  </TabText>
-                  {!open && (
-                    <View
-                      style={{
-                        width: '50%',
-                        height: 2,
-                        marginRight: 10,
-                        backgroundColor: '#7742FE',
-                        alignSelf: 'center',
-                      }}
-                    />
-                  )}
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setOpen(!open)}>
-                  <TabText active={open}>AMIGOS</TabText>
-                  {open && (
-                    <View
-                      style={{
-                        width: '50%',
-                        height: 2,
-                        marginRight: 2,
-                        backgroundColor: '#7742FE',
-                        alignSelf: 'center',
-                      }}
-                    />
-                  )}
-                </TouchableOpacity>
-              </TabNavigationContainer>
-            </HeaderIndication>
-            {open ? (
-              <Friends />
-            ) : (
-              <>
+          <HeaderIndication>
+            <HeadingText>Meu AHAZO</HeadingText>
+            <TabNavigationContainer>
+              <TouchableOpacity onPress={() => setOpen(!open)}>
+                <TabText active={!open} style={{ marginRight: 10 }}>
+                  PERFIL
+                </TabText>
+                {!open && (
+                  <View
+                    style={{
+                      width: '50%',
+                      height: 2,
+                      marginRight: 10,
+                      backgroundColor: '#7742FE',
+                      alignSelf: 'center',
+                    }}
+                  />
+                )}
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setOpen(!open)}>
+                <TabText active={open}>AMIGOS</TabText>
+                {open && (
+                  <View
+                    style={{
+                      width: '50%',
+                      height: 2,
+                      marginRight: 2,
+                      backgroundColor: '#7742FE',
+                      alignSelf: 'center',
+                    }}
+                  />
+                )}
+              </TouchableOpacity>
+            </TabNavigationContainer>
+          </HeaderIndication>
+
+          {open ? (
+            <Friends />
+          ) : (
+            <>
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={{
+                  flex: 1,
+                }}
+                contentContainerStyle={{
+                  paddingHorizontal: 20,
+                  paddingVertical: 10,
+                  paddingBottom: 100,
+                }}
+              >
                 <ContainerIndication>
                   <ProfileIndicationContainer>
                     <Indication style={styles.shadow}>
@@ -256,14 +257,62 @@ export function Profile() {
                       <SubTitleText>Clique para ver</SubTitleText>
                     </BudgetTextContainer>
                   </BudgetInfoContainer>
+
+                  <BudgetInfoContainer
+                    style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
+                  >
+                    <SvgUri
+                      width="40"
+                      height="40"
+                      uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
+                    />
+                    <BudgetTextContainer>
+                      <TitleText style={{ color: colors.heading }}>
+                        3 Campanhas participantes
+                      </TitleText>
+                      <SubTitleText>Clique para ver</SubTitleText>
+                    </BudgetTextContainer>
+                  </BudgetInfoContainer>
+
+                  <BudgetInfoContainer
+                    style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
+                  >
+                    <SvgUri
+                      width="40"
+                      height="40"
+                      uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
+                    />
+                    <BudgetTextContainer>
+                      <TitleText style={{ color: colors.heading }}>
+                        3 Campanhas participantes
+                      </TitleText>
+                      <SubTitleText>Clique para ver</SubTitleText>
+                    </BudgetTextContainer>
+                  </BudgetInfoContainer>
+
+                  <BudgetInfoContainer
+                    style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
+                  >
+                    <SvgUri
+                      width="40"
+                      height="40"
+                      uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
+                    />
+                    <BudgetTextContainer>
+                      <TitleText style={{ color: colors.heading }}>
+                        3 Campanhas participantes
+                      </TitleText>
+                      <SubTitleText>Clique para ver</SubTitleText>
+                    </BudgetTextContainer>
+                  </BudgetInfoContainer>
                 </BudgetContainer>
 
                 <ActivityContainer>
                   <HeadingText>Atividades</HeadingText>
                 </ActivityContainer>
-              </>
-            )}
-          </ScrollView>
+              </ScrollView>
+            </>
+          )}
         </Container>
       </View>
     </>

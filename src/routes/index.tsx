@@ -18,8 +18,8 @@ const Routes: React.FC = () => {
     );
   }
 
-  // return <TabRoutes />;
-  return user ? <TabRoutes /> : <AuthRoutes />;
+  return <TabRoutes />;
+  // return user ? <TabRoutes /> : <AuthRoutes />;
 };
 
 export default Routes;

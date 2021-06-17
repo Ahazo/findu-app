@@ -9,7 +9,6 @@ type TabProps = {
 };
 export const Container = styled.View`
   flex: 1;
-  padding: 0 20px;
   margin-top: -${height * 0.05}px;
 `;
 
@@ -18,6 +17,7 @@ export const UserInfoContainer = styled.View`
   align-items: center;
   width: 100%;
   margin-top: 10px;
+  padding: 0 20px;
   height: ${height * 0.11}px;
 `;
 
@@ -76,7 +76,9 @@ export const ContainerIndication = styled.View`
 export const HeaderIndication = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  padding: 0 20px;
 `;
 
 export const HeadingText = styled.Text`
