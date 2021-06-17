@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { height, width } from '../../constants';
-import { TouchableOpacity } from 'react-native';
+
 interface IContainerProps {
   containerHeight: number;
 }

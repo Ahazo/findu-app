@@ -10,11 +10,9 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  StatusBar,
   ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -80,7 +78,6 @@ export function SignIn() {
             <Header
               logoDimensions={{ height: height * 0.06 }}
               heightPercentage={height * 0.4}
-              hasBackButton
               backButtonFakeStyle={{
                 position: 'absolute',
                 top: '5%',
@@ -246,7 +243,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.2,
   },
   singupContainer: {
-    marginTop: 20,
+    marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },

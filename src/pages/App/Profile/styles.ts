@@ -9,6 +9,7 @@ type TabProps = {
 };
 export const Container = styled.View`
   flex: 1;
+  padding: 0 20px;
   margin-top: -${height * 0.05}px;
 `;
 
@@ -16,15 +17,14 @@ export const UserInfoContainer = styled.View`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: ${height * 0.13}px;
-  margin-bottom: 10px;
-  padding: 0 20px;
+  margin-top: 10px;
+  height: ${height * 0.11}px;
 `;
 
 export const UserInfoContent = styled.View`
   background-color: white;
   width: 100%;
-  height: 80%;
+  height: 100%;
   border-radius: 30px;
   justify-content: center;
   align-items: center;

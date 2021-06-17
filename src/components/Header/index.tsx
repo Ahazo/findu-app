@@ -10,6 +10,7 @@ import colors from '../../styles/colors';
 import { useNavigation } from '@react-navigation/core';
 
 import { SvgUri } from 'react-native-svg';
+import { useAuth } from '../../context/auth';
 
 interface IHeaderProps {
   hasBackButton?: boolean;
@@ -29,15 +30,21 @@ const Header = (data: IHeaderProps) => {
   const SizeBackButton = data.backButtonSize || 35;
 
   const navigation = useNavigation();
+  const { signOut } = useAuth();
 
   return (
-    <Container containerHeight={data.heightPercentage}>
+    <Container
+      style={{
+        borderBottomLeftRadius: 40,
+        borderBottomRightRadius: 40,
+        overflow: 'hidden',
+      }}
+      containerHeight={data.heightPercentage}
+    >
       <LinearGradient
         colors={[colors.purple, colors.blue_light]}
         style={{
           height: '100%',
-          borderBottomLeftRadius: 40,
-          borderBottomRightRadius: 40,
         }}
         start={{ x: 1, y: 0 }}
         end={{ x: 0, y: 1 }}
@@ -76,7 +83,7 @@ const Header = (data: IHeaderProps) => {
           />
           <View style={[styles.backbuttonfake2, data.settingButtonStyle]}>
             {data.hasSettingsButton && (
-              <TouchableOpacity>
+              <TouchableOpacity onPress={signOut}>
                 <SvgUri
                   width="25"
                   height="25"

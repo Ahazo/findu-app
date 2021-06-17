@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Header from '../../../components/Header';
 import { Friends } from './friends';
-import { height, width } from '../../../constants';
+import { height } from '../../../constants';
+
+import { SvgUri } from 'react-native-svg';
+import { ProgressBar } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import colors from '../../../styles/colors';
 
 import {
@@ -31,12 +36,62 @@ import {
   ActivityContainer,
 } from './styles';
 
-import { SvgUri } from 'react-native-svg';
-import { ProgressBar } from 'react-native-paper';
-import { ScrollView } from 'react-native-gesture-handler';
+interface IUserData {
+  person: {
+    id: number;
+    cpf: number;
+    email: string;
+    cellphone: string;
+    first_name: string;
+    last_name: string;
+    birth_date: Date;
+    address_id: number;
+    created_at: Date;
+    updated_at: Date;
+  };
+  id: number;
+  person_id: number;
+  username: string;
+  password: string;
+  status: string;
+  experience: number;
+  recommendations_count: number;
+  followers_count: number;
+  campaigns_count: number;
+  created_at: Date;
+  updated_at: Date;
+}
 
 export function Profile() {
   const [open, setOpen] = useState(false);
+  const [userData, setUserData] = useState({} as IUserData);
+
+  useEffect(() => {
+    const loadUserData = async () => {
+      await AsyncStorage.getItem('@Ahazo:user').then(value => {
+        if (value) {
+          setUserData(JSON.parse(value));
+        }
+      });
+    };
+
+    loadUserData();
+  }, []);
+
+  if (!userData) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        SEM USUÁRIO
+      </View>
+    );
+  }
+
   return (
     <>
       <View style={{ flex: 1 }}>
@@ -96,7 +151,8 @@ export function Profile() {
               flex: 1,
             }}
             contentContainerStyle={{
-              padding: 20,
+              paddingVertical: 10,
+              paddingTop: 20,
               paddingBottom: 100,
             }}
           >
@@ -185,38 +241,6 @@ export function Profile() {
                       <SubTitleText>Clique para ver</SubTitleText>
                     </BudgetTextContainer>
                   </BudgetInfoContainer>
-                  <BudgetInfoContainer
-                    style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
-                  >
-                    <SvgUri
-                      width="40"
-                      height="40"
-                      uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
-                    />
-                    <BudgetTextContainer>
-                      <TitleText style={{ color: colors.heading }}>
-                        3 Campanhas participantes
-                      </TitleText>
-                      <SubTitleText>Clique para ver</SubTitleText>
-                    </BudgetTextContainer>
-                  </BudgetInfoContainer>
-
-                  <BudgetInfoContainer
-                    style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
-                  >
-                    <SvgUri
-                      width="40"
-                      height="40"
-                      uri="https://storage.googleapis.com/images-ahazo-dev/dev-images/coupom.svg"
-                    />
-                    <BudgetTextContainer>
-                      <TitleText style={{ color: colors.heading }}>
-                        3 Campanhas participantes
-                      </TitleText>
-                      <SubTitleText>Clique para ver</SubTitleText>
-                    </BudgetTextContainer>
-                  </BudgetInfoContainer>
-
                   <BudgetInfoContainer
                     style={[{ borderTopLeftRadius: 8 }, styles.shadow]}
                   >
