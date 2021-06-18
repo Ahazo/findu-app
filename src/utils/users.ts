@@ -41,4 +41,34 @@ export const user = [
     url:
       'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
   },
+  {
+    id: '8',
+    name: 'Ana Garcia',
+    url:
+      'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+  },
+  {
+    id: '9',
+    name: 'Ana Garcia',
+    url:
+      'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+  },
+  {
+    id: '10',
+    name: 'Ana Garcia',
+    url:
+      'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+  },
+  {
+    id: '11',
+    name: 'Ana Garcia',
+    url:
+      'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+  },
+  {
+    id: '12',
+    name: 'Ana Garcia',
+    url:
+      'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+  },
 ];

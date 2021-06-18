@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Header from '../../../components/Header';
-import { Friends } from './friends';
+import { Friends } from './Friend';
 import { height } from '../../../constants';
 
 import { SvgUri } from 'react-native-svg';
