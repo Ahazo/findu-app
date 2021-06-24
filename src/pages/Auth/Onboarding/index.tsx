@@ -11,9 +11,9 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/core';
-import colors from '../../styles/colors';
-import fonts from '../../styles/fonts';
-import Button from '../../components/Button';
+import colors from '../../../styles/colors';
+import fonts from '../../../styles/fonts';
+import Button from '../../../components/Button';
 
 interface ISlider {
   currentPage: number;

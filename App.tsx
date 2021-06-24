@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,7 +13,6 @@ import {
 
 import AppProvider from './src/context/index';
 import Routes from './src/routes';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
