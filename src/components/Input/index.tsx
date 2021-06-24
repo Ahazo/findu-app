@@ -4,6 +4,7 @@ import { FieldErrors } from 'react-hook-form';
 import { ContainerInput, InputText, InputError } from './styles';
 
 import { Feather } from '@expo/vector-icons';
+import colors from '../../styles/colors';
 
 export interface InputHandleInterface {
   focus: () => void;
@@ -61,6 +62,9 @@ const Input: React.ForwardRefRenderFunction<
           value={inputValue}
           ref={inputElementRef}
           {...rest}
+          placeholderTextColor={
+            errors[inputField] ? colors.red : colors.body_light
+          }
         />
       </ContainerInput>
       {/* Erro de input */}
