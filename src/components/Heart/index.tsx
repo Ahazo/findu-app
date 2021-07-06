@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ViewStyle } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaskedView from '@react-native-community/masked-view';
@@ -8,11 +8,12 @@ import colors from '../../styles/colors';
 interface HeartProps {
   size: number;
   liked?: boolean;
+  style?: ViewStyle;
 }
 
-export function Heart({ liked = false, size, ...rest }: HeartProps) {
+export function Heart({ liked = false, size, style }: HeartProps) {
   return (
-    <View style={{ width: size }} {...rest}>
+    <View style={{ width: size, ...style }}>
       <MaskedView
         style={{ flex: 1, flexDirection: 'row', height: size }}
         maskElement={

@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 import Header from '../../../components/Header';
@@ -15,6 +16,9 @@ import { height } from '../../../constants';
 import { posts } from '../../../utils/posts';
 import { Heart } from '../../../components/Heart';
 import { Rating } from '../../../components/Rating';
+import fonts from '../../../styles/fonts';
+import colors from '../../../styles/colors';
+
 export function Explorer() {
   function renderCreateRating() {
     return (
@@ -44,7 +48,7 @@ export function Explorer() {
             flexDirection: 'row',
             alignItems: 'center',
             marginTop: 10,
-            marginLeft: 15,
+            marginLeft: 20,
           }}
         >
           <View
@@ -62,7 +66,7 @@ export function Explorer() {
               style={{
                 height: '100%',
                 width: '100%',
-                borderRadius: 10,
+                borderRadius: 20,
               }}
             />
           </View>
@@ -70,23 +74,33 @@ export function Explorer() {
           <View
             style={{
               flexDirection: 'row',
-              backgroundColor: '#eee',
+              backgroundColor: colors.grey,
               alignItems: 'center',
               justifyContent: 'space-between',
               borderRadius: 15,
-              marginHorizontal: 15,
+              marginLeft: 10,
+              marginRight: 20,
               paddingHorizontal: 10,
               paddingVertical: 5,
               flex: 1,
             }}
           >
             <TextInput
-              style={{ flex: 1, backgroundColor: '#eee', marginRight: 5 }}
+              style={{ flex: 1, backgroundColor: colors.grey, marginRight: 5 }}
               placeholder="Comentar..."
+              placeholderTextColor={colors.body}
             />
 
             <TouchableOpacity>
-              <Text>Enviar</Text>
+              <Text
+                style={{
+                  color: colors.blue,
+                  fontFamily: fonts.text,
+                  fontSize: 16,
+                }}
+              >
+                Enviar
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -139,12 +153,13 @@ export function Explorer() {
         key={post.id}
         style={{
           marginTop: 20,
-          paddingBottom: 10,
+          paddingBottom: 20,
           elevation: 1,
+          backgroundColor: colors.white,
           borderTopRightRadius: 40,
           borderTopLeftRadius: 8,
-          borderBottomRightRadius: 20,
-          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 40,
+          borderBottomLeftRadius: 40,
         }}
       >
         {/* CONTAINER IMAGE POST*/}
@@ -171,10 +186,11 @@ export function Explorer() {
         <View
           style={{
             flexDirection: 'row',
-            marginLeft: 15,
+            marginLeft: 10,
             marginTop: 10,
           }}
         >
+          {/* IMAGE */}
           <View
             style={{
               height: 50,
@@ -195,15 +211,73 @@ export function Explorer() {
           </View>
 
           <View style={{ marginLeft: 10 }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontFamily: fonts.semibold,
+                color: colors.purple,
+              }}
+            >
               {post.username}
             </Text>
-            <Text style={{ fontSize: 14 }}>{post.body}</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginBottom: 4,
+              }}
+            >
+              <Text style={{ fontSize: 12, fontFamily: fonts.text }}>
+                Avaliou
+              </Text>
+              <Text
+                style={{
+                  color: colors.blue,
+                  marginLeft: 4,
+                  marginRight: 6,
+                  fontFamily: fonts.text,
+                  fontSize: 12,
+                }}
+              >
+                {post.establishment.name}
+              </Text>
+              <Rating size={20} rate={4.7} color="#f5dd2a" />
+            </View>
+            <Text style={{ fontSize: 14, fontFamily: fonts.text }}>
+              {post.body}
+            </Text>
           </View>
-          {/* <Heart size={30} liked={true} /> */}
-        </View>
-        <Rating />
 
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'flex-end',
+              flexDirection: 'row',
+              marginRight: 10,
+            }}
+          >
+            <Text
+              style={{ fontSize: 14, fontFamily: fonts.text, marginRight: 6 }}
+            >
+              {post.likeCount}
+            </Text>
+            <Heart size={20} liked={true} />
+          </View>
+        </View>
+
+        <TouchableOpacity>
+          <View style={{ marginLeft: 20, marginVertical: 15 }}>
+            <Text
+              style={{
+                color: colors.blue,
+                fontFamily: fonts.text,
+                fontSize: 16,
+              }}
+            >
+              Ver todos {post.commnents_count} comentários
+            </Text>
+          </View>
+        </TouchableOpacity>
         {/* {post.comments.map(comment => comments(comment))} */}
         {inputPost()}
       </View>
