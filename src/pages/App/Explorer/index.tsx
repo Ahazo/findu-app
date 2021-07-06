@@ -13,6 +13,8 @@ import {
 import Header from '../../../components/Header';
 import { height } from '../../../constants';
 import { posts } from '../../../utils/posts';
+import { Heart } from '../../../components/Heart';
+import { Rating } from '../../../components/Rating';
 export function Explorer() {
   function renderCreateRating() {
     return (
@@ -153,7 +155,7 @@ export function Explorer() {
         >
           <Image
             source={{
-              uri: post.postPhotos.uri,
+              uri: post.photos[0].uri,
             }}
             resizeMode="cover"
             style={{
@@ -181,7 +183,7 @@ export function Explorer() {
           >
             <Image
               source={{
-                uri: post.user.userPhotos.uri,
+                uri: post.userPhotoUri,
               }}
               resizeMode="contain"
               style={{
@@ -194,13 +196,15 @@ export function Explorer() {
 
           <View style={{ marginLeft: 10 }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-              {post.user.username}
+              {post.username}
             </Text>
             <Text style={{ fontSize: 14 }}>{post.body}</Text>
           </View>
+          {/* <Heart size={30} liked={true} /> */}
         </View>
+        <Rating />
 
-        {post.comments.map(comment => comments(comment))}
+        {/* {post.comments.map(comment => comments(comment))} */}
         {inputPost()}
       </View>
     ));

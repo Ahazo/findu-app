@@ -1,56 +1,37 @@
 export const posts = [
   {
     id: '1',
-    user: {
-      username: 'Giovana',
-      userPhotos: {
+    username: 'Giovana',
+    userPhotoUri:
+      'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+    likeCount: 200,
+    rate: 4.5,
+    body: 'Nota 10, que lugar incrível',
+    commnents_count: 500,
+    photos: [
+      {
         uri:
           'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
       },
-    },
-    body: 'Nota 10, que lugar incrível',
-    postPhotos: {
-      uri:
-        'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
-    },
-    comments: [
-      {
-        user: {
-          username: 'guilherme',
-          userPhotos: {
-            uri:
-              'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
-          },
-        },
-        content: 'Top demais esse lugar',
-      },
+      // {
+      //   uri:
+      //     'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+      // },
     ],
-  },
-  {
-    id: '2',
-    user: {
-      username: 'Giovana',
-      userPhotos: {
-        uri:
-          'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
-      },
+    establishment: {
+      name: 'PURANA',
     },
-    body: 'Nota 10, que lugar incrível',
-    postPhotos: {
-      uri:
-        'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
-    },
-    comments: [
-      {
-        user: {
-          username: 'guilherme',
-          userPhotos: {
-            uri:
-              'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
-          },
-        },
-        content: 'Top demais esse lugar',
-      },
-    ],
+    // comments: [
+    //   {
+    //     user: {
+    //       username: 'guilherme',
+    //       userPhotos: {
+    //         uri:
+    //           'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+    //       },
+    //     },
+    //     content: 'Top demais esse lugar',
+    //   },
+    // ],
   },
 ];
