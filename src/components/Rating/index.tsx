@@ -7,7 +7,7 @@ interface RatingProps {
   size: number;
   color?: string;
 }
-export function Rating({ color = '#aaa', rate, size }: RatingProps) {
+export default function Rating({ color = '#aaa', rate, size }: RatingProps) {
   let star = [0, 0, 0, 0, 0];
   let starFloor = Math.floor(rate);
   let decimal = rate - starFloor;

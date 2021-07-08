@@ -9,13 +9,16 @@ import {
   Platform,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Modal,
 } from 'react-native';
 
 import Header from '../../../components/Header';
 import { height } from '../../../constants';
 import { posts } from '../../../utils/posts';
-import { Heart } from '../../../components/Heart';
-import { Rating } from '../../../components/Rating';
+import Heart from '../../../components/Heart';
+import Rating from '../../../components/Rating';
+import PostImage from '../../../components/PostImage';
+
 import fonts from '../../../styles/fonts';
 import colors from '../../../styles/colors';
 
@@ -163,24 +166,7 @@ export function Explorer() {
         }}
       >
         {/* CONTAINER IMAGE POST*/}
-        <View
-          style={{
-            height: 180,
-          }}
-        >
-          <Image
-            source={{
-              uri: post.photos[0].uri,
-            }}
-            resizeMode="cover"
-            style={{
-              height: '100%',
-              width: '100%',
-              borderTopLeftRadius: 8,
-              borderTopRightRadius: 40,
-            }}
-          />
-        </View>
+        <PostImage photos={post.photos} />
 
         {/* CONTAINER INFO POST */}
         <View
