@@ -5,10 +5,13 @@ import {
   TouchableOpacity,
   Modal,
   Text,
-  StyleSheet,
+  ScrollView,
+  NativeScrollEvent,
+  Alert,
 } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+
 import { width, height } from '../../constants/index';
+import colors from '../../styles/colors';
 interface PostImageProps {
   photos: {
     uri: string;
@@ -28,13 +31,24 @@ const photos2 = [
 
 function PostImage({ photos }: PostImageProps) {
   const [photo, setPhoto] = useState(photos);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
     setPhoto(photos);
   }, [photos]);
 
   function handleImagePress() {
-    console.log('IMAGE');
+    setModalVisible(true);
+  }
+
+  function scrollChange(nativeEvent: NativeScrollEvent) {
+    const slide = Math.ceil(
+      nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
+    );
+    if (slide !== activeSlide) {
+      setActiveSlide(slide);
+    }
   }
   return (
     <View
@@ -43,29 +57,67 @@ function PostImage({ photos }: PostImageProps) {
         flexDirection: 'row',
       }}
     >
-      <Modal visible={true}>
-        <View style={{ flex: 1, backgroundColor: 'red' }}>
-          <ScrollView
-            style={{ width, height }}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-          >
-            {photos2.map((p, index) => (
-              <>
+      <Modal
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        {/* OVERLAY */}
+        <View
+          style={{
+            backgroundColor: 'rgba(0,0,0,0.3)',
+            height,
+            justifyContent: 'center',
+          }}
+        >
+          <View>
+            <ScrollView
+              style={{ width, height: height / 2 }}
+              horizontal
+              pagingEnabled
+              scrollEventThrottle={16}
+              showsHorizontalScrollIndicator={false}
+              onScroll={e => scrollChange(e.nativeEvent)}
+            >
+              {photos2.map((p, index) => (
                 <Image
+                  key={index}
                   source={{
                     uri: p.uri,
                   }}
                   style={{
-                    height: height,
+                    height: height / 2,
                     width: width,
                     resizeMode: 'contain',
+                    backgroundColor: '#000',
                   }}
                 />
-              </>
-            ))}
-          </ScrollView>
+              ))}
+            </ScrollView>
+            <View
+              style={{
+                flexDirection: 'row',
+                position: 'absolute',
+                bottom: 4,
+                alignSelf: 'center',
+              }}
+            >
+              {photos2.map((p, index) => (
+                <View
+                  key={index}
+                  style={{
+                    height: 15,
+                    width: 15,
+                    borderRadius: 10,
+                    backgroundColor: colors.blue,
+                    marginLeft: 10,
+                    opacity: activeSlide === index ? 1 : 0.5,
+                  }}
+                />
+              ))}
+            </View>
+          </View>
         </View>
       </Modal>
 
