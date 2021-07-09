@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Image,
@@ -7,8 +7,10 @@ import {
   Text,
   ScrollView,
   NativeScrollEvent,
-  Alert,
+  Button,
 } from 'react-native';
+
+import ModalPostImage from './ModalPostImage';
 
 import { width, height } from '../../constants/index';
 import colors from '../../styles/colors';
@@ -32,7 +34,6 @@ const photos2 = [
 function PostImage({ photos }: PostImageProps) {
   const [photo, setPhoto] = useState(photos);
   const [modalVisible, setModalVisible] = useState(false);
-  const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
     setPhoto(photos);
@@ -42,14 +43,6 @@ function PostImage({ photos }: PostImageProps) {
     setModalVisible(true);
   }
 
-  function scrollChange(nativeEvent: NativeScrollEvent) {
-    const slide = Math.ceil(
-      nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
-    );
-    if (slide !== activeSlide) {
-      setActiveSlide(slide);
-    }
-  }
   return (
     <View
       style={{
@@ -57,70 +50,11 @@ function PostImage({ photos }: PostImageProps) {
         flexDirection: 'row',
       }}
     >
-      <Modal
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        {/* OVERLAY */}
-        <View
-          style={{
-            backgroundColor: 'rgba(0,0,0,0.3)',
-            height,
-            justifyContent: 'center',
-          }}
-        >
-          <View>
-            <ScrollView
-              style={{ width, height: height / 2 }}
-              horizontal
-              pagingEnabled
-              scrollEventThrottle={16}
-              showsHorizontalScrollIndicator={false}
-              onScroll={e => scrollChange(e.nativeEvent)}
-            >
-              {photos2.map((p, index) => (
-                <Image
-                  key={index}
-                  source={{
-                    uri: p.uri,
-                  }}
-                  style={{
-                    height: height / 2,
-                    width: width,
-                    resizeMode: 'contain',
-                    backgroundColor: '#000',
-                  }}
-                />
-              ))}
-            </ScrollView>
-            <View
-              style={{
-                flexDirection: 'row',
-                position: 'absolute',
-                bottom: 4,
-                alignSelf: 'center',
-              }}
-            >
-              {photos2.map((p, index) => (
-                <View
-                  key={index}
-                  style={{
-                    height: 15,
-                    width: 15,
-                    borderRadius: 10,
-                    backgroundColor: colors.blue,
-                    marginLeft: 10,
-                    opacity: activeSlide === index ? 1 : 0.5,
-                  }}
-                />
-              ))}
-            </View>
-          </View>
-        </View>
-      </Modal>
-
+      <ModalPostImage
+        photos={photos2}
+        modalIsOpen={modalVisible}
+        onChangeModalVisible={setModalVisible}
+      />
       {photo.length === 1 && (
         <TouchableOpacity
           style={{ flex: 1 }}
