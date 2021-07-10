@@ -7,7 +7,7 @@ export const posts = [
     likeCount: 200,
     rate: 4.5,
     body: 'Nota 10, que lugar incrível',
-    commnents_count: 500,
+    comments_count: 500,
     photos: [
       {
         uri:
@@ -42,7 +42,7 @@ export const posts = [
     likeCount: 200,
     rate: 4.5,
     body: 'Nota 10, que lugar incrível',
-    commnents_count: 500,
+    comments_count: 500,
     photos: [
       {
         uri:

@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Modal,
+  FlatList,
 } from 'react-native';
 
 import Header from '../../../components/Header';
@@ -22,6 +23,21 @@ import PostImage from '../../../components/PostImage';
 import fonts from '../../../styles/fonts';
 import colors from '../../../styles/colors';
 
+interface PostProps {
+  id: string;
+  username: string;
+  userPhotoUri: string;
+  likeCount: number;
+  rate: number;
+  body: string;
+  comments_count: number;
+  photos: {
+    uri: string;
+  }[];
+  establishment: {
+    name: string;
+  };
+}
 export function Explorer() {
   function renderCreateRating() {
     return (
@@ -110,164 +126,136 @@ export function Explorer() {
       );
     };
 
-    const comments = comment => {
+    const renderItem = ({ item }: { item: PostProps }) => {
       return (
         <View
-          key={comment.user.username}
+          key={item.id}
           style={{
-            flexDirection: 'row',
-            alignItems: 'flex-end',
             marginTop: 20,
-            marginLeft: 15,
+            paddingBottom: 20,
+            elevation: 1,
+            backgroundColor: colors.white,
+            borderTopRightRadius: 40,
+            borderTopLeftRadius: 8,
+            borderBottomRightRadius: 40,
+            borderBottomLeftRadius: 40,
           }}
         >
+          {/* CONTAINER IMAGE POST*/}
+          <PostImage photos={item.photos} />
+
+          {/* CONTAINER INFO POST */}
           <View
             style={{
-              height: 35,
-              width: 35,
+              flexDirection: 'row',
+              marginLeft: 10,
+              marginTop: 10,
             }}
           >
-            <Image
-              source={{
-                uri: comment.user.userPhotos.uri,
-              }}
-              resizeMode="contain"
+            {/* IMAGE */}
+            <View
               style={{
-                height: '100%',
-                width: '100%',
-                borderRadius: 10,
+                height: 50,
+                width: 50,
               }}
-            />
+            >
+              <Image
+                source={{
+                  uri: item.userPhotoUri,
+                }}
+                resizeMode="contain"
+                style={{
+                  height: '100%',
+                  width: '100%',
+                  borderRadius: 10,
+                }}
+              />
+            </View>
+
+            <View style={{ marginLeft: 10 }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontFamily: fonts.semibold,
+                  color: colors.purple,
+                }}
+              >
+                {item.username}
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginBottom: 4,
+                }}
+              >
+                <Text style={{ fontSize: 12, fontFamily: fonts.text }}>
+                  Avaliou
+                </Text>
+                <Text
+                  style={{
+                    color: colors.blue,
+                    marginLeft: 4,
+                    marginRight: 6,
+                    fontFamily: fonts.text,
+                    fontSize: 12,
+                  }}
+                >
+                  {item.establishment.name}
+                </Text>
+                <Rating size={20} rate={4.7} color="#f5dd2a" />
+              </View>
+              <Text style={{ fontSize: 14, fontFamily: fonts.text }}>
+                {item.body}
+              </Text>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'flex-end',
+                flexDirection: 'row',
+                marginRight: 10,
+              }}
+            >
+              <Text
+                style={{ fontSize: 14, fontFamily: fonts.text, marginRight: 6 }}
+              >
+                {item.likeCount}
+              </Text>
+              <Heart size={20} liked={true} />
+            </View>
           </View>
 
-          <View style={{ marginLeft: 10 }}>
-            <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
-              {comment.user.username}
-            </Text>
-            <Text style={{ fontSize: 14 }}>{comment.content}</Text>
-          </View>
+          <TouchableOpacity>
+            <View style={{ marginLeft: 20, marginVertical: 15 }}>
+              <Text
+                style={{
+                  color: colors.blue,
+                  fontFamily: fonts.text,
+                  fontSize: 16,
+                }}
+              >
+                Ver todos {item.comments_count} comentários
+              </Text>
+            </View>
+          </TouchableOpacity>
+          {inputPost()}
         </View>
       );
     };
 
     // MAIN RETURN OF THE FUNCTION
-    return posts.map(post => (
-      <View
-        key={post.id}
-        style={{
-          marginTop: 20,
-          paddingBottom: 20,
-          elevation: 1,
-          backgroundColor: colors.white,
-          borderTopRightRadius: 40,
-          borderTopLeftRadius: 8,
-          borderBottomRightRadius: 40,
-          borderBottomLeftRadius: 40,
-        }}
-      >
-        {/* CONTAINER IMAGE POST*/}
-        <PostImage photos={post.photos} />
-
-        {/* CONTAINER INFO POST */}
-        <View
-          style={{
-            flexDirection: 'row',
-            marginLeft: 10,
-            marginTop: 10,
-          }}
-        >
-          {/* IMAGE */}
-          <View
-            style={{
-              height: 50,
-              width: 50,
-            }}
-          >
-            <Image
-              source={{
-                uri: post.userPhotoUri,
-              }}
-              resizeMode="contain"
-              style={{
-                height: '100%',
-                width: '100%',
-                borderRadius: 10,
-              }}
-            />
-          </View>
-
-          <View style={{ marginLeft: 10 }}>
-            <Text
-              style={{
-                fontSize: 20,
-                fontFamily: fonts.semibold,
-                color: colors.purple,
-              }}
-            >
-              {post.username}
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 4,
-              }}
-            >
-              <Text style={{ fontSize: 12, fontFamily: fonts.text }}>
-                Avaliou
-              </Text>
-              <Text
-                style={{
-                  color: colors.blue,
-                  marginLeft: 4,
-                  marginRight: 6,
-                  fontFamily: fonts.text,
-                  fontSize: 12,
-                }}
-              >
-                {post.establishment.name}
-              </Text>
-              <Rating size={20} rate={4.7} color="#f5dd2a" />
-            </View>
-            <Text style={{ fontSize: 14, fontFamily: fonts.text }}>
-              {post.body}
-            </Text>
-          </View>
-
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'flex-end',
-              flexDirection: 'row',
-              marginRight: 10,
-            }}
-          >
-            <Text
-              style={{ fontSize: 14, fontFamily: fonts.text, marginRight: 6 }}
-            >
-              {post.likeCount}
-            </Text>
-            <Heart size={20} liked={true} />
-          </View>
-        </View>
-
-        <TouchableOpacity>
-          <View style={{ marginLeft: 20, marginVertical: 15 }}>
-            <Text
-              style={{
-                color: colors.blue,
-                fontFamily: fonts.text,
-                fontSize: 16,
-              }}
-            >
-              Ver todos {post.commnents_count} comentários
-            </Text>
-          </View>
-        </TouchableOpacity>
-        {/* {post.comments.map(comment => comments(comment))} */}
-        {inputPost()}
-      </View>
-    ));
+    return (
+      <FlatList
+        style={{ flex: 1 }}
+        data={posts}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        contentContainerStyle={{ paddingBottom: 110 }}
+        showsVerticalScrollIndicator={false}
+      />
+    );
   }
   return (
     <KeyboardAvoidingView
@@ -292,15 +280,10 @@ export function Explorer() {
           }}
         />
 
-        <ScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={{ paddingBottom: 110 }}
-        >
-          <View style={{ paddingHorizontal: 20 }}>
-            {renderCreateRating()}
-            {renderPost()}
-          </View>
-        </ScrollView>
+        <View style={{ paddingHorizontal: 20, flex: 1 }}>
+          {renderCreateRating()}
+          {renderPost()}
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
