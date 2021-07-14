@@ -22,7 +22,14 @@ import PostImage from '../../../components/PostImage';
 
 import fonts from '../../../styles/fonts';
 import colors from '../../../styles/colors';
+import { useNavigation } from '@react-navigation/native';
 
+type UserCommentProps = {
+  username: string;
+  userPhotos: {
+    uri: string;
+  };
+};
 interface PostProps {
   id: string;
   username: string;
@@ -31,6 +38,10 @@ interface PostProps {
   rate: number;
   body: string;
   comments_count: number;
+  comments: {
+    user: UserCommentProps;
+    content: string;
+  }[];
   photos: {
     uri: string;
   }[];
@@ -39,6 +50,8 @@ interface PostProps {
   };
 }
 export function Explorer() {
+  const navigation = useNavigation();
+
   function renderCreateRating() {
     return (
       <View
@@ -227,7 +240,18 @@ export function Explorer() {
             </View>
           </View>
 
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Comments', {
+                comments: item.comments,
+                user: {
+                  name: item.username,
+                  photo: item.userPhotoUri,
+                  text: item.body,
+                },
+              })
+            }
+          >
             <View style={{ marginLeft: 20, marginVertical: 15 }}>
               <Text
                 style={{

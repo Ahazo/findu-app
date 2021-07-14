@@ -21,18 +21,38 @@ export const posts = [
     establishment: {
       name: 'PURANA',
     },
-    // comments: [
-    //   {
-    //     user: {
-    //       username: 'guilherme',
-    //       userPhotos: {
-    //         uri:
-    //           'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
-    //       },
-    //     },
-    //     content: 'Top demais esse lugar',
-    //   },
-    // ],
+    comments: [
+      {
+        user: {
+          username: 'guilherme',
+          userPhotos: {
+            uri:
+              'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+          },
+        },
+        content: 'Top demais esse lugar',
+      },
+      {
+        user: {
+          username: 'Juliana Dias',
+          userPhotos: {
+            uri:
+              'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+          },
+        },
+        content: 'Nota 10',
+      },
+      {
+        user: {
+          username: 'Carol Mendes',
+          userPhotos: {
+            uri:
+              'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+          },
+        },
+        content: 'Top demais esse lugar',
+      },
+    ],
   },
   {
     id: '2',
@@ -56,17 +76,27 @@ export const posts = [
     establishment: {
       name: 'PURANA',
     },
-    // comments: [
-    //   {
-    //     user: {
-    //       username: 'guilherme',
-    //       userPhotos: {
-    //         uri:
-    //           'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
-    //       },
-    //     },
-    //     content: 'Top demais esse lugar',
-    //   },
-    // ],
+    comments: [
+      {
+        user: {
+          username: 'guilherme',
+          userPhotos: {
+            uri:
+              'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+          },
+        },
+        content: 'Top demais esse lugar',
+      },
+      {
+        user: {
+          username: 'Juliana Dias',
+          userPhotos: {
+            uri:
+              'https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg',
+          },
+        },
+        content: 'Nota 10',
+      },
+    ],
   },
 ];
