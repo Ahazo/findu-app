@@ -53,9 +53,7 @@ const AuthProvider: React.FC = ({ children }) => {
         '@Ahazo:token',
         '@Ahazo:user',
       ]);
-
-      console.log(token, user);
-
+      
       if (token[1] && user[1]) {
         api.defaults.headers.authorization = `Bearer ${token[1]}`;
         setUserData({ token: token[1], user: JSON.parse(user[1]) });

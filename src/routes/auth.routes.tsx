@@ -14,7 +14,7 @@ const Auth = createStackNavigator();
 export default function AuthRoutes() {
   return (
     <Auth.Navigator
-      initialRouteName="SignIn"
+      initialRouteName="Onboarding"
       headerMode="none"
       screenOptions={{
         cardStyle: {
@@ -22,7 +22,7 @@ export default function AuthRoutes() {
         },
       }}
     >
-      <Auth.Screen name="Welcome" component={Welcome} />
+      {/* <Auth.Screen name="Welcome" component={Welcome} /> */}
       <Auth.Screen name="Onboarding" component={Onboarding} />
 
       <Auth.Screen name="SignIn" component={SignIn} />

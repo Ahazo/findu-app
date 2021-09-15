@@ -290,14 +290,14 @@ export function Explorer() {
     >
       <View style={{ flex: 1 }}>
         <Header
-          heightPercentage={height * 0.2}
-          position="flex-end"
           hasBackButton
           backButtonFakeStyle={{
             position: 'absolute',
             top: '65%',
             left: 20,
           }}
+          heightPercentage={height * 0.2}
+          position="flex-end"
           logoDimensions={{ height: height * 0.07 }}
           contentStyle={{
             marginBottom: height * 0.07,

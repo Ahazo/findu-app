@@ -69,8 +69,12 @@ export function Profile() {
   useEffect(() => {
     const loadUserData = async () => {
       await AsyncStorage.getItem('@Ahazo:user').then(value => {
-        if (value) {
-          setUserData(JSON.parse(value));
+        // if (!value || value == null) {
+        //   console.error('UNABLE TO GET ASYNC STORAGE');
+        // }
+
+        if(value) {
+          setUserData(JSON.parse(value))
         }
       });
     };
@@ -122,7 +126,7 @@ export function Profile() {
                 />
               </ProfileContainer>
               <InfoContainer>
-                <UserName>Júlia Alves</UserName>
+                <UserName>{userData.person.first_name + ' ' + userData.person.last_name}</UserName>
                 <LevelDescription>Mestra da Indicação</LevelDescription>
                 <LevelTitle>Nivel 3</LevelTitle>
                 <ProgressBar
