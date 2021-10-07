@@ -7,17 +7,28 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Dashboard } from '../pages/App/Dashboard';
 import { Explorer } from '../pages/App/Explorer';
 import { Profile } from '../pages/App/Profile';
+import { Comments } from '../pages/App/Explorer/Comments';
 
 import colors from '../styles/colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import { height, width } from '../constants';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
+function MyStack() {
+  return (
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="ExplorerHome" component={Explorer} />
+      <Stack.Screen name="Comments" component={Comments} />
+    </Stack.Navigator>
+  );
+}
 export default function TabRoutes() {
   return (
     <Tab.Navigator
-      initialRouteName='Dashboard'
+      initialRouteName="Explorer"
       tabBarOptions={{
         showLabel: false,
         style: {
@@ -29,37 +40,64 @@ export default function TabRoutes() {
           borderTopLeftRadius: 40,
           justifyContent: 'center',
           alignItems: 'center',
-        }
+        },
       }}
     >
-        <Tab.Screen name='Dashboard' component={Dashboard} options={{
+      <Tab.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.firstContainer}>
-              <Feather name="home" size={24} color={focused ? colors.purple_dark : colors.body_light}/>
+              <Feather
+                name="home"
+                size={24}
+                color={focused ? colors.purple_dark : colors.body_light}
+              />
             </View>
-          )
-        }}/>
-        <Tab.Screen name='Explorer' component={Explorer} options={{
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Explorer"
+        component={MyStack}
+        options={{
           tabBarIcon: ({ focused }) => (
             <View style={[styles.middleContainer, styles.shadow]}>
-              <LinearGradient 
+              <LinearGradient
                 colors={[colors.purple, colors.blue_light]}
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 0 }}
-                style={{position: 'absolute', right: 0, left: 0, top: 0, bottom: 0, borderRadius: 25,}}
+                style={{
+                  position: 'absolute',
+                  right: 0,
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  borderRadius: 25,
+                }}
               />
-              <Feather name="search" size={24} color={colors.white }/>
+              <Feather name="search" size={24} color={colors.white} />
             </View>
-          )
-        }}/>
-        <Tab.Screen name='Profile' component={Profile} options={{
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.thirdContainer}>
-              <Feather name="user" size={24} color={focused ? colors.purple_dark : colors.body_light}/>
+              <Feather
+                name="user"
+                size={24}
+                color={focused ? colors.purple_dark : colors.body_light}
+              />
             </View>
-          )
-        }}/>
-      </Tab.Navigator>  
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
@@ -72,7 +110,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 40,
     borderTopLeftRadius: 40,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   firstContainer: {
     justifyContent: 'center',
@@ -107,6 +145,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.5,
-    elevation: 5
+    elevation: 5,
   },
-})
+});

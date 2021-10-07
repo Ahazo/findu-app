@@ -30,16 +30,6 @@ export function Welcome() {
           style={styles.logo}
         />
         <View style={styles.buttonWrapper}>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Onboarding')}>
-            <Text style={styles.buttonText}>
-              USUÁRIO
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Onboarding')}>
-            <Text style={styles.buttonText}>
-              LOJA
-            </Text>
-          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
