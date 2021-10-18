@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import Header from '../../../components/Header';
+import ColoredHeader from '../../../components/ColoredHeader';
 import { Friends } from './Friend';
 import { height } from '../../../constants';
 
@@ -69,9 +69,9 @@ export function Profile() {
   useEffect(() => {
     const loadUserData = async () => {
       await AsyncStorage.getItem('@Ahazo:user').then(value => {
-        // if (!value || value == null) {
-        //   console.error('UNABLE TO GET ASYNC STORAGE');
-        // }
+        if (!value || value === null) {
+          console.error('UNABLE TO GET ASYNC STORAGE');
+        }
 
         if(value) {
           setUserData(JSON.parse(value))
@@ -99,7 +99,7 @@ export function Profile() {
   return (
     <>
       <View style={{ flex: 1 }}>
-        <Header
+        <ColoredHeader
           heightPercentage={height * 0.2}
           position="flex-end"
           logoDimensions={{ height: height * 0.07 }}
@@ -126,7 +126,7 @@ export function Profile() {
                 />
               </ProfileContainer>
               <InfoContainer>
-                <UserName>{userData.person.first_name + ' ' + userData.person.last_name}</UserName>
+                <UserName>Qualquer Nome</UserName>
                 <LevelDescription>Mestra da Indicação</LevelDescription>
                 <LevelTitle>Nivel 3</LevelTitle>
                 <ProgressBar

@@ -9,8 +9,6 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import fonts from '../../../../styles/fonts';
 import colors from '../../../../styles/colors';
 
-// import { Container } from './styles';
-
 type UserCommentProps = {
   username: string;
   userPhotos: {

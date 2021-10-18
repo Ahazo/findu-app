@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Dimensions,
@@ -17,9 +17,11 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import Toast from 'react-native-toast-message';
+
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
-import Header from '../../../components/Header';
+import ColoredHeader from '../../../components/ColoredHeader';
 
 import { useAuth } from '../../../context/auth';
 
@@ -40,9 +42,12 @@ const schema = yup.object().shape({
     .min(5, 'Senha no mínimo com 5 caracteres'),
 });
 
-export function SignIn() {
+export const SignIn = () => {
   const navigation = useNavigation();
   const { signIn, user } = useAuth();
+
+  const [hasError, setHasError] = useState(false);
+  const [error, setErrorMessage] = useState<string>();
 
   const {
     control,
@@ -54,6 +59,16 @@ export function SignIn() {
 
   const passwordRef = useRef<TextInput>(null);
 
+  useEffect(() => {
+    if (hasError) {
+      Toast.show({
+        type: 'error',
+        text1: 'Opa :(',
+        text2: error
+      })
+    }
+  }, [hasError])
+
   async function onSubmit(data: FormDataType) {
     await signIn({
       username: data.username,
@@ -61,7 +76,8 @@ export function SignIn() {
     });
 
     if (!user) {
-      throw new Error('Usuário não encontrado.');
+      setHasError(true);
+      setErrorMessage('Usuario e/ou Senha incorretos')
     }
 
     navigation.navigate('Dashboard');
@@ -72,17 +88,13 @@ export function SignIn() {
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
+      <Toast ref={(ref) => Toast.setRef(ref)}/>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
           <ScrollView style={{ flex: 1 }}>
-            <Header
+            <ColoredHeader
               logoDimensions={{ height: height * 0.06 }}
               heightPercentage={height * 0.4}
-              backButtonFakeStyle={{
-                position: 'absolute',
-                top: '5%',
-                left: 20,
-              }}
               contentStyle={{
                 marginTop: height * 0.1,
               }}
@@ -93,7 +105,7 @@ export function SignIn() {
               <View style={styles.formContainer}>
                 <Text style={styles.title}>Vamos lá!</Text>
                 <Text style={styles.subtitle}>
-                  Entre com seus dados ou crie uma conta.
+                  Entre com seus dados ou crie uma conta
                 </Text>
                 <View style={styles.inputContainer}>
                   <Controller

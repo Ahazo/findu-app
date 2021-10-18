@@ -8,7 +8,7 @@ import { useAuth } from '../context/auth';
 import colors from '../styles/colors';
 
 const Routes: React.FC = () => {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, signOut } = useAuth();
 
   if (isLoading) {
     return (
