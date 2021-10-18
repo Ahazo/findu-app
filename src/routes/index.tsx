@@ -18,7 +18,6 @@ const Routes: React.FC = () => {
     );
   }
 
-  // return <TabRoutes />;
   return user ? <TabRoutes /> : <AuthRoutes />;
 };
 

@@ -41,7 +41,7 @@ export default function App() {
         <NavigationContainer>
           <AppProvider>
             <Routes/>
-            <StatusBar style="light" />
+            <StatusBar style="dark" />
           </AppProvider>
         </NavigationContainer>
       </>

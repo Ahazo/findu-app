@@ -1,14 +1,13 @@
 import React from 'react';
 import { View, Image } from 'react-native';
+import { height } from '../../constants';
 
 const Header = () => {
   return (
     <View>
       <Image
         style={{
-          borderWidth: 1,
-          borderColor: 'red',
-          height: "100%"
+          height: height*0.08,
         }}
         resizeMode="contain"
         source={{

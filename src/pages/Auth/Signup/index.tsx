@@ -103,7 +103,6 @@ export function SignUp() {
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={{ flex: 1 }}>
-          <StatusBar barStyle="light-content" />
           <ColoredHeader
             heightPercentage={height * 0.2}
             logoDimensions={{ height: height * 0.07 }}
