@@ -7,33 +7,23 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Dashboard } from '../pages/App/Dashboard';
 import { Explorer } from '../pages/App/Explorer';
 import { Profile } from '../pages/App/Profile';
-import { Comments } from '../pages/App/Explorer/Comments';
 
 import colors from '../styles/colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import { height, width } from '../constants';
-import { createStackNavigator } from '@react-navigation/stack';
+import { SvgUri } from 'react-native-svg';
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
-function MyStack() {
-  return (
-    <Stack.Navigator headerMode="none">
-      <Stack.Screen name="ExplorerHome" component={Explorer} />
-      <Stack.Screen name="Comments" component={Comments} />
-    </Stack.Navigator>
-  );
-}
 export default function TabRoutes() {
   return (
     <Tab.Navigator
-      initialRouteName="Explorer"
+      initialRouteName="Dashboard"
       tabBarOptions={{
         showLabel: false,
         style: {
           position: 'absolute',
-          backgroundColor: colors.white,
+          backgroundColor: colors.offWhite,
           height: 90,
           paddingBottom: 40,
           borderTopRightRadius: 40,
@@ -60,7 +50,7 @@ export default function TabRoutes() {
       />
       <Tab.Screen
         name="Explorer"
-        component={MyStack}
+        component={Explorer}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={[styles.middleContainer, styles.shadow]}>

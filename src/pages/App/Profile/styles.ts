@@ -1,150 +1,46 @@
 import styled from 'styled-components/native';
-
-import { height } from '../../../constants';
+import { height, width } from '../../../constants';
 import colors from '../../../styles/colors';
-import fonts from '../../../styles/fonts';
 
-type TabProps = {
-  active: boolean;
-};
 export const Container = styled.View`
   flex: 1;
-  margin-top: -${height * 0.05}px;
+  background-color: ${colors.white};
 `;
 
-export const UserInfoContainer = styled.View`
-  justify-content: center;
-  align-items: center;
+export const BannerProfileContainer = styled.View`
+    background-color: ${colors.purple_light};
+    height: ${height * 0.25}px;
+    border-bottom-left-radius: 25;
+    border-bottom-right-radius: 25;
+    overflow: hidden;
+`
+
+export const Content = styled.View`
+  padding: 0 ${width * 0.02}px;
+`;
+
+export const UserCardContainer = styled.View`
   width: 100%;
-  margin-top: 10px;
-  padding: 0 20px;
-  height: ${height * 0.11}px;
+  height: ${height * 0.2}px;
+  border-radius: 30;
+  padding: 10px 20px;
+
+  background-color: ${colors.red};
+
+  margin-top: -${height * 0.1};
 `;
 
-export const UserInfoContent = styled.View`
-  background-color: white;
-  width: 100%;
-  height: 100%;
-  border-radius: 30px;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-`;
-
-export const ProfileContainer = styled.View`
+export const UserCardContent = styled.View`
   flex: 1;
-  justify-content: center;
+  background-color: ${colors.blue_light};
+
   align-items: center;
-`;
-
-export const ProfilePhoto = styled.Image`
-  height: 52px;
-  width: 52px;
-  border-radius: 20px;
-`;
-
-export const InfoContainer = styled.View`
-  flex: 2;
-`;
-
-export const UserName = styled.Text`
-  font-family: ${fonts.heading};
-  font-size: 16px;
-  color: ${colors.heading};
-`;
-
-export const LevelDescription = styled.Text`
-  font-family: ${fonts.semibold};
-  font-size: 14px;
-  color: ${colors.body};
-`;
-
-export const LevelTitle = styled.Text`
-  font-family: ${fonts.semibold};
-  font-size: 12px;
-  color: ${colors.body_light};
-`;
-
-export const BadgeContainer = styled.View`
-  flex: 1;
-`;
-
-export const ContainerIndication = styled.View`
   justify-content: space-between;
 `;
 
-export const HeaderIndication = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  margin-top: 15px;
-  padding: 0 20px;
-`;
+export const UserProfilePhoto = styled.View``;
 
-export const HeadingText = styled.Text`
-  color: ${colors.heading};
-  font-family: ${fonts.heading};
-  font-size: 16px;
-`;
+export const UserCardContentInfo = styled.View``;
 
-export const TabNavigationContainer = styled.View`
-  flex-direction: row;
-`;
+export const UserCardBadge = styled.View``;
 
-export const TabText = styled.Text<TabProps>`
-  color: ${props => (props.active ? colors.heading : colors.body)};
-  font-family: ${fonts.heading};
-  font-size: 13px;
-  font-weight: bold;
-`;
-
-export const ProfileIndicationContainer = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Indication = styled.View`
-  background-color: #fff;
-  flex-direction: row;
-  align-items: center;
-  flex: 1;
-  margin: 0 5px;
-  padding: 15px 20px;
-  border-radius: 20px;
-`;
-
-export const TitleText = styled.Text`
-  font-size: 13px;
-  font-family: ${fonts.semibold};
-  color: ${colors.body};
-`;
-
-export const SubTitleText = styled.Text`
-  font-size: 13px;
-  font-family: ${fonts.text};
-  color: ${colors.body};
-`;
-
-export const BudgetContainer = styled.View`
-  margin-top: 20px;
-`;
-
-export const BudgetInfoContainer = styled.View`
-  background-color: #fff;
-  width: 100%;
-  height: ${height * 0.1}px;
-  margin-top: 15px;
-  border-radius: 30px;
-  align-items: center;
-  padding: 0 20px;
-  flex-direction: row;
-`;
-
-export const BudgetTextContainer = styled.View`
-  margin-left: 15px;
-`;
-
-export const ActivityContainer = styled.View`
-  margin-top: 20px;
-`;

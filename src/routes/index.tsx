@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 
 import AuthRoutes from './auth.routes';
@@ -8,7 +8,9 @@ import { useAuth } from '../context/auth';
 import colors from '../styles/colors';
 
 const Routes: React.FC = () => {
-  const { user, isLoading } = useAuth();
+  const { userToken, isLoading, signOut } = useAuth();
+
+  // useEffect(() => signOut(), [])
 
   if (isLoading) {
     return (
@@ -18,8 +20,7 @@ const Routes: React.FC = () => {
     );
   }
 
-  // return <TabRoutes />;
-  return user ? <TabRoutes /> : <AuthRoutes />;
+  return userToken ? <TabRoutes /> : <AuthRoutes />;
 };
 
 export default Routes;

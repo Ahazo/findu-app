@@ -8,56 +8,40 @@ import React, {
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api';
-import { Status } from '../constants/status';
-
-interface User {
-  campaigns_count: number;
-  created_at: Date;
-  experience: number;
-  followers_count: number;
-  id: number;
-  password: string;
-  person_id: number;
-  recommendations_count: number;
-  status: Status;
-  updated_at: Date;
-  username: string;
-}
 
 interface ISignIn {
   username: string;
   password: string;
 }
 
-interface IAuthState {
-  user: User;
-  token: string;
-}
-
 interface IAuthContext {
-  user: User;
+  userToken: string | null;
   signIn(credentials: ISignIn): Promise<void>;
   signOut(): void;
   isLoading: boolean;
+  hasError: boolean;
 }
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [userData, setUserData] = useState<IAuthState>({} as IAuthState);
-  const [isLoading, setIsLoading] = useState(true);
+  const [userToken, setUserToken] = useState<string | null>(null);
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     async function loadStorageData() {
-      const [token, user] = await AsyncStorage.multiGet([
-        '@Ahazo:token',
-        '@Ahazo:user',
-      ]);
-      
-      if (token[1] && user[1]) {
-        api.defaults.headers.authorization = `Bearer ${token[1]}`;
-        setUserData({ token: token[1], user: JSON.parse(user[1]) });
+      const asyncStorageToken = await AsyncStorage.getItem('@Ahazo:token');
+
+      if (!asyncStorageToken) {
+        setHasError(true);
+        return;
       }
+
+      api.defaults.headers.authorization = `Bearer ${asyncStorageToken}`;
+      setUserToken(asyncStorageToken);
+      
       setIsLoading(false);
     }
 
@@ -65,34 +49,34 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signIn = useCallback(async ({ username, password }) => {
-    const response = await api.post('/api/session', {
+    const response = await api.post('/api/users/session', {
       username,
       password,
     });
-    const { token, user } = response.data;
+
+    const { token } = response.data;
 
     await AsyncStorage.multiSet([
-      ['@Ahazo:token', token],
-      ['@Ahazo:user', JSON.stringify(user)],
+      ['@Ahazo:token', token]
     ]);
 
     api.defaults.headers.authorization = `Bearer ${token}`;
-
-    setUserData({ token, user });
+    setUserToken(token);
   }, []);
 
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(['@Ahazo:token', '@Ahazo:user']);
-    setUserData({} as IAuthState);
+    setUserToken(null);
   }, []);
 
   return (
     <AuthContext.Provider
       value={{
-        user: userData.user,
+        userToken,
         isLoading,
         signIn,
         signOut,
+        hasError
       }}
     >
       {children}

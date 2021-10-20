@@ -18,7 +18,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import Header from '../../../components/Header';
+import ColoredHeader from '../../../components/ColoredHeader';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 
@@ -26,6 +26,8 @@ import colors from '../../../styles/colors';
 import fonts from '../../../styles/fonts';
 import { height } from '../../../constants';
 import { CellphoneMask, CPFMask } from '../../../utils/mask';
+
+
 type FormDataType = {
   username: string;
   password: string;
@@ -101,8 +103,7 @@ export function SignUp() {
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={{ flex: 1 }}>
-          <StatusBar barStyle="light-content" />
-          <Header
+          <ColoredHeader
             heightPercentage={height * 0.2}
             logoDimensions={{ height: height * 0.07 }}
             position="flex-end"
