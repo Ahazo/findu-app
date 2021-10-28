@@ -21,26 +21,42 @@ export const Content = styled.View`
 
 export const UserCardContainer = styled.View`
   width: 100%;
-  height: ${height * 0.2}px;
-  border-radius: 30;
-  padding: 10px 20px;
+  height: ${height * 0.25}px;
+  border-radius: 35px;
+  padding: 20px 20px;
 
-  background-color: ${colors.red};
+  background-color: ${colors.white};
 
-  margin-top: -${height * 0.1};
+  margin-top: -${height * 0.1}px;
 `;
 
 export const UserCardContent = styled.View`
   flex: 1;
-  background-color: ${colors.blue_light};
-
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
 `;
 
-export const UserProfilePhoto = styled.View``;
+export const UserProfilePhoto = styled.View`
+  background-color: ${colors.white};
 
-export const UserCardContentInfo = styled.View``;
+  border-color: ${colors.purple_dark};
+  border-width: 3px;
+  border-radius: 30px;
 
-export const UserCardBadge = styled.View``;
+  overflow: hidden;
+
+  width: 80px;
+  height: 80px;
+`;
+
+export const UserCardContentInfo = styled.View`
+  flex: 1;
+  height: 40%;
+
+  margin-left: 10px;
+  justify-content: center;
+  align-items: flex-start;
+`;
+
 
