@@ -71,7 +71,7 @@ export function Profile() {
                     }}
                   >
                     <Text style={{
-                      fontSize: fontSizes.header,
+                      fontSize: fontSizes.title,
                       color: colors.purple_dark,
                       fontFamily: fonts.heading,
                       marginRight: 5
