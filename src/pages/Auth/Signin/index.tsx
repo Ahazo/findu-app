@@ -44,7 +44,7 @@ const schema = yup.object().shape({
 
 export const SignIn = () => {
   const navigation = useNavigation();
-  const { signIn, user } = useAuth();
+  const { signIn, userToken } = useAuth();
 
   const [hasError, setHasError] = useState(false);
   const [error, setErrorMessage] = useState<string>();
@@ -75,12 +75,10 @@ export const SignIn = () => {
       password: data.password,
     });
 
-    if (!user) {
+    if (!userToken) {
       setHasError(true);
       setErrorMessage('Usuario e/ou Senha incorretos')
     }
-
-    navigation.navigate('Dashboard');
   }
 
   return (

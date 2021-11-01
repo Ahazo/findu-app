@@ -39,9 +39,9 @@ const AuthProvider: React.FC = ({ children }) => {
         return;
       }
 
-      api.defaults.headers.authorization = `Bearer ${asyncStorageToken}`;
-      setUserToken(asyncStorageToken);
-      
+      api.defaults.headers.authorization = `${asyncStorageToken}`;
+
+			setUserToken(asyncStorageToken);      
       setIsLoading(false);
     }
 
