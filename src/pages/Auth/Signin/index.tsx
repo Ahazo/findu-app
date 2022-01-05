@@ -99,7 +99,6 @@ export const SignIn = () => {
               }}
               position="flex-start"
             />
-
             <View style={styles.contentContainer}>
               <View style={styles.formContainer}>
                 <Text style={styles.title}>Vamos lá!</Text>

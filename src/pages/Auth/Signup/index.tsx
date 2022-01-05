@@ -11,9 +11,13 @@ import {
 
 import { useNavigation } from '@react-navigation/core';
 
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import Input from '../../../components/Input';
+import colors from '../../../styles/colors';
+import { useStepper } from '../../../context/stepper';
+import Personal from './Steps/Personal';
 
 type FormDataType = {
   username: string;
@@ -61,7 +65,9 @@ const schema = yup.object().shape({
 
 export function SignUp() {
   const navigation = useNavigation();
-  const {
+	const { currentStepIndex, steps, isLoading } = useStepper();
+	
+	const {
     control,
     handleSubmit,
     formState: { errors },
@@ -84,7 +90,23 @@ export function SignUp() {
   return (
     <SafeAreaView style={styles.androidSafeAreaView}>
 			<View style={styles.container}>
-			
+				{/* <Stepper
+					currentStep={currentStepIndex}
+					steps={steps}
+				/> */}
+
+				{currentStepIndex === 0 &&
+					<Personal/>
+				} 
+{/* 
+				{currentStepIndex === 1 &&
+					<Address/>
+				}
+
+				{currentStepIndex === 2 &&
+					<Login/>
+				} */}
+
 			</View>
     </SafeAreaView>
 	);
@@ -97,7 +119,7 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
   },
 	container: {
-		backgroundColor: "red",
 		flex: 1,
+		padding: 15,
 	}
 });

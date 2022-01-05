@@ -10,15 +10,15 @@ type ContainerType = {
 export const ContainerInput = styled.View<ContainerType>`
   width: 100%;
   height: ${Dimensions.get('window').height * 0.08}px;
-  background-color: ${colors.grey};
+  background-color: #FEFEFE;
   margin-top: 10px;
-  border-radius: 30px;
+  border-radius: 15px;
   justify-content: space-between;
   align-items: center;
-  padding: 0 25px;
+  padding: 0 15px;
   flex-direction: row;
 
-  border: ${props => (props.error ? '2px solid red' : 'transparent')};
+  border: ${props => (props.error ? '2px solid red' : colors.grey)};
 `;
 
 export const InputText = styled(TextInput)`
