@@ -22,6 +22,7 @@ import Toast from 'react-native-toast-message';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import ColoredHeader from '../../../components/ColoredHeader';
+import Header from '../../../components/Header';
 
 import { useAuth } from '../../../context/auth';
 
@@ -91,8 +92,8 @@ export const SignIn = () => {
         <View style={styles.container}>
           <ScrollView style={{ flex: 1 }}>
             <ColoredHeader
-              logoDimensions={{ height: height * 0.06 }}
-              heightPercentage={height * 0.4}
+              logoDimensions={{ height: height * 0.07 }}
+              heightPercentage={height * 0.45}
               contentStyle={{
                 marginTop: height * 0.1,
               }}
