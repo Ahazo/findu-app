@@ -39,11 +39,12 @@ interface IStepperContext {
 	setLoginData(loginData: ILoginData): void;
 	handleNextStep(): void;
 	handlePreviousStep(): void;
+	handleChangeStep(changingIndex: number): void;
 	// signUp(userData: IUserFormData): Promise<void>;
 }
 
 export interface ISteps {
-	icon: string;
+	icon: "at-sign" | "user" | "home";
 	label: string;
 	isCompleted: boolean;
 }
@@ -110,6 +111,14 @@ const StepperProvider: React.FC = ({ children }) => {
 		setIsLoading(false);
 	}, [currentStepIndex, steps]);
 
+	const handleChangeStep = (destinationIndex: number) => {
+		steps.forEach((step, index) => {
+			if(destinationIndex <= index) {
+				step.isCompleted = false;
+			}
+		});
+		setCurrentStepIndex(destinationIndex);
+	} 
 
 	return (
 		<StepperContext.Provider
@@ -121,7 +130,8 @@ const StepperProvider: React.FC = ({ children }) => {
 				setLoginData,
 				setPersonalData,
 				handleNextStep,
-				handlePreviousStep
+				handlePreviousStep,
+				handleChangeStep
       }}
     >
       {children}

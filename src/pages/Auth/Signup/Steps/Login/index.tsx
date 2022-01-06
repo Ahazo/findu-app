@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Text } from 'react-native';
 
@@ -33,7 +34,7 @@ const personalSchema = yup.object().shape({
 	birth_date: yup.date().required("Campo Obrigatório")
 });
 
-const Personal = () => {
+const Login = () => {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
@@ -46,7 +47,7 @@ const Personal = () => {
   } = useForm({
     resolver: yupResolver(personalSchema),
   });
-
+	
 	const onSubmit = (data: any) => {
 		
 	}
@@ -89,7 +90,6 @@ const Personal = () => {
 				returnKeyType="next"
 			/>
 			<Input
-				keyboardType="email-address"
 				autoCapitalize="none"
 				iconSize={24}
 				iconName="mail"
@@ -102,7 +102,6 @@ const Personal = () => {
 				returnKeyType="next"
 			/>
 			<Input
-				keyboardType="numeric"
 				autoCapitalize="none"
 				iconSize={24}
 				iconName="phone"
@@ -142,4 +141,4 @@ const Personal = () => {
 	)
 }
 
-export default Personal;
+export default Login;

@@ -18,6 +18,7 @@ interface IInputProps extends TextInputProps {
   placeholder: string;
   isSecure?: boolean;
   inputValue: any;
+	keyboardType?: "numeric" | "default" | "email-address";
   errors: FieldErrors;
 }
 
@@ -33,7 +34,7 @@ const Input: React.ForwardRefRenderFunction<
     placeholder,
     inputValue,
     errors,
-
+		keyboardType,
     ...rest
   },
   ref,
@@ -58,6 +59,7 @@ const Input: React.ForwardRefRenderFunction<
           />
         )}
         <InputText
+					keyboardType={keyboardType ? keyboardType : "default"}
           placeholder={placeholder}
           value={inputValue}
           ref={inputElementRef}
