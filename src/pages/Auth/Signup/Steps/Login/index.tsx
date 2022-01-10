@@ -35,12 +35,8 @@ const personalSchema = yup.object().shape({
 });
 
 const Login = () => {
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
-	const [phone, setPhone] = useState("");
-	const [cpf, setCpf] = useState("");
-	const [birthDate, setBirthDate] = useState(new Date);
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
 
 	const {
     formState: { errors },
@@ -62,81 +58,34 @@ const Login = () => {
 					marginBottom: 10,
 				}}
 			>
-				1. Informações Pessoais
+				3. Acesso
 			</Text>
 			
 			<Input
 				autoCapitalize="none"
 				iconSize={24}
-				iconName="edit-3"
-				inputField="first_name"
+				iconName="user"
+				inputField="username"
 				iconColor={colors.body_light}
-				placeholder="Primeiro Nome"
-				inputValue={firstName}
+				placeholder="Usuario"
+				inputValue={username}
 				errors={errors}
-				onChangeText={(value) => setFirstName(value)}
+				onChangeText={(value) => setUsername(value)}
 				returnKeyType="next"
 			/>
 			<Input
 				autoCapitalize="none"
+				secureTextEntry
 				iconSize={24}
-				iconName="edit-3"
-				inputField="last_name"
+				iconName="lock"
+				inputField="password"
 				iconColor={colors.body_light}
-				placeholder="Sobrenome"
-				inputValue={lastName}
+				placeholder="Senha"
+				inputValue={password}
 				errors={errors}
-				onChangeText={(value) => setLastName(value)}
+				onChangeText={(value) => setPassword(value)}
 				returnKeyType="next"
 			/>
-			<Input
-				autoCapitalize="none"
-				iconSize={24}
-				iconName="mail"
-				inputField="email"
-				iconColor={colors.body_light}
-				placeholder="E-mail"
-				inputValue={email}
-				errors={errors}
-				onChangeText={(value) => setEmail(value)}
-				returnKeyType="next"
-			/>
-			<Input
-				autoCapitalize="none"
-				iconSize={24}
-				iconName="phone"
-				inputField="phone"
-				iconColor={colors.body_light}
-				placeholder="Telefone"
-				inputValue={phone}
-				errors={errors}
-				onChangeText={(value) => setPhone(value)}
-				returnKeyType="next"
-			/>
-			<Input
-				autoCapitalize="none"
-				iconSize={24}
-				iconName="file"
-				inputField="cpf"
-				iconColor={colors.body_light}
-				placeholder="CPF"
-				inputValue={cpf}
-				errors={errors}
-				onChangeText={(value) => setCpf(value)}
-				returnKeyType="next"
-			/>
-			{/* <Input
-				autoCapitalize="none"
-				iconSize={24}
-				iconName="calendar"
-				inputField="birthDate"
-				iconColor={colors.body_light}
-				placeholder="Data de nascimento"
-				inputValue={birthDate}
-				errors={errors}
-				onChangeText={(value) => setBirthDate(value)}
-				returnKeyType="next"
-			/> */}
 		</Container>
 	)
 }

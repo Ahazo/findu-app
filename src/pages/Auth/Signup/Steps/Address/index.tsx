@@ -55,7 +55,7 @@ const Address = () => {
 					marginBottom: 10,
 				}}
 			>
-				1. Informações Pessoais
+				2. Endereço
 			</Text>
 			
 			<Input

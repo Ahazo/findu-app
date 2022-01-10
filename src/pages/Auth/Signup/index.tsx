@@ -49,9 +49,13 @@ export function SignUp() {
 				style={{ flex: 1 }}
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			>
-				<ScrollView style={styles.container} contentContainerStyle={{
-					alignItems: "center"
-				}}>
+				<ScrollView 
+					style={styles.container}
+					contentContainerStyle={{
+						alignItems: "center"
+					}}
+				  showsVerticalScrollIndicator={false}
+				>
 					<Logo
 						resizeMode="contain"
 						source={{

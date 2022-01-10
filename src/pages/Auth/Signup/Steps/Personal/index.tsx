@@ -10,6 +10,7 @@ import { Container } from '../styles';
 import fonts from '../../../../../styles/fonts';
 import fontSizes from '../../../../../styles/fontSizes';
 import colors from '../../../../../styles/colors';
+import DatePicker from '../../../../../components/DatePicker';
 
 const personalSchema = yup.object().shape({
 	first_name: yup.string().trim().required("Campo Obrigatório"),
@@ -126,18 +127,9 @@ const Personal = () => {
 				onChangeText={(value) => setCpf(value)}
 				returnKeyType="next"
 			/>
-			{/* <Input
-				autoCapitalize="none"
-				iconSize={24}
-				iconName="calendar"
-				inputField="birthDate"
-				iconColor={colors.body_light}
-				placeholder="Data de nascimento"
-				inputValue={birthDate}
-				errors={errors}
-				onChangeText={(value) => setBirthDate(value)}
-				returnKeyType="next"
-			/> */}
+			<DatePicker
+				label="Data de nascimento"
+			/>
 		</Container>
 	)
 }

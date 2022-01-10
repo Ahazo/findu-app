@@ -6,7 +6,7 @@ import { ContainerInput, InputText, InputError } from './styles';
 import { Feather } from '@expo/vector-icons';
 import colors from '../../styles/colors';
 
-export interface InputHandleInterface {
+export interface IInputHandle {
   focus: () => void;
 }
 
@@ -23,7 +23,7 @@ interface IInputProps extends TextInputProps {
 }
 
 const Input: React.ForwardRefRenderFunction<
-  InputHandleInterface,
+  IInputHandle,
   IInputProps
 > = (
   {

@@ -17,7 +17,8 @@ function SingInStepper() {
 			style={{
 				flex: 1,
 				paddingHorizontal: 15,
-				alignItems: "center"
+				alignItems: "center",
+				marginBottom: 20
 			}}
 		>
 			<View style={styles.container}>
