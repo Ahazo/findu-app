@@ -6,6 +6,8 @@ import { ContainerInput, InputText, InputError } from './styles';
 import { Feather } from '@expo/vector-icons';
 import colors from '../../styles/colors';
 
+import { CEPMask, CellphoneMask, CPFMask } from '../../utils/mask';
+
 export interface IInputHandle {
   focus: () => void;
 }
@@ -13,13 +15,15 @@ export interface IInputHandle {
 interface IInputProps extends TextInputProps {
   iconName?: any;
   inputField: string;
-  iconColor: string;
-  iconSize: number;
+  iconColor?: string;
+  iconSize?: number;
   placeholder: string;
   isSecure?: boolean;
   inputValue: any;
 	keyboardType?: "numeric" | "default" | "email-address";
   errors: FieldErrors;
+	mask?: "cep" | "cpf" | "cellphone";
+	inputMaskChange: any;	
 }
 
 const Input: React.ForwardRefRenderFunction<
@@ -35,6 +39,8 @@ const Input: React.ForwardRefRenderFunction<
     inputValue,
     errors,
 		keyboardType,
+		mask,
+		inputMaskChange,
     ...rest
   },
   ref,
@@ -47,6 +53,18 @@ const Input: React.ForwardRefRenderFunction<
       inputElementRef.current?.focus();
     },
   }));
+
+	function handleChange(value: string) {
+		if (mask === 'cep') {
+			value = CEPMask(value);
+		} else if (mask === 'cpf') {
+			value = CPFMask(value);
+		} else if (mask === 'cellphone') {
+			value = CellphoneMask(value);
+		}
+
+		inputMaskChange(value);
+	}
 
   return (
     <>
@@ -63,6 +81,7 @@ const Input: React.ForwardRefRenderFunction<
           placeholder={placeholder}
           value={inputValue}
           ref={inputElementRef}
+					onChangeText={text => handleChange(text)}
           {...rest}
           placeholderTextColor={
             errors[inputField] ? colors.red : colors.body_light

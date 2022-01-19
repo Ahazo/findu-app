@@ -1,8 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Text } from 'react-native';
+import { Controller, useForm } from 'react-hook-form';
+import { Dimensions, Text } from 'react-native';
 
 import * as yup from 'yup';
 import Input from '../../../../../components/Input';
@@ -11,42 +11,52 @@ import { Container } from '../styles';
 import fonts from '../../../../../styles/fonts';
 import fontSizes from '../../../../../styles/fontSizes';
 import colors from '../../../../../styles/colors';
+import { useStepper } from '../../../../../context/stepper';
+import Button from '../../../../../components/Button';
 
 const personalSchema = yup.object().shape({
-	first_name: yup.string().trim().required("Campo Obrigatório"),
-	last_name: yup.string().trim().required("Campo Obrigatório"),
-	email: yup
-		.string()
-		.trim()
-		.email('Digite um email válido')
-		.required('Campo Obrigatório'),
-	cellphone_number: yup
-		.string()
-		.min(
-			14,
-			'Talvez você tenha esquecido o DDD ou algum dígito. Ex.:11 99999-9999',
-		)
-		.required('Campo Obrigatório'),
-	cpf: yup
-	.string()
-	.min(14, 'Talvez você tenha esquecido algum dígito. Ex.:999.999.999-99')
-	.required('Campo Obrigatório'),
-	birth_date: yup.date().required("Campo Obrigatório")
+	username: yup.string().trim().lowercase().min(5, 'Seu nome de usuario deve conter pelo menos 5 (cinco) digitos.').required("Campo Obrigatório"),
+	password: yup.string().trim().min(8, 'Sua senha deve conter pelo menos 8 (oito) digitos.').required("Campo Obrigatório"),
 });
 
 const Login = () => {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const [ready, setReady] = useState(false);
 
 	const {
+		loginData,
+		setLoginData,
+		signUp
+	} = useStepper();
+
+	const {
+		setValue,
+		handleSubmit,
+		control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(personalSchema),
   });
-	
+
 	const onSubmit = (data: any) => {
-		
+		setLoginData(data);
+		setReady(true);
 	}
+
+	useEffect(() => {
+		if (loginData) {
+			Object.entries(loginData).forEach((field) => {
+				const name = field[0];
+				const value = field[1];
+
+				setValue(name, value);
+			});
+		}
+	}, []);
+
+	useEffect(() => {
+		const {username, password} = loginData;
+		if (username && password && ready) signUp();
+	}, [loginData]);
 
 	return (		
 		<Container>
@@ -60,31 +70,54 @@ const Login = () => {
 			>
 				3. Acesso
 			</Text>
-			
-			<Input
-				autoCapitalize="none"
-				iconSize={24}
-				iconName="user"
-				inputField="username"
-				iconColor={colors.body_light}
-				placeholder="Usuario"
-				inputValue={username}
-				errors={errors}
-				onChangeText={(value) => setUsername(value)}
-				returnKeyType="next"
+			<Controller
+				control={control}
+				render={({field: {onChange, value}}) => (
+					<Input
+						autoCapitalize="none"
+						iconSize={24}
+						iconName="user"
+						inputField="username"
+						iconColor={colors.body_light}
+						placeholder="Usuario"
+						inputValue={value}
+						errors={errors}
+						inputMaskChange={(value: string) => onChange(value)}
+						returnKeyType="next"
+					/>
+				)}
+				name="username"
+				defaultValue=""
 			/>
-			<Input
-				autoCapitalize="none"
-				secureTextEntry
-				iconSize={24}
-				iconName="lock"
-				inputField="password"
-				iconColor={colors.body_light}
-				placeholder="Senha"
-				inputValue={password}
-				errors={errors}
-				onChangeText={(value) => setPassword(value)}
-				returnKeyType="next"
+			<Controller
+				control={control}
+				render={({field: {onChange, value}}) => (
+					<Input
+						autoCapitalize="none"
+						secureTextEntry
+						iconSize={24}
+						iconName="lock"
+						inputField="password"
+						iconColor={colors.body_light}
+						placeholder="Senha"
+						inputValue={value}
+						errors={errors}
+						inputMaskChange={(value: string) => onChange(value)}
+						returnKeyType="next"
+					/>
+				)}
+				name="password"
+				defaultValue=""
+			/>
+			<Button
+				text="Finalizar"
+				onPress={handleSubmit(onSubmit)}
+				containerButtonStyle={{
+					marginTop: Dimensions.get("window").height * 0.05,
+				}}
+				buttonStyle={{
+					width: Dimensions.get("window").width * 0.7
+				}}
 			/>
 		</Container>
 	)

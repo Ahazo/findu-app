@@ -11,7 +11,7 @@ import {
 
 import { useNavigation } from '@react-navigation/core';
 import { useStepper } from '../../../context/stepper';
-import SingInStepper from '../../../components/SingInStepper';
+import SingInStepper from './Steps';
 import { Logo } from '../../../components/ColoredHeader/styles';
 import { ScrollView } from 'react-native-gesture-handler';
 

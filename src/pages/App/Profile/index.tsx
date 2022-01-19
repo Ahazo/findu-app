@@ -68,8 +68,6 @@ export function Profile() {
 						style={{
 							width: "100%",
 							height: "100%",
-							borderBottomLeftRadius: 25,
-							borderBottomRightRadius: 25
 						}}
 					/>
 				</BannerProfileContainer>

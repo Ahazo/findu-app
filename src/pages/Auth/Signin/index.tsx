@@ -118,7 +118,7 @@ export const SignIn = () => {
                         placeholder="Usuário"
                         inputValue={value}
                         errors={errors}
-                        onChangeText={value => onChange(value)}
+                        inputMaskChange={(value: string) => onChange(value)}
                         returnKeyType="next"
                         onSubmitEditing={() => passwordRef.current?.focus()}
                       />
@@ -142,7 +142,7 @@ export const SignIn = () => {
                         secureTextEntry
                         errors={errors}
                         textContentType="password"
-                        onChangeText={value => onChange(value)}
+                        inputMaskChange={(value: string) => onChange(value)}
                         returnKeyType="send"
                         onSubmitEditing={handleSubmit(onSubmit)}
                       />

@@ -49,11 +49,11 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signIn = useCallback(async ({ username, password }) => {
-    const response = await api.post('/api/users/session', {
+    const response = await api.post('/users/session', {
       username,
       password,
     });
-
+		
     const { token } = response.data;
 
     await AsyncStorage.multiSet([

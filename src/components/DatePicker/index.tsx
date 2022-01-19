@@ -9,21 +9,27 @@ import { Feather } from '@expo/vector-icons';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import fontSizes from '../../styles/fontSizes';
+import { FieldErrors } from 'react-hook-form';
 
 interface IDatePickerProps {
 	label: string;
+	inputValue: any;
+  errors: FieldErrors;
+  inputField: string;
+	onChange(value: any): void;
 }
 
 const DatePicker = (props: IDatePickerProps) => {
-	const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 	const [showDateAsLabel, setShowDateAsLabel] = useState(false)
 	const [showDatePicker, setShowDatePicker] = useState(false);
-	const [hasError, setHasError] = useState(false);
 
-	function onChange(event: any, date: Date | undefined) {
+	const isDateValid = (showDateAsLabel || props.inputValue) && props.inputValue.getDate() !== new Date().getDate();
+
+	function handleChange(event: any, date: Date | undefined) {	
 		if (date) {
-			setSelectedDate(date);
+			props.onChange(date);
 			setShowDateAsLabel(true);
+			Platform.OS === 'android' && setShowDatePicker(false);
 		}
 	} 
 
@@ -34,36 +40,38 @@ const DatePicker = (props: IDatePickerProps) => {
 					setShowDatePicker(!showDatePicker);
 					setShowDateAsLabel(true)
 				}}	
+				error={Boolean(props.errors[props.inputField])}
 			>
 				<>
 					<Feather
 						name="calendar"
-						color={hasError ? '#fc5663' : colors.body_light}
+						color={Boolean(props.errors[props.inputField]) ? '#fc5663' : colors.body_light}
 						size={24}
 					/>
 					<TextContainer>
 						<Text
 							style={{
-								color: !showDateAsLabel || !selectedDate ? colors.body_light : colors.body,
-								fontFamily: fonts.semibold,
+								color: !isDateValid ? colors.body_light : colors.body,
+								fontFamily: fonts.text,
 								fontSize: fontSizes.text,
 							}}
 						>
-							{!showDateAsLabel || !selectedDate ? props.label : selectedDate.toLocaleDateString('pt-BR')}
+							{!isDateValid ? props.label : props.inputValue.toLocaleDateString('pt-BR')}
 						</Text>
 					</TextContainer>
 				</>
 			</InputContainer>
 			{showDatePicker &&
 				<DateTimePicker
+					mode="date"
 					testID="dateTimePicker"
 					locale="pt-br"
-					value={selectedDate}
-					onChange={onChange}
+					value={props.inputValue}
+					onChange={handleChange}
 					themeVariant="light"
 					style={{
 						width: 320,
-						backgroundColor: "white"
+						backgroundColor: "white",
 					}}
 				/>
 			}

@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Dimensions, Text } from 'react-native';
 
 import * as yup from 'yup';
 import Input from '../../../../../components/Input';
@@ -11,6 +11,8 @@ import fonts from '../../../../../styles/fonts';
 import fontSizes from '../../../../../styles/fontSizes';
 import colors from '../../../../../styles/colors';
 import DatePicker from '../../../../../components/DatePicker';
+import Button from '../../../../../components/Button';
+import { useStepper } from '../../../../../context/stepper';
 
 const personalSchema = yup.object().shape({
 	first_name: yup.string().trim().required("Campo Obrigatório"),
@@ -35,22 +37,38 @@ const personalSchema = yup.object().shape({
 });
 
 const Personal = () => {
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
-	const [phone, setPhone] = useState("");
-	const [cpf, setCpf] = useState("");
-	const [birthDate, setBirthDate] = useState(new Date);
-
 	const {
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(personalSchema),
-  });
+		control,
+		handleSubmit,
+		setValue,
+		formState: { errors }
+	} = useForm({
+		resolver: yupResolver(personalSchema)
+	});
+
+	const { 
+		isLoading,
+		personalData,
+		handleNextStep,
+		setPersonalData,
+	} = useStepper();
+
 
 	const onSubmit = (data: any) => {
-		
+		setPersonalData(data);
+		handleNextStep();
 	}
+
+	useEffect(() => {
+		if (personalData) {
+			Object.entries(personalData).forEach((field) => {
+				const name = field[0];
+				const value = field[1];
+
+				setValue(name, value);
+			});
+		}
+	}, []);
 
 	return (		
 		<Container>
@@ -64,71 +82,140 @@ const Personal = () => {
 			>
 				1. Informações Pessoais
 			</Text>
+			<Controller
+				control={control}
+				render={({field: {onChange, value}}) => (
+					<Input
+						iconSize={24}
+						iconName="edit-3"
+						iconColor={colors.body_light}
+						placeholder="Primeiro Nome"
+
+						inputField="first_name"
+						inputValue={value}
+						inputMaskChange={(value: string) => onChange(value)}
+
+						errors={errors}
+						returnKeyType="next"
+					/>
+				)}
+				name="first_name"
+				defaultValue=""
+			/>
+			<Controller
+				control={control}
+				render={({field: {onChange, value}}) => (
+					<Input
+						iconSize={24}
+						iconName="edit-3"
+						iconColor={colors.body_light}
+						placeholder="Sobrenome"
+
+						inputField="last_name"
+						inputValue={value}
+						inputMaskChange={(value: string) => onChange(value)}
+
+						errors={errors}
+						returnKeyType="next"
+					/>
+				)}
+				name="last_name"
+				defaultValue=""
+			/>
+			<Controller
+				control={control}
+				render={({field: {onChange, value}}) => (
+					<Input
+						iconSize={24}
+						iconName="mail"
+						iconColor={colors.body_light}
+						placeholder="E-mail"
+
+						inputField="email"
+						inputValue={value}
+						inputMaskChange={(value: string) => onChange(value)}
+
+						errors={errors}
+						returnKeyType="next"
+						autoCapitalize="none"
+						keyboardType="email-address"
+					/>
+				)}
+				name="email"
+				defaultValue=""
+			/>
 			
-			<Input
-				autoCapitalize="none"
-				iconSize={24}
-				iconName="edit-3"
-				inputField="first_name"
-				iconColor={colors.body_light}
-				placeholder="Primeiro Nome"
-				inputValue={firstName}
-				errors={errors}
-				onChangeText={(value) => setFirstName(value)}
-				returnKeyType="next"
+			<Controller
+				control={control}
+				render={({field: {onChange, value}}) => (
+					<Input
+						iconSize={24}
+						iconName="phone"
+						iconColor={colors.body_light}
+						placeholder="Telefone"
+
+						inputField="cellphone_number"
+						inputValue={value}
+						inputMaskChange={(value: string) => onChange(value)}
+						mask='cellphone'
+						
+						maxLength={14}
+						errors={errors}
+						returnKeyType="next"
+						autoCapitalize="none"
+						keyboardType="numeric"
+					/>
+				)}
+				name="cellphone_number"
+				defaultValue=""
 			/>
-			<Input
-				autoCapitalize="none"
-				iconSize={24}
-				iconName="edit-3"
-				inputField="last_name"
-				iconColor={colors.body_light}
-				placeholder="Sobrenome"
-				inputValue={lastName}
-				errors={errors}
-				onChangeText={(value) => setLastName(value)}
-				returnKeyType="next"
+			
+			<Controller
+				control={control}
+				render={({field: {onChange, value}}) => (
+					<Input
+						iconSize={24}
+						iconName="file"
+						iconColor={colors.body_light}
+						placeholder="CPF"
+
+						inputField="cpf"
+						inputValue={value}
+						inputMaskChange={(value: string) => onChange(value)}
+						mask='cpf'
+						maxLength={14}
+
+						errors={errors}
+						autoCapitalize="none"
+						returnKeyType="next"
+					/>
+				)}
+				name="cpf"
+				defaultValue=""
 			/>
-			<Input
-				keyboardType="email-address"
-				autoCapitalize="none"
-				iconSize={24}
-				iconName="mail"
-				inputField="email"
-				iconColor={colors.body_light}
-				placeholder="E-mail"
-				inputValue={email}
-				errors={errors}
-				onChangeText={(value) => setEmail(value)}
-				returnKeyType="next"
+			<Controller
+				control={control}
+				render={({field: {onChange, value}}) => (
+					<DatePicker
+						inputField="birth_date"
+						inputValue={value}
+						onChange={(value) => onChange(value)}
+						label="Data de nascimento"
+						errors={errors}
+					/>
+				)}
+				name="birth_date"
+				defaultValue={new Date()}
 			/>
-			<Input
-				keyboardType="numeric"
-				autoCapitalize="none"
-				iconSize={24}
-				iconName="phone"
-				inputField="phone"
-				iconColor={colors.body_light}
-				placeholder="Telefone"
-				inputValue={phone}
-				errors={errors}
-				onChangeText={(value) => setPhone(value)}
-				returnKeyType="next"
-			/>
-			<Input
-				autoCapitalize="none"
-				iconSize={24}
-				iconName="file"
-				inputField="cpf"
-				iconColor={colors.body_light}
-				placeholder="CPF"
-				inputValue={cpf}
-				errors={errors}
-				onChangeText={(value) => setCpf(value)}
-				returnKeyType="next"
-			/>
-			<DatePicker
-				label="Data de nascimento"
+			<Button
+				text="Proximo"
+				onPress={handleSubmit(onSubmit)}
+				containerButtonStyle={{
+					marginTop: Dimensions.get("window").height * 0.03,
+				}}
+				buttonStyle={{
+					width: Dimensions.get("window").width * 0.7
+				}}
 			/>
 		</Container>
 	)

@@ -8,7 +8,7 @@ export const Container = styled.View`
 `;
 
 export const BannerProfileContainer = styled.View`
-    height: ${height * 0.25}px;
+    height: ${height * 0.45}px;
     overflow: hidden;
 `
 

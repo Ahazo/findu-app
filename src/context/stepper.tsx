@@ -1,4 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useCallback, useContext, useState } from "react";
+import api from "../services/api";
 import AuthProvider from "./auth";
 
 interface ILoginData {
@@ -15,8 +17,8 @@ interface IUserFormData extends ILoginData {
 interface IAddressData {
 	postal_code: string;
 	street: string;
-	house_number: number;
-	complement: string;
+	number: number;
+	neighborhood: string;
 	state: string;
 	city: string;
 }
@@ -34,13 +36,17 @@ interface IStepperContext {
 	isLoading: boolean;
 	steps: ISteps[];
 	currentStepIndex: number;
+	hasError: boolean;
+	personalData: IPersonalData;
+	addressData: IAddressData;
+	loginData: ILoginData;
 	setPersonalData(personalData: IPersonalData): void;
 	setAddressData(addressData: IAddressData): void;
 	setLoginData(loginData: ILoginData): void;
 	handleNextStep(): void;
 	handlePreviousStep(): void;
 	handleChangeStep(changingIndex: number): void;
-	// signUp(userData: IUserFormData): Promise<void>;
+	signUp(): Promise<void>;
 }
 
 export interface ISteps {
@@ -55,6 +61,8 @@ const StepperProvider: React.FC = ({ children }) => {
 	const [personalData, setPersonalData] = useState<IPersonalData>({} as IPersonalData);
 	const [addressData, setAddressData] = useState<IAddressData>({} as IAddressData);
 	const [loginData, setLoginData] = useState<ILoginData>({} as ILoginData);
+
+	const [hasError, setHasError] = useState(false);
 
 	const [currentStepIndex, setCurrentStepIndex] = useState(0);
 	const [steps, setSteps] = useState<ISteps[]>([
@@ -75,9 +83,20 @@ const StepperProvider: React.FC = ({ children }) => {
 		},
 	]);
 
-
 	const [isLoading, setIsLoading] = useState(false);
-	const [hasError, setHasError] = useState(false);
+	// const [hasError, setHasError] = useState(false);
+
+	const getPersonalData = (): IPersonalData => {
+		return personalData;
+	}
+
+	const getAddressData = (): IAddressData => {
+		return addressData;
+	}
+
+	const getLoginData = (): ILoginData => {
+		return loginData;
+	}
 
 	const handleNextStep = useCallback(() => {
 		setIsLoading(true);
@@ -118,7 +137,43 @@ const StepperProvider: React.FC = ({ children }) => {
 			}
 		});
 		setCurrentStepIndex(destinationIndex);
-	} 
+	}
+
+	const signUp = async () => {
+		setIsLoading(true);
+		if (!loginData || !personalData || !addressData) {
+			setHasError(true);
+			return;
+		}
+
+		const data: IUserFormData = {
+			...loginData,
+			person: {
+				...personalData,
+				address: {
+					...addressData
+				}
+			}
+		}
+
+		const response = await api.post('/users/', data);
+		
+		if (response.status !== 200) {
+			console.log('Erro na criacao de usuario')
+			// Criar popups p erros
+			setHasError(true);
+			setIsLoading(false)
+			return;
+		}
+
+		const { token } = response.data;
+
+    await AsyncStorage.multiSet([
+      ['@Ahazo:token', token]
+    ]);
+
+    api.defaults.headers.authorization = `Bearer ${token}`;
+	}
 
 	return (
 		<StepperContext.Provider
@@ -126,12 +181,17 @@ const StepperProvider: React.FC = ({ children }) => {
 				steps,
 				currentStepIndex,
         isLoading,
+				hasError,
+				personalData,
+				loginData,
+				addressData,
 				setAddressData,
 				setLoginData,
 				setPersonalData,
 				handleNextStep,
 				handlePreviousStep,
-				handleChangeStep
+				handleChangeStep,
+				signUp
       }}
     >
       {children}

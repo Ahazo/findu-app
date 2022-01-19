@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import { Dimensions, TextInput } from 'react-native';
 import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
+import fontSizes from '../../styles/fontSizes';
 const { width, height } = Dimensions.get('window');
 
 type ContainerType = {
@@ -25,13 +27,15 @@ export const InputText = styled(TextInput)`
   width: 100%;
   height: 100%;
   padding-left: 10px;
-  /* ::placeholder {
-    color: red;
-  } */
+	font-family: ${fonts.text};
+	font-size: ${fontSizes.text}px;
+	color: ${colors.body};
 `;
+
 export const InputError = styled.Text`
-  text-align: right;
+  text-align: left;
   color: #fc5663;
   font-size: 12px;
   margin-top: 5px;
+	width: ${Dimensions.get('screen').width * 0.8};
 `;

@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import React from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
-import { ISteps, useStepper } from "../../context/stepper";
+import { ISteps, useStepper } from "../../../../context/stepper";
 import { Feather } from "@expo/vector-icons";
-import Personal from "../../pages/Auth/Signup/Steps/Personal";
-import Button from "../Button";
-import Login from "../../pages/Auth/Signup/Steps/Login";
-import Address from "../../pages/Auth/Signup/Steps/Address";
+import Personal from "./Personal";
+import Button from "../../../../components/Button";
+import Login from "./Login";
+import Address from "./Address";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 function SingInStepper() {
@@ -68,52 +68,16 @@ function SingInStepper() {
 			</View>
 
 			{currentStepIndex === 0 &&
-					<>
-						<Personal/>
-						<Button
-							text="Proximo"
-							onPress={handleNextStep}
-							containerButtonStyle={{
-								marginTop: Dimensions.get("window").height * 0.05,
-							}}
-							buttonStyle={{
-								width: Dimensions.get("window").width * 0.7
-							}}
-						/>
-					</>
-				} 
-				
-				{currentStepIndex === 1 &&
-					<>
-						<Address/>
-						<Button
-							text="Proximo"
-							onPress={handleNextStep}
-							containerButtonStyle={{
-								marginTop: Dimensions.get("window").height * 0.05,
-							}}
-							buttonStyle={{
-								width: Dimensions.get("window").width * 0.7
-							}}
-						/>
-					</>
-				}
+				<Personal/>
+			} 
+			
+			{currentStepIndex === 1 &&
+				<Address/>
+			}
 
-				{currentStepIndex === 2 &&
-					<>
-						<Login/>
-						<Button
-							text="Finalizar"
-							onPress={handleNextStep}
-							containerButtonStyle={{
-								marginTop: Dimensions.get("window").height * 0.05,
-							}}
-							buttonStyle={{
-								width: Dimensions.get("window").width * 0.7
-							}}
-						/>
-					</>
-				}
+			{currentStepIndex === 2 &&
+				<Login/>
+			}
 		</View>
 	)
 }
