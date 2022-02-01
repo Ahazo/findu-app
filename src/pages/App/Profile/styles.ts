@@ -1,80 +1,73 @@
+import { Platform, StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 import { height, width } from '../../../constants';
 import colors from '../../../styles/colors';
+import fonts from '../../../styles/fonts';
+import fontSizes from '../../../styles/fontSizes';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
-  background-color: ${colors.white};
+	padding-top: ${Platform.OS === 'android' ? StatusBar.currentHeight : 0}
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: white;
 `;
 
-export const BannerProfileContainer = styled.View`
-    height: ${height * 0.45}px;
-    overflow: hidden;
-`
-
-export const Content = styled.View`
-  padding: 0 ${width * 0.05}px;
-  align-items: center;
-  justify-content: flex-start;
-`;
-
-export const UserCardContainer = styled.View`
-  width: 100%;
-	height: ${height * 0.35}px;
- 
-  border-radius: 35px;
-  background-color: ${colors.white};
-  margin-top: -${height * 0.08}px;
-  padding: ${height * 0.05}px ${width * 0.05}px;
-
-  align-items: center;
-  justify-content: flex-start;
-`;
-
-export const UserCardHeaderContent = styled.View`
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: row;
-
-	min-height: 65px;
+export const ProfileContainer = styled.View`
+	justify-content: space-around;
+	flex-direction: row;
+	align-items: center;
+	padding: 15px;
 `;
 
 export const UserProfilePhoto = styled.View`
-  border-color: ${colors.purple_dark};
-  border-width: 3px;
   border-radius: 25px;
 
   overflow: hidden;
 
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
 `;
 
-export const UserCardContentInfo = styled.View`
-  flex: 1;
-  margin-left: 15px;
-  justify-content: center;
-  align-items: flex-start;
+export const InfoContainer = styled.View`
+	flex: 0.7;
 `;
 
-export const UserCardBodyContent = styled.View`
-	margin-top: 15px;
-	width: 100%;
+export const Name = styled.Text`
+	color: ${colors.body};
+	font-size: ${fontSizes.title}px;
+	font-family: ${fonts.semibold};
+	letter-spacing: 0.5px;
 `;
 
-export const FollowInfoContainer = styled.View`
+export const Description = styled.Text`
+	color: ${colors.body_light};
+	font-size: ${fontSizes.text}px;
+	font-family: ${fonts.text};
+	letter-spacing: 0.2px;
+`;
+
+export const ProfileInfoContainer = styled.View`
 	flex-direction: row;
-
+	margin-top: 20px;
 	justify-content: space-around;
 	align-items: center;
 `;
 
-export const FollowInfo = styled.View`
-	justify-content: space-between;
+export const ProfileInfo = styled.View`
 	align-items: center;
 `;
 
-export const CallToAction = styled.View`
-	flex-direction: row;
-	justify-content: space-between;
+export const Counter = styled.Text`
+	color: ${colors.body};
+	font-size: ${fontSizes.subTitle}px;
+	font-family: ${fonts.semibold};
+	letter-spacing: 0.2px;
+`;
+
+export const CounterTitle = styled.Text`
+	color: ${colors.body};
+	font-size: ${fontSizes.text}px;
+	font-family: ${fonts.text};
+	letter-spacing: 0.2px;
 `;

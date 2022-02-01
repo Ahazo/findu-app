@@ -24,7 +24,7 @@ export default function TabRoutes() {
         style: {
           position: 'absolute',
           backgroundColor: Platform.OS === 'ios' ? 'rgba(250, 250, 250, 0.3)' : colors.offWhite,
-          height: 90,
+          height: 70,
           paddingBottom: 40,
           borderTopRightRadius: 25,
           borderTopLeftRadius: 25,
