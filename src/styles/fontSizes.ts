@@ -1,7 +1,9 @@
+import { height } from "../constants";
+
 export default {
-  header: 20,
-  title: 18,
-  subTitle: 16,
-  text: 14,
-  subText: 12,
+  header: height * 0.027,
+  title: height * 0.025,
+  subTitle: height * 0.022,
+  text: height * 0.02,
+  subText: height * 0.016,
 }

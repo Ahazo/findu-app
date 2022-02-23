@@ -5,39 +5,30 @@ import colors from '../../../styles/colors';
 import fonts from '../../../styles/fonts';
 import fontSizes from '../../../styles/fontSizes';
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   flex: 1;
-	padding-top: ${Platform.OS === 'android' ? StatusBar.currentHeight : 0}
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-left: ${height * 0.02}px;
+	padding-right: ${height * 0.02}px;
 	background-color: white;
+
 `;
 
 export const ProfileContainer = styled.View`
-	justify-content: space-around;
 	flex-direction: row;
+	justify-content: flex-start;
 	align-items: center;
-	padding: 15px;
-`;
-
-export const UserProfilePhoto = styled.View`
-  border-radius: 25px;
-
-  overflow: hidden;
-
-  width: 80px;
-  height: 80px;
+	padding-top: ${height * 0.01}px;
 `;
 
 export const InfoContainer = styled.View`
-	flex: 0.7;
+	padding: ${height * 0.015}px;
 `;
 
 export const Name = styled.Text`
-	color: ${colors.body};
+	color: ${colors.purple};
 	font-size: ${fontSizes.title}px;
 	font-family: ${fonts.semibold};
-	letter-spacing: 0.5px;
+	letter-spacing: 0.3px;
 `;
 
 export const Description = styled.Text`
@@ -54,20 +45,46 @@ export const ProfileInfoContainer = styled.View`
 	align-items: center;
 `;
 
-export const ProfileInfo = styled.View`
-	align-items: center;
+export const FollowInfoContainer = styled.View`
+	flex-direction: row;
+	justify-content: space-around;
+	padding: ${height * 0.01}px;
 `;
 
-export const Counter = styled.Text`
-	color: ${colors.body};
-	font-size: ${fontSizes.subTitle}px;
-	font-family: ${fonts.semibold};
+export const FollowInfo = styled.Text`
+	color: ${colors.body_light};
+	font-size: ${fontSizes.text}px;
+	font-family: ${fonts.text};
 	letter-spacing: 0.2px;
+	padding: 0 ${height * 0.02}px 0 0;
+`
+
+export const AboutContainer = styled.View`
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: ${height * 0.01}px;
 `;
 
-export const CounterTitle = styled.Text`
-	color: ${colors.body};
+export const AboutText = styled.Text`
+	color: ${colors.body_light};
 	font-size: ${fontSizes.text}px;
 	font-family: ${fonts.text};
 	letter-spacing: 0.2px;
 `;
+
+export const BundleContainer = styled(AboutContainer)``;
+
+export const SubTitle = styled.Text`
+	color: ${colors.body};
+	font-size: ${fontSizes.subTitle}px;
+	font-family: ${fonts.heading};
+	letter-spacing: 0.25px;
+	margin-bottom: ${height * 0.005}px;
+`;
+
+export const BoldText = styled.Text`
+	color: ${colors.body};
+	font-size: ${fontSizes.text}px;
+	font-family: ${fonts.semibold};
+	letter-spacing: 0.2px;
+`
