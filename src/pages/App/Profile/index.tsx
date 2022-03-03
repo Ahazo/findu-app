@@ -23,12 +23,18 @@ import { SquircleView } from 'react-native-figma-squircle';
 import MaskedView from '@react-native-community/masked-view';
 import NavBar from '../../../components/NavBar';
 import Bundle, { IBundleItem } from '../../../components/Bundle';
+import { useAuth } from '../../../context/auth';
 
 export function Profile() {
+  const { signOut } = useAuth();
+	
 	const actions = [
 		{
 			iconName: "settings",
-			path: ""
+			path: "",
+			onPress() {
+				signOut()
+			},
 		},
 	]
 
@@ -40,25 +46,37 @@ export function Profile() {
 	const mockBundleItens: IBundleItem[] = [
 		{
 			id: 1,
-			title: 'Ju gata',
-			description: "Eu faco uma ju p/ vc em ate dois dias",
+			title: 'Logo',
+			description: "Concepcao e atualizacao de logos para empresas serias.",
 			value: 15,
 			deadline: 2,
-			status: true
+			status: true,
+			images: ["https://storage.googleapis.com/images-ahazo-dev/dev-images/unsplash1.jpg", "https://storage.googleapis.com/images-ahazo-dev/dev-images/unsplash3.jpg", "https://storage.googleapis.com/images-ahazo-dev/dev-images/unsplash2.jpg"]
 		},
 		{
 			id: 2,
-			title: 'Ju gata',
-			description: "Eu faco uma ju p/ vc em ate dois dias",
-			value: 65.00,
+			title: 'Web Design',
+			description: "Web design completo de sites com ate 5 paginas.",
+			value: 65.30,
 			deadline: 3,
-			status: true
+			status: true,
+			images: ["https://storage.googleapis.com/images-ahazo-dev/dev-images/unsplash1.jpg"]
+		},
+		{
+			id: 3,
+			title: 'Web Design',
+			description: "Web design completo de sites com ate 5 paginas.",
+			value: 65.30,
+			deadline: 3,
+			status: true,
+			images: ["https://storage.googleapis.com/images-ahazo-dev/dev-images/unsplash1.jpg", "https://storage.googleapis.com/images-ahazo-dev/dev-images/unsplash2.jpg"]
 		}
 	]
 
 	const loadUserData = async () => {
 		setIsLoading(true);
-		const response = await api.get('/api/users');
+		const response = await api.get('/users');
+		console.log(response.data);
 
 		if (!response || response.status !== 200) {
 			console.info(response);
@@ -69,9 +87,9 @@ export function Profile() {
 		setIsLoading(false);
 	};
 
-	// useEffect(() => {
-	// 	loadUserData();
-	// }, []);
+	useEffect(() => {
+		loadUserData();
+	}, []);
 
 	return (
 		<>
@@ -105,8 +123,11 @@ export function Profile() {
 					</MaskedView>
 					<InfoContainer>
 						<Name>
-							Julia Alves
+							{userData.name}
 						</Name>
+						<Description>
+							@{userData.username}
+						</Description>
 						<Description>
 							Senior Designer
 						</Description>
@@ -117,8 +138,8 @@ export function Profile() {
 				</ProfileContainer>
 
 				<FollowInfoContainer>
-					<FollowInfo><BoldText>5.2k</BoldText> Seguidores</FollowInfo>
-					<FollowInfo><BoldText>1.3k</BoldText> Seguindo</FollowInfo>
+					<FollowInfo><BoldText>{userData.followers}</BoldText> Seguidores</FollowInfo>
+					<FollowInfo><BoldText>{userData.following}</BoldText> Seguindo</FollowInfo>
 					<FollowInfo><BoldText>135</BoldText> Jobs</FollowInfo>
 				</FollowInfoContainer>
 
@@ -131,6 +152,11 @@ export function Profile() {
 					bundles={mockBundleItens}
 					isPrivate={true}
 				/>
+
+				{/* <Activities
+					userId={}
+					isPrivate={true}
+				/> */}
 			</Container>
 		</>
 	);

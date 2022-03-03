@@ -15,11 +15,12 @@ export const BundleListContainer = styled.ScrollView`
 	padding-top: ${height * 0.01}px;
 `
 
-export const BundleCard = styled(SquircleView)`
-	height: ${width * 0.6}px;
-	width: ${width * 0.6}px;
+export const BundleCard = styled.View`
+	background-color: #FCFCFC;
+	height: ${width * 0.75}px;
+	width: ${width * 0.75}px;
 	margin-right: ${width * 0.02}px;
-	overflow: hidden;
+	border-radius: 20px;
 `;
 
 export const TipTextContainer = styled.View`
@@ -46,17 +47,47 @@ export const SubTitle = styled.Text`
 `;
 
 export const Description = styled.Text`
-	text-align: center;	
 	color: ${colors.body_light};
-	font-size: ${fontSizes.subText}px;
+	font-size: ${fontSizes.text}px;
 	font-family: ${fonts.text};
 	letter-spacing: 0.2px;
 `;
 
+export const TipDescription = styled(Description)`
+	text-align: center;
+`
+
 export const Title = styled.Text`
-	text-align: center;	
-	color: ${colors.body_light};
-	font-size: ${fontSizes.title}px;
-	font-family: ${fonts.text};
+	color: ${colors.purple};
+	font-size: ${fontSizes.subTitle}px;
+	font-family: ${fonts.semibold};
 	letter-spacing: 0.2px;
+`;
+
+export const InfoContainer = styled.View`
+	width: 100%;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+	margin-top: auto;
+`;
+
+
+export const EstimatedTimeContainer = styled(SquircleView)`
+	padding: ${width * 0.02}px ${width * 0.03}px;
+	margin-right: ${width * 0.02}px;
+	overflow: hidden;
+`;
+
+
+export const PriceContainer = styled(SquircleView)`
+	padding: ${width * 0.02}px ${width * 0.03}px;
+	overflow: hidden;
+`;
+
+export const InfoText = styled.Text`
+	color: white;
+	font-size: ${fontSizes.text}px;
+	font-family: ${fonts.semibold};
+	letter-spacing: 0.1px;
 `;

@@ -1,11 +1,10 @@
 import { Feather } from '@expo/vector-icons';
 import React from 'react';
-import { Text, View } from 'react-native';
-import { SquircleView } from 'react-native-figma-squircle';
+import { Image, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { width } from '../../constants';
 import colors from '../../styles/colors';
-import { BundleCard, BundleListContainer, Container, Description, SubTitle, TipTextContainer, TipTitle, Title } from './styles';
+import { BundleCard, BundleListContainer, Container, Description, TipDescription, SubTitle, TipTextContainer, TipTitle, Title, EstimatedTimeContainer, PriceContainer, InfoContainer, InfoText } from './styles';
 
 export interface IBundleItem {
 	id: number;
@@ -14,6 +13,7 @@ export interface IBundleItem {
 	value: number;
 	deadline: number;
 	status: boolean;
+	images?: string[];
 }
 
 interface IBundleProps {
@@ -31,12 +31,9 @@ const Bundle = (props: IBundleProps) => {
 			>
 				{props.isPrivate && (
 						<BundleCard
-							squircleParams={{
-								fillColor: "#FEFEFE",
-								cornerRadius: 20,
-								cornerSmoothing: 1,
-								strokeWidth: 2,
-								strokeColor: colors.purple
+							style={{
+								borderWidth: 2,
+								borderColor: colors.purple
 							}}
 						>
 							<TouchableWithoutFeedback
@@ -54,7 +51,7 @@ const Bundle = (props: IBundleProps) => {
 								/>
 								<TipTextContainer>
 									<TipTitle>Crie um pacote</TipTitle>
-									<Description>Publique um servico no seu perfil e tenha mais visibilidade.</Description>
+									<TipDescription>Publique um servico no seu perfil e tenha mais visibilidade.</TipDescription>
 								</TipTextContainer>
 							</TouchableWithoutFeedback>
 						</BundleCard>
@@ -64,18 +61,71 @@ const Bundle = (props: IBundleProps) => {
 					return (
 						<BundleCard
 							key={bundle.id}
-							squircleParams={{
-								fillColor: "#EEEEEE",
-								cornerRadius: 20,
-								cornerSmoothing: 1,
-							}}
 						>
-							<Title>
-								{bundle.title}
-							</Title>
-							<Description>
-								{bundle.description}
-							</Description>
+							<TouchableWithoutFeedback
+								style={{
+									height: "100%",
+									justifyContent: 'flex-start',
+									alignItems: 'flex-start',
+									paddingVertical: 20,
+									paddingHorizontal: 15,
+								}}
+								onPress={() => {}}
+							>
+								{bundle.images && (
+									<View
+										style={{
+											height: "40%",
+											flexDirection: "row",
+											justifyContent: "center",
+										}}
+									>
+										{bundle.images.map((imagePath, index) => {
+											return (
+												<Image
+													key={index}
+													source={{ uri: imagePath }}
+													style={{
+														flex: 1, 
+														resizeMode: 'cover',
+														margin: 10,
+														borderRadius: 15,
+													}}
+												/>
+											)
+										})}
+									</View>
+								)}
+
+								<Title>
+									{bundle.title}
+								</Title>
+								<Description>
+									{bundle.description}
+								</Description>
+								<InfoContainer>
+									<EstimatedTimeContainer
+										squircleParams={{
+											cornerSmoothing: 1,
+											cornerRadius: 15,
+											fillColor: colors.blue_light,
+										}}
+									>
+										<InfoText>
+											{bundle.deadline} dias
+										</InfoText>
+									</EstimatedTimeContainer>
+									<PriceContainer
+										squircleParams={{
+											cornerSmoothing: 1,
+											cornerRadius: 15,
+											fillColor: colors.green,
+										}}
+									>
+										<InfoText>R$ {bundle.value.toLocaleString("pt-BR")}</InfoText>
+									</PriceContainer>
+								</InfoContainer>
+							</TouchableWithoutFeedback>
 						</BundleCard>
 					)
 				})}

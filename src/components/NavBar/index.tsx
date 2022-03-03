@@ -8,6 +8,7 @@ import { NavContainer, BackButton, ActionsContainer, Title } from './styles';
 interface IAction {
 	iconName: any;
 	path: string;
+	onPress(): void;
 }
 
 interface INavBarProps {
@@ -34,6 +35,7 @@ const NavBar = (props: INavBarProps) => {
 								padding: 5
 							}}
 							key={index}
+							onPress={action.onPress}
 						>
 							<Feather
 								name={action.iconName}
