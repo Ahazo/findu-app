@@ -6,6 +6,8 @@ import TabRoutes from './tab.routes';
 
 import { useAuth } from '../context/auth';
 import colors from '../styles/colors';
+import AppRoutes from './app.routes';
+import { NavigationContainer } from '@react-navigation/native';
 
 const Routes: React.FC = () => {
   const { userToken, isLoading, signOut } = useAuth();
@@ -20,7 +22,14 @@ const Routes: React.FC = () => {
     );
   }
 
-  return userToken ? <TabRoutes /> : <AuthRoutes />;
+  return userToken ? ( 
+		<>
+			{/* <NavigationContainer> */}
+				{/* <AppRoutes /> */}
+				<TabRoutes />
+			{/* </NavigationContainer> */}
+		</>
+	) : <AuthRoutes />;
 };
 
 export default Routes;

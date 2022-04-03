@@ -1,10 +1,14 @@
 import React from 'react';
 import { View, Image } from 'react-native';
-import { height } from '../../constants';
+import { height, ratio } from '../../constants';
 
 const Header = () => {
   return (
-    <View>
+    <View
+			style={{
+				marginTop: 10 * ratio
+			}}
+		>
       <Image
         style={{
           height: height*0.08,

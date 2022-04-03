@@ -22,9 +22,9 @@ const Button = ({
       colors={[colors.purple, colors.blue_light]}
       start={{ x: 0, y: 1 }}
       end={{ x: 1, y: 0 }}
-      style={[styles.buttonBackground, containerButtonStyle]}
+      style={[styles.buttonBackground, containerButtonStyle, restOfProps.disabled && styles.disabledButton]}
     >
-      <Container {...restOfProps} style={buttonStyle}>
+      <Container {...restOfProps} style={[buttonStyle]}>
         <ButtonText>{text}</ButtonText>
       </Container>
     </LinearGradient>
@@ -39,4 +39,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+	disabledButton: {
+		opacity: 20,	
+	}
 });

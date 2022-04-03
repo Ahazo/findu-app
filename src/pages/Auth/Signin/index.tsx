@@ -22,6 +22,7 @@ import Toast from 'react-native-toast-message';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import ColoredHeader from '../../../components/ColoredHeader';
+import Header from '../../../components/Header';
 
 import { useAuth } from '../../../context/auth';
 
@@ -44,7 +45,7 @@ const schema = yup.object().shape({
 
 export const SignIn = () => {
   const navigation = useNavigation();
-  const { signIn, user } = useAuth();
+  const { signIn, userToken } = useAuth();
 
   const [hasError, setHasError] = useState(false);
   const [error, setErrorMessage] = useState<string>();
@@ -75,12 +76,10 @@ export const SignIn = () => {
       password: data.password,
     });
 
-    if (!user) {
+    if (!userToken) {
       setHasError(true);
       setErrorMessage('Usuario e/ou Senha incorretos')
     }
-
-    navigation.navigate('Dashboard');
   }
 
   return (
@@ -93,14 +92,13 @@ export const SignIn = () => {
         <View style={styles.container}>
           <ScrollView style={{ flex: 1 }}>
             <ColoredHeader
-              logoDimensions={{ height: height * 0.06 }}
-              heightPercentage={height * 0.4}
+              logoDimensions={{ height: height * 0.07 }}
+              heightPercentage={height * 0.45}
               contentStyle={{
                 marginTop: height * 0.1,
               }}
               position="flex-start"
             />
-
             <View style={styles.contentContainer}>
               <View style={styles.formContainer}>
                 <Text style={styles.title}>Vamos lá!</Text>
@@ -120,7 +118,7 @@ export const SignIn = () => {
                         placeholder="Usuário"
                         inputValue={value}
                         errors={errors}
-                        onChangeText={value => onChange(value)}
+                        inputMaskChange={(value: string) => onChange(value)}
                         returnKeyType="next"
                         onSubmitEditing={() => passwordRef.current?.focus()}
                       />
@@ -144,7 +142,7 @@ export const SignIn = () => {
                         secureTextEntry
                         errors={errors}
                         textContentType="password"
-                        onChangeText={value => onChange(value)}
+                        inputMaskChange={(value: string) => onChange(value)}
                         returnKeyType="send"
                         onSubmitEditing={handleSubmit(onSubmit)}
                       />

@@ -1,46 +1,88 @@
+import { Platform, StatusBar } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 import { height, width } from '../../../constants';
 import colors from '../../../styles/colors';
+import fonts from '../../../styles/fonts';
+import fontSizes from '../../../styles/fontSizes';
 
-export const Container = styled.View`
+export const Container = styled(ScrollView)`
   flex: 1;
-  background-color: ${colors.white};
+	background-color: white;
 `;
 
-export const BannerProfileContainer = styled.View`
-    background-color: ${colors.purple_light};
-    height: ${height * 0.25}px;
-    border-bottom-left-radius: 25;
-    border-bottom-right-radius: 25;
-    overflow: hidden;
+export const ProfileContainer = styled.View`
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	padding: ${height * 0.01}px ${height * 0.02}px;
+`;
+
+export const InfoContainer = styled.View`
+	padding: ${height * 0.015}px;
+`;
+
+export const Name = styled.Text`
+	color: ${colors.purple};
+	font-size: ${fontSizes.title}px;
+	font-family: ${fonts.semibold};
+	letter-spacing: 0.3px;
+`;
+
+export const Description = styled.Text`
+	color: ${colors.body_light};
+	font-size: ${fontSizes.text}px;
+	font-family: ${fonts.text};
+	letter-spacing: 0.2px;
+`;
+
+export const ProfileInfoContainer = styled.View`
+	flex-direction: row;
+	margin-top: 20px;
+	justify-content: space-around;
+	align-items: center;
+`;
+
+export const FollowInfoContainer = styled.View`
+	flex-direction: row;
+	justify-content: space-around;
+	padding: 0 ${height * 0.01}px ${height * 0.01}px ${height * 0.01}px;
+`;
+
+export const FollowInfo = styled.Text`
+	color: ${colors.body_light};
+	font-size: ${fontSizes.text}px;
+	font-family: ${fonts.text};
+	letter-spacing: 0.2px;
+	padding: 0 ${height * 0.02}px 0 0;
 `
 
-export const Content = styled.View`
-  padding: 0 ${width * 0.02}px;
+export const AboutContainer = styled.View`
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: ${height * 0.01}px ${height * 0.02}px;
 `;
 
-export const UserCardContainer = styled.View`
-  width: 100%;
-  height: ${height * 0.2}px;
-  border-radius: 30;
-  padding: 10px 20px;
-
-  background-color: ${colors.red};
-
-  margin-top: -${height * 0.1};
+export const AboutText = styled.Text`
+	color: ${colors.body_light};
+	font-size: ${fontSizes.text}px;
+	font-family: ${fonts.text};
+	letter-spacing: 0.2px;
 `;
 
-export const UserCardContent = styled.View`
-  flex: 1;
-  background-color: ${colors.blue_light};
+export const BundleContainer = styled(AboutContainer)``;
 
-  align-items: center;
-  justify-content: space-between;
+export const SubTitle = styled.Text`
+	color: ${colors.body};
+	font-size: ${fontSizes.subTitle}px;
+	font-family: ${fonts.heading};
+	letter-spacing: 0.25px;
+	margin-bottom: ${height * 0.005}px;
 `;
 
-export const UserProfilePhoto = styled.View``;
-
-export const UserCardContentInfo = styled.View``;
-
-export const UserCardBadge = styled.View``;
-
+export const BoldText = styled.Text`
+	color: ${colors.body};
+	font-size: ${fontSizes.text}px;
+	font-family: ${fonts.semibold};
+	letter-spacing: 0.2px;
+`
