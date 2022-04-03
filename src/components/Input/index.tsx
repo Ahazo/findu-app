@@ -24,6 +24,7 @@ interface IInputProps extends TextInputProps {
   errors: FieldErrors;
 	mask?: "cep" | "cpf" | "cellphone";
 	inputMaskChange: any;	
+	isMultiline?: boolean;
 }
 
 const Input: React.ForwardRefRenderFunction<
@@ -41,6 +42,7 @@ const Input: React.ForwardRefRenderFunction<
 		keyboardType,
 		mask,
 		inputMaskChange,
+		isMultiline,
     ...rest
   },
   ref,
@@ -68,7 +70,7 @@ const Input: React.ForwardRefRenderFunction<
 
   return (
     <>
-      <ContainerInput error={Boolean(errors[inputField])}>
+      <ContainerInput error={Boolean(errors[inputField])} isMultiline={isMultiline}>
         {iconName && (
           <Feather
             name={iconName}
@@ -86,6 +88,7 @@ const Input: React.ForwardRefRenderFunction<
           placeholderTextColor={
             errors[inputField] ? colors.red : colors.body_light
           }
+					multiline={isMultiline}
         />
       </ContainerInput>
       {/* Erro de input */}

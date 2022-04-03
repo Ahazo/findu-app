@@ -9,16 +9,15 @@ import { Explorer } from '../pages/App/Explorer';
 import { Profile } from '../pages/App/Profile';
 
 import colors from '../styles/colors';
-import { LinearGradient } from 'expo-linear-gradient';
 import { height, width } from '../constants';
-import { SvgUri } from 'react-native-svg';
+import AppRoutes from './app.routes';
 
 const Tab = createBottomTabNavigator();
 
 export default function TabRoutes() {
   return (
     <Tab.Navigator
-      initialRouteName="Dashboard"
+      initialRouteName="Profile"
       tabBarOptions={{
         showLabel: false,
         style: {
@@ -65,7 +64,7 @@ export default function TabRoutes() {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={AppRoutes}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.thirdContainer}>

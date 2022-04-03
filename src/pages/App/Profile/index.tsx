@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { IUserData } from '../../../utils/dtos/IUserData';
 
 import { 
@@ -8,7 +8,6 @@ import {
 	InfoContainer,
 	Name,
 	Description,
-	BundleContainer,
 	SubTitle,
 	AboutContainer,
 	AboutText,
@@ -22,7 +21,7 @@ import api from '../../../services/api';
 import { SquircleView } from 'react-native-figma-squircle';
 import MaskedView from '@react-native-community/masked-view';
 import NavBar from '../../../components/NavBar';
-import Bundle, { IBundleItem } from '../../../components/Bundle';
+import BundleList, { IBundleItem } from '../../../components/BundleList';
 import { useAuth } from '../../../context/auth';
 
 export function Profile() {
@@ -76,8 +75,6 @@ export function Profile() {
 	const loadUserData = async () => {
 		setIsLoading(true);
 		const response = await api.get('/users');
-		console.log(response.data);
-
 		if (!response || response.status !== 200) {
 			console.info(response);
 			setHasError(true);
@@ -148,7 +145,7 @@ export function Profile() {
 					<AboutText>Designer desde meus 5 anos, aprendi a desenvolver trabalhos que emanam a energia do cliente, com meu toque especial</AboutText>
 				</AboutContainer>
 
-				<Bundle
+				<BundleList
 					bundles={mockBundleItens}
 					isPrivate={true}
 				/>

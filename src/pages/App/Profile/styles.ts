@@ -1,23 +1,21 @@
 import { Platform, StatusBar } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 import { height, width } from '../../../constants';
 import colors from '../../../styles/colors';
 import fonts from '../../../styles/fonts';
 import fontSizes from '../../../styles/fontSizes';
 
-export const Container = styled.View`
+export const Container = styled(ScrollView)`
   flex: 1;
-	padding-left: ${height * 0.02}px;
-	padding-right: ${height * 0.02}px;
 	background-color: white;
-
 `;
 
 export const ProfileContainer = styled.View`
 	flex-direction: row;
 	justify-content: flex-start;
 	align-items: center;
-	padding-top: ${height * 0.01}px;
+	padding: ${height * 0.01}px ${height * 0.02}px;
 `;
 
 export const InfoContainer = styled.View`
@@ -48,7 +46,7 @@ export const ProfileInfoContainer = styled.View`
 export const FollowInfoContainer = styled.View`
 	flex-direction: row;
 	justify-content: space-around;
-	padding: ${height * 0.01}px;
+	padding: 0 ${height * 0.01}px ${height * 0.01}px ${height * 0.01}px;
 `;
 
 export const FollowInfo = styled.Text`
@@ -62,7 +60,7 @@ export const FollowInfo = styled.Text`
 export const AboutContainer = styled.View`
 	justify-content: flex-start;
 	align-items: flex-start;
-	padding: ${height * 0.01}px;
+	padding: ${height * 0.01}px ${height * 0.02}px;
 `;
 
 export const AboutText = styled.Text`

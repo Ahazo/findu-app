@@ -1,4 +1,5 @@
 import { Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { height, width } from '../../constants';
@@ -17,14 +18,25 @@ interface INavBarProps {
 }
 
 const NavBar = (props: INavBarProps) => {
+	const navigation = useNavigation();
+	const canGoBack = navigation.canGoBack();
+
 	return (
 		<NavContainer>
-			<BackButton>
-				<Feather
-					name="chevron-left"
-					size={width * 0.06}
-					color={colors.body}
-				/>
+			<BackButton
+				onPress={() => {
+					if (canGoBack) {
+						return navigation.goBack()
+					}
+				}}
+			>
+				{canGoBack &&
+					<Feather
+						name="chevron-left"
+						size={width * 0.07}
+						color={colors.body}
+					/>
+				}
 			</BackButton>
 			<Title>{props.name}</Title>
 			<ActionsContainer>
