@@ -56,7 +56,7 @@ const Login = () => {
 	useEffect(() => {
 		const {username, password} = loginData;
 		if (username && password && ready) signUp();
-	}, [loginData]);
+	}, [ready]);
 
 	return (		
 		<Container>

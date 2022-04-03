@@ -26,11 +26,8 @@ type FormDataType = {
   cpf: string;
 };
 
-
-
 export function SignUp() {
   const navigation = useNavigation();
-
   const passwordRef = useRef<TextInput>(null);
   const passwordConfirmRef = useRef<TextInput>(null);
   const mailRef = useRef<TextInput>(null);
@@ -54,7 +51,7 @@ export function SignUp() {
 					contentContainerStyle={{
 						alignItems: "center"
 					}}
-				  showsVerticalScrollIndicator={false}
+					showsVerticalScrollIndicator={false}
 				>
 					<Logo
 						resizeMode="contain"

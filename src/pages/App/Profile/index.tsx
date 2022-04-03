@@ -24,6 +24,7 @@ import MaskedView from '@react-native-community/masked-view';
 import NavBar from '../../../components/NavBar';
 import Bundle, { IBundleItem } from '../../../components/Bundle';
 import { useAuth } from '../../../context/auth';
+import Loading from '../../../components/Loading';
 
 export function Profile() {
   const { signOut } = useAuth();
@@ -76,8 +77,6 @@ export function Profile() {
 	const loadUserData = async () => {
 		setIsLoading(true);
 		const response = await api.get('/users');
-		console.log(response.data);
-
 		if (!response || response.status !== 200) {
 			console.info(response);
 			setHasError(true);
@@ -93,71 +92,78 @@ export function Profile() {
 
 	return (
 		<>
-			<NavBar
-				actions={actions}
-				name={"Perfil"}
-			/>
-			<Container>
-				<ProfileContainer>
-					<MaskedView
-						style={{
-							width: 80,
-							height: 80,
-						}}
-						maskElement={
-							<SquircleView
-								style={StyleSheet.absoluteFill}
-								squircleParams={{
-									cornerRadius: 32,
-									cornerSmoothing: 1,
+			{isLoading 
+				? <Loading/>
+				: (
+					<>
+					<NavBar
+						actions={actions}
+						name={"Perfil"}
+					/>
+					<Container>
+						<ProfileContainer>
+							<MaskedView
+								style={{
+									width: 80,
+									height: 80,
 								}}
-							/>
-						}
-					>
-						<Image 
-							source={{
-								uri: "https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg"
-							}}
-							style={StyleSheet.absoluteFill}
+								maskElement={
+									<SquircleView
+										style={StyleSheet.absoluteFill}
+										squircleParams={{
+											cornerRadius: 32,
+											cornerSmoothing: 1,
+										}}
+									/>
+								}
+							>
+								<Image 
+									source={{
+										uri: "https://storage.googleapis.com/images-ahazo-dev/dev-images/minhaGata.jpg"
+									}}
+									style={StyleSheet.absoluteFill}
+								/>
+							</MaskedView>
+							<InfoContainer>
+								<Name>
+									{userData.name}
+								</Name>
+								<Description>
+									@{userData.username}
+								</Description>
+								<Description>
+									Senior Designer
+								</Description>
+								<Description>
+									<BoldText>102k</BoldText> Indicacoes
+								</Description>
+							</InfoContainer>
+						</ProfileContainer>
+
+						<FollowInfoContainer>
+							<FollowInfo><BoldText>{userData.followers}</BoldText> Seguidores</FollowInfo>
+							<FollowInfo><BoldText>{userData.following}</BoldText> Seguindo</FollowInfo>
+							<FollowInfo><BoldText>135</BoldText> Jobs</FollowInfo>
+						</FollowInfoContainer>
+
+						<AboutContainer>
+							<SubTitle>Sobre</SubTitle>
+							<AboutText>Designer desde meus 5 anos, aprendi a desenvolver trabalhos que emanam a energia do cliente, com meu toque especial</AboutText>
+						</AboutContainer>
+
+						<Bundle
+							bundles={mockBundleItens}
+							isPrivate={true}
 						/>
-					</MaskedView>
-					<InfoContainer>
-						<Name>
-							{userData.name}
-						</Name>
-						<Description>
-							@{userData.username}
-						</Description>
-						<Description>
-							Senior Designer
-						</Description>
-						<Description>
-							<BoldText>102k</BoldText> Indicacoes
-						</Description>
-					</InfoContainer>
-				</ProfileContainer>
 
-				<FollowInfoContainer>
-					<FollowInfo><BoldText>{userData.followers}</BoldText> Seguidores</FollowInfo>
-					<FollowInfo><BoldText>{userData.following}</BoldText> Seguindo</FollowInfo>
-					<FollowInfo><BoldText>135</BoldText> Jobs</FollowInfo>
-				</FollowInfoContainer>
-
-				<AboutContainer>
-					<SubTitle>Sobre</SubTitle>
-					<AboutText>Designer desde meus 5 anos, aprendi a desenvolver trabalhos que emanam a energia do cliente, com meu toque especial</AboutText>
-				</AboutContainer>
-
-				<Bundle
-					bundles={mockBundleItens}
-					isPrivate={true}
-				/>
-
-				{/* <Activities
-					userId={}
-					isPrivate={true}
-				/> */}
-			</Container>
+						{/* <Activities
+							userId={}
+							isPrivate={true}
+						/> */}
+					</Container>
+					</>
+				)
+			}
 		</>
 	);
 }

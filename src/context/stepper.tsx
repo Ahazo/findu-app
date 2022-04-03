@@ -145,34 +145,38 @@ const StepperProvider: React.FC = ({ children }) => {
 			setHasError(true);
 			return;
 		}
-
-		const data: IUserFormData = {
-			...loginData,
-			person: {
-				...personalData,
-				address: {
-					...addressData
+		try {
+			const data: IUserFormData = {
+				...loginData,
+				person: {
+					...personalData,
+					address: {
+						...addressData
+					}
 				}
 			}
-		}
-
-		const response = await api.post('/users/', data);
-		
-		if (response.status !== 200) {
-			console.log('Erro na criacao de usuario')
-			// Criar popups p erros
+	
+			const response = await api.post('/users/', data);
+			if (response.status !== 200) {
+				setHasError(true);
+				setIsLoading(false)
+				return;
+			}
+	
+			const { token } = response.data;
+	
+			await AsyncStorage.multiSet([
+				['@Ahazo:token', token]
+			]);
+	
+			api.defaults.headers.authorization = `Bearer ${token}`;
+		} catch (err: any) {
+			console.log('aqui');
+			console.error(err.message);
 			setHasError(true);
 			setIsLoading(false)
 			return;
 		}
-
-		const { token } = response.data;
-
-    await AsyncStorage.multiSet([
-      ['@Ahazo:token', token]
-    ]);
-
-    api.defaults.headers.authorization = `Bearer ${token}`;
 	}
 
 	return (
