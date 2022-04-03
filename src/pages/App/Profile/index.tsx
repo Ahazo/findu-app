@@ -22,25 +22,23 @@ import { SquircleView } from 'react-native-figma-squircle';
 import MaskedView from '@react-native-community/masked-view';
 import NavBar from '../../../components/NavBar';
 import BundleList, { IBundleItem } from '../../../components/BundleList';
-import { useAuth } from '../../../context/auth';
 import Loading from '../../../components/Loading';
+import { useNavigation } from '@react-navigation/native';
 
 export function Profile() {
-  const { signOut } = useAuth();
-	
+	const navigation = useNavigation();
 	const actions = [
 		{
 			iconName: "settings",
 			path: "",
 			onPress() {
-				signOut()
+				navigation.navigate("SettingsMenu");
 			},
 		},
 	]
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasError, setHasError] = useState(false);
-
 	const [userData, setUserData] = useState({} as IUserData);
 
 	const mockBundleItens: IBundleItem[] = [

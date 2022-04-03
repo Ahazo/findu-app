@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import colors from '../styles/colors';
 import CreateBundle from '../pages/App/Profile/Bundle/create';
 import { Profile } from '../pages/App/Profile';
+import SettingsMenu from '../pages/App/Profile/Settings';
 
 const App = createStackNavigator();
 
@@ -21,6 +22,7 @@ export default function AppRoutes() {
     >
       <App.Screen name="Profile" component={Profile} />
       <App.Screen name="BundleCreation" component={CreateBundle} />
+			<App.Screen name="SettingsMenu" component={SettingsMenu} />
     </App.Navigator>
   );
 }

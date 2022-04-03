@@ -6,7 +6,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Dashboard } from '../pages/App/Dashboard';
 import { Explorer } from '../pages/App/Explorer';
-import { Profile } from '../pages/App/Profile';
 
 import colors from '../styles/colors';
 import { height, width } from '../constants';
