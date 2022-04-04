@@ -10,6 +10,7 @@ interface IAction {
 	iconName: any;
 	path: string;
 	onPress(): void;
+	color?: string;
 }
 
 interface INavBarProps {
@@ -52,7 +53,7 @@ const NavBar = (props: INavBarProps) => {
 							<Feather
 								name={action.iconName}
 								size={width * 0.06}
-								color={colors.body}
+								color={action.color ? action.color : colors.body}
 							/>
 						</TouchableOpacity>
 					);

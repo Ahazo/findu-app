@@ -28,3 +28,8 @@ export const LabelText = styled.Text`
 	font-size: ${fontSizes.text}px;
 	color: ${colors.body};
 `;
+
+export const ConfigContainer = styled.View`
+	width: 100%;
+	margin-top: ${height * 0.03}px;
+`;

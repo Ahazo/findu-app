@@ -4,17 +4,33 @@ import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { SquircleView } from 'react-native-figma-squircle';
 import Button from '../../../../components/Button';
+import ConfigItem from '../../../../components/ConfigItem';
 import NavBar from '../../../../components/NavBar';
 import { height, width } from '../../../../constants';
+import { useAuth } from '../../../../context/auth';
 import colors from '../../../../styles/colors';
+import fontSizes from '../../../../styles/fontSizes';
 import {
 	LabelText,
-	MenuItem,
+	ConfigContainer,
 	NameText,
 	ProfileContainer
 } from './styles';
 
 const SettingsMenu = () => {
+	const { signOut } = useAuth();
+	
+	const action = [
+		{
+			iconName: "log-out",
+			color: colors.red,
+			path: "",
+			onPress() {
+				signOut();
+			}
+		}
+	] 
+
 	// Edicao de perfil
 	// Privacidade
 	// Termos de uso
@@ -24,7 +40,7 @@ const SettingsMenu = () => {
 	return (
 		<>
 			<NavBar
-				actions={[]}
+				actions={action}
 				name={"Configurações"}
 			/>
 			<ScrollView
@@ -35,14 +51,14 @@ const SettingsMenu = () => {
 				<ProfileContainer>
 					<MaskedView
 						style={{
-							width: 85,
-							height: 85,
+							width: 100,
+							height: 100,
 						}}
 						maskElement={
 							<SquircleView
 								style={StyleSheet.absoluteFill}
 								squircleParams={{
-									cornerRadius: 32,
+									cornerRadius: 37,
 									cornerSmoothing: 1,
 								}}
 							/>
@@ -55,35 +71,54 @@ const SettingsMenu = () => {
 							style={StyleSheet.absoluteFill}
 						/>
 					</MaskedView>
+
 					<NameText>Lucca Scarano</NameText>
-					<LabelText>Senior Designer</LabelText>
+					<LabelText>@scarano</LabelText>
+					
 					<TouchableOpacity
 						style={{
-							width: width * 0.35,
-							height: height * 0.032,
+							width: width * 0.40,
+							height: height * 0.035,
 							borderRadius: height * 0.1,
-							marginTop: height * 0.007,
+							marginTop: height * 0.01,
 							justifyContent: "center",
 							alignItems: "center",
 							backgroundColor: colors.purple,
-							flexDirection: 'row'
+							flexDirection: 'row',
+							paddingHorizontal: width * 0.07
+						}}
+
+						onPress={() => {
+							console.log('vai pra tela de edicao de perfil');
 						}}
 					>
 						<Text
 							style={{
-								textAlign: 'right',
 								color: colors.white,
-								marginRight: width * 0.02
+								textAlign: 'center'
 							}}
 						>
 							Editar Perfil
 						</Text>
-						<Feather
-							name="chevron-right"
-							color="white"
-						/>
 					</TouchableOpacity>
 				</ProfileContainer>
+
+				<ConfigContainer>
+					<ConfigItem
+						label="Freelancer"
+						onPress={() => {}}
+					/>
+
+					<ConfigItem
+						label="Termos de uso"
+						onPress={() => {}}
+					/>
+
+					<ConfigItem
+						label="Termos de uso"
+						onPress={() => {}}
+					/>
+				</ConfigContainer>
 			</ScrollView>
 		</>
 	 )
