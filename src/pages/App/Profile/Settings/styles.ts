@@ -8,7 +8,7 @@ export const ProfileContainer = styled.View`
 	width: 100%;
 	justify-content: center;
 	align-items: center;
-	padding-top: ${height * 0.05};
+	padding-top: ${height * 0.05}px;
 `;
 
 export const MenuItem = styled.View`
@@ -20,7 +20,7 @@ export const NameText = styled.Text`
 	font-family: ${fonts.semibold};
 	font-size: ${fontSizes.subTitle}px;
 	color: ${colors.body};
-	margin-top: ${height * 0.01};
+	margin-top: ${height * 0.01}px;
 `;
 
 export const LabelText = styled.Text`
@@ -32,4 +32,14 @@ export const LabelText = styled.Text`
 export const ConfigContainer = styled.View`
 	width: 100%;
 	margin-top: ${height * 0.03}px;
+`;
+
+export const HelpContainer = styled.View`
+	background-color: rgb(231, 245, 239);
+	width: 100%;
+	height: ${height * 0.13};
+	border-radius: ${height * 0.03};
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 `;

@@ -9,12 +9,14 @@ import NavBar from '../../../../components/NavBar';
 import { height, width } from '../../../../constants';
 import { useAuth } from '../../../../context/auth';
 import colors from '../../../../styles/colors';
+import fonts from '../../../../styles/fonts';
 import fontSizes from '../../../../styles/fontSizes';
 import {
 	LabelText,
 	ConfigContainer,
 	NameText,
-	ProfileContainer
+	ProfileContainer,
+	HelpContainer
 } from './styles';
 
 const SettingsMenu = () => {
@@ -39,7 +41,8 @@ const SettingsMenu = () => {
 			/>
 			<ScrollView
 				style={{
-					flex: 1
+					flex: 1,
+					paddingHorizontal: height * 0.05
 				}}
 			>
 				<ProfileContainer>
@@ -103,14 +106,40 @@ const SettingsMenu = () => {
 						onPress={() => {}}
 					/>
 					<ConfigItem
+						label="Meus Cartões"
+						onPress={() => {}}
+					/>
+					<ConfigItem
+						label="Histórico"
+						onPress={() => {}}
+					/>
+					<ConfigItem
 						label="Privacidade"
 						onPress={() => {}}
 					/>
 					<ConfigItem
-						label="Termos de uso"
+						label="Termos De Uso"
 						onPress={() => {}}
 					/>
 				</ConfigContainer>
+
+				<HelpContainer>
+					<Feather
+						name='help-circle'
+						color={colors.green}
+						size={width * 0.13}
+					/>
+					<Text
+						style={{
+							marginLeft: width*0.02,
+							fontFamily: fonts.semibold,
+							fontSize: fontSizes.text,
+							color: colors.green
+						}}
+					>
+						Como podemos te ajudar?
+					</Text>
+				</HelpContainer>
 			</ScrollView>
 		</>
 	 )

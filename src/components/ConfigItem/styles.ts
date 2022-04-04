@@ -7,11 +7,10 @@ import fontSizes from "../../styles/fontSizes";
 
 export const Container = styled(TouchableOpacity)`
 	width: 100%;
-	height: ${height * 0.07};
+	height: ${height * 0.07}px;
 	justifyContent: space-between;
 	alignItems: center;
 	flexDirection: row;
-	paddingHorizontal: ${height * 0.05};
 `;
 
 export const Label = styled.Text`
