@@ -30,12 +30,6 @@ const SettingsMenu = () => {
 			}
 		}
 	] 
-
-	// Edicao de perfil
-	// Privacidade
-	// Termos de uso
-	// Logout
-
 	
 	return (
 		<>
@@ -108,12 +102,10 @@ const SettingsMenu = () => {
 						label="Freelancer"
 						onPress={() => {}}
 					/>
-
 					<ConfigItem
-						label="Termos de uso"
+						label="Privacidade"
 						onPress={() => {}}
 					/>
-
 					<ConfigItem
 						label="Termos de uso"
 						onPress={() => {}}
