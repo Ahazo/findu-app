@@ -1,9 +1,9 @@
 import { ScrollView } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
-import { height } from '../../../constants';
-import colors from '../../../styles/colors';
-import fonts from '../../../styles/fonts';
-import fontSizes from '../../../styles/fontSizes';
+import { height } from '../../../../constants';
+import colors from '../../../../styles/colors';
+import fonts from '../../../../styles/fonts';
+import fontSizes from '../../../../styles/fontSizes';
 
 export const Container = styled(ScrollView)`
   flex: 1;

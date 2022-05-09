@@ -6,7 +6,7 @@ import { height, width } from '../../constants';
 import colors from '../../styles/colors';
 import { NavContainer, BackButton, ActionsContainer, Title } from './styles';
 
-interface IAction {
+export interface IAction {
 	iconName: any;
 	path: string;
 	onPress(): void;
@@ -16,9 +16,11 @@ interface IAction {
 interface INavBarProps {
 	actions?: IAction[];
 	name: string;
+	goBack?: boolean;
+	color: string;
 }
 
-const NavBar = (props: INavBarProps) => {
+const NavBar = ({actions=[], name="", goBack=true, color}: INavBarProps) => {
 	const navigation = useNavigation();
 	const canGoBack = navigation.canGoBack();
 
@@ -26,7 +28,7 @@ const NavBar = (props: INavBarProps) => {
 		<NavContainer>
 			<BackButton
 				onPress={() => {
-					if (canGoBack) {
+					if (canGoBack && goBack) {
 						return navigation.goBack()
 					}
 				}}
@@ -35,13 +37,13 @@ const NavBar = (props: INavBarProps) => {
 					<Feather
 						name="chevron-left"
 						size={width * 0.07}
-						color={colors.body}
+						color={color ?? colors.body}
 					/>
 				}
 			</BackButton>
-			<Title>{props.name}</Title>
+			<Title color={color ?? colors.body}>{name}</Title>
 			<ActionsContainer>
-				{props.actions?.map((action, index) => {
+				{actions?.map((action, index) => {
 					return (
 						<TouchableOpacity
 							style={{

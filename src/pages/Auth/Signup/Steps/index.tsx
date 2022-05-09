@@ -1,16 +1,15 @@
-import { useEffect } from "react";
 import React from "react";
-import { StyleSheet, View, Text, Dimensions } from "react-native";
-import { ISteps, useStepper } from "../../../../context/stepper";
-import { Feather } from "@expo/vector-icons";
+import { StyleSheet, View } from "react-native";
+import { useStepper } from "../../../../context/stepper";
 import Personal from "./Personal";
-import Button from "../../../../components/Button";
 import Login from "./Login";
 import Address from "./Address";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import Loading from "../../../../components/Loading";
+import { Feather } from "@expo/vector-icons";
 
 function SingInStepper() {
-	const { currentStepIndex, steps, isLoading, handleNextStep, handleChangeStep } = useStepper();
+	const { currentStepIndex, steps, isLoading, handleChangeStep } = useStepper();
 
 	return (
 		<View
@@ -66,6 +65,8 @@ function SingInStepper() {
 					)
 				})}
 			</View>
+
+			{isLoading && <Loading/>}
 
 			{currentStepIndex === 0 &&
 				<Personal/>

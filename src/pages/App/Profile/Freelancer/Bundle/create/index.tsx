@@ -1,20 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Dimensions, Text, View } from 'react-native';
+import { Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import * as yup from 'yup';
-import Button from '../../../../../components/Button';
-import Header from '../../../../../components/Header';
-import Input from '../../../../../components/Input';
-import NavBar from '../../../../../components/NavBar';
-import { height, width } from '../../../../../constants';
-import colors from '../../../../../styles/colors';
-
-import {
-	Title
-} from './styles';
+import Button from '../../../../../../components/Button';
+import Input from '../../../../../../components/Input';
+import NavBar from '../../../../../../components/NavBar';
+import { height, width } from '../../../../../../constants';
+import colors from '../../../../../../styles/colors';
 
 interface ICreateBundle {
 	title: string;

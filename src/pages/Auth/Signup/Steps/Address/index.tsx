@@ -47,7 +47,8 @@ const Address = () => {
 	const {
 		addressData,
 		setAddressData,
-		handleNextStep
+		handleNextStep,
+		setIsLoading,
 	} = useStepper();
 
 
@@ -64,6 +65,7 @@ const Address = () => {
 
 		if (handledCep.length === 8) {
 			Keyboard.dismiss();
+			setIsLoading(true);
 
 			const searchCepAndApplyData = async () => {
 				await cepSearch(handledCep)
@@ -74,16 +76,14 @@ const Address = () => {
 						setValue('neighborhood', data.neighborhood);
 						setShowFields(true);
 					});
-			}
-	
+			}	
 			searchCepAndApplyData();
+			setIsLoading(false);
 		} else if (showFields) setShowFields(false);
 	}, [cep]);
 
 
 	useEffect(() => {
-		console.log(addressData);
-
 		if (addressData) {
 			Object.entries(addressData).forEach((field) => {
 				const name = field[0];
@@ -98,7 +98,7 @@ const Address = () => {
 		}
 	}, []);
 
-	return (		
+	return (
 		<Container>
 			<Text
 				style={{

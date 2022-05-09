@@ -1,5 +1,4 @@
 import { Dimensions } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
 import styled from 'styled-components/native'
 import colors from '../../styles/colors';
 

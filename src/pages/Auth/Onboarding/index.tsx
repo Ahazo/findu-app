@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/core';
 import colors from '../../../styles/colors';
 import fonts from '../../../styles/fonts';
 import Button from '../../../components/Button';
+import { SquircleView } from 'react-native-figma-squircle';
 
 interface ISlider {
   currentPage: number;
@@ -122,13 +123,20 @@ export function Onboarding() {
           return (
             <View style={styles.contentContainer} key={key}>
               <View style={styles.headerContainer}>
-                <View style={styles.imageContainer}>
+                <SquircleView
+									squircleParams={{
+										cornerRadius: 30,
+										cornerSmoothing: 1,
+										fillColor: colors.offWhite
+									}}
+									style={styles.imageContainer}
+								>
                   <Image
                     source={{ uri: item.imageSource }}
                     resizeMode="contain"
                     style={styles.image}
                   ></Image>
-                </View>
+                </SquircleView>
               </View>
               <View style={styles.wrapper}>
                 <View style={styles.content}>
@@ -193,7 +201,6 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     alignItems: 'center',
-    backgroundColor: colors.white,
     borderRadius: 40,
     padding: width * 0.1,
     shadowColor: colors.black,

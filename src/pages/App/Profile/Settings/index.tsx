@@ -70,7 +70,7 @@ const SettingsMenu = () => {
 					</MaskedView>
 
 					<NameText>Lucca Scarano</NameText>
-					<LabelText>@scarano</LabelText>
+					<LabelText>scarano</LabelText>
 					
 					<TouchableOpacity
 						style={{

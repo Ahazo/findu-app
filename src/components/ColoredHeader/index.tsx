@@ -73,7 +73,7 @@ const ColoredHeader = (data: IColoredHeaderProps) => {
             }}
             source={{
               uri:
-                'https://storage.googleapis.com/images-ahazo-dev/dev-images/ahazo-logo-white.png',
+                'https://storage.googleapis.com/images-ahazo-dev/dev-images/logo/AF_logo_findu_af_findu_branco.png',
             }}
             resizeMode="contain"
             dimensions={{

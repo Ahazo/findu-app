@@ -70,7 +70,15 @@ const Input: React.ForwardRefRenderFunction<
 
   return (
     <>
-      <ContainerInput error={Boolean(errors[inputField])} isMultiline={isMultiline}>
+      <ContainerInput
+				squircleParams={{
+					cornerRadius: 25,
+					cornerSmoothing: 1,
+					fillColor: colors.white,
+				}}
+				error={Boolean(errors[inputField])}
+				isMultiline={isMultiline}
+			>
         {iconName && (
           <Feather
             name={iconName}

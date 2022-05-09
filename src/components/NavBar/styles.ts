@@ -8,7 +8,6 @@ import fontSizes from '../../styles/fontSizes';
 export const NavContainer = styled.SafeAreaView`
 	flex-direction: row;
 	padding-top: ${Platform.OS === 'android' ? StatusBar.currentHeight : 0}px;
-	background-color: white;
 	justify-content: center;
 	align-items: center;
 	margin-top: ${0.07 * height}px;
@@ -27,10 +26,12 @@ export const ActionsContainer = styled.View`
 	align-items: center;
 `;
 
-export const Title = styled.Text`
+export const Title = styled.Text<{
+		color: string
+	}>`
 	flex: 0.5;
 	text-align: center;
-	color: ${colors.body};
+	color: ${props => props.color || colors.body};
 	font-size: ${fontSizes.title}px;
 	font-family: ${fonts.text};
 `;

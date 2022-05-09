@@ -20,14 +20,9 @@ export default function TabRoutes() {
       tabBarOptions={{
         showLabel: false,
         style: {
-          position: 'absolute',
-          backgroundColor: Platform.OS === 'ios' ? 'rgba(250, 250, 250, 0.3)' : colors.offWhite,
-          height: 70,
-          paddingBottom: 40,
-          borderTopRightRadius: 25,
-          borderTopLeftRadius: 25,
-          justifyContent: 'center',
-          alignItems: 'center',
+          backgroundColor: colors.offWhite,
+          height: height * 0.08,
+          paddingBottom: height * 0.05,
         },
       }}
     >

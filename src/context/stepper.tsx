@@ -1,7 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useCallback, useContext, useState } from "react";
 import api from "../services/api";
-import AuthProvider from "./auth";
 
 interface ILoginData {
 	username: string;
@@ -47,6 +46,7 @@ interface IStepperContext {
 	handlePreviousStep(): void;
 	handleChangeStep(changingIndex: number): void;
 	signUp(): Promise<void>;
+	setIsLoading(value: boolean): void;
 }
 
 export interface ISteps {
@@ -170,8 +170,8 @@ const StepperProvider: React.FC = ({ children }) => {
 			]);
 	
 			api.defaults.headers.authorization = `Bearer ${token}`;
+			setIsLoading(false);
 		} catch (err: any) {
-			console.log('aqui');
 			console.error(err.message);
 			setHasError(true);
 			setIsLoading(false)
@@ -195,7 +195,8 @@ const StepperProvider: React.FC = ({ children }) => {
 				handleNextStep,
 				handlePreviousStep,
 				handleChangeStep,
-				signUp
+				signUp,
+				setIsLoading
       }}
     >
       {children}

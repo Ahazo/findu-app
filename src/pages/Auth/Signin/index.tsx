@@ -29,6 +29,7 @@ import { useAuth } from '../../../context/auth';
 import { height } from '../../../constants';
 import colors from '../../../styles/colors';
 import fonts from '../../../styles/fonts';
+import { SquircleView } from 'react-native-figma-squircle';
 
 type FormDataType = {
   username: string;
@@ -92,15 +93,22 @@ export const SignIn = () => {
         <View style={styles.container}>
           <ScrollView style={{ flex: 1 }}>
             <ColoredHeader
-              logoDimensions={{ height: height * 0.07 }}
+              logoDimensions={{ height: height * 0.2 }}
               heightPercentage={height * 0.45}
               contentStyle={{
-                marginTop: height * 0.1,
+                marginTop: height * 0.05,
               }}
               position="flex-start"
             />
             <View style={styles.contentContainer}>
-              <View style={styles.formContainer}>
+              <SquircleView
+								squircleParams={{
+									cornerRadius: 30,
+									cornerSmoothing: 1,
+									fillColor: colors.white
+								}}
+								style={styles.formContainer}
+							>
                 <Text style={styles.title}>Vamos lá!</Text>
                 <Text style={styles.subtitle}>
                   Entre com seus dados ou crie uma conta
@@ -164,7 +172,7 @@ export const SignIn = () => {
                     marginTop: Dimensions.get('window').height * 0.02,
                   }}
                 />
-              </View>
+              </SquircleView>
 
               <View style={styles.singupContainer}>
                 <Text style={styles.singupTitle}>Ainda não tem uma conta?</Text>
@@ -197,8 +205,6 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: Dimensions.get('window').width * 0.85,
-    backgroundColor: colors.white,
-    borderRadius: 40,
     shadowColor: colors.black,
     shadowOffset: {
       width: 0,

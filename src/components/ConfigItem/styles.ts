@@ -16,5 +16,5 @@ export const Container = styled(TouchableOpacity)`
 export const Label = styled.Text`
 	color: ${colors.body};
 	fontFamily: ${fonts.text};
-	fontSize: ${fontSizes.text};
+	fontSize: ${fontSizes.text}px;
 `;

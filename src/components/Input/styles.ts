@@ -3,14 +3,14 @@ import { Dimensions, TextInput } from 'react-native';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import fontSizes from '../../styles/fontSizes';
-const { width, height } = Dimensions.get('window');
+import { SquircleView } from 'react-native-figma-squircle';
 
 type ContainerType = {
   error?: boolean;
 	isMultiline: boolean | undefined;
 };
 
-export const ContainerInput = styled.View<ContainerType>`
+export const ContainerInput = styled(SquircleView)<ContainerType>`
   width: 100%;
   height: ${props => (props.isMultiline ? Dimensions.get('window').height * 0.25 : Dimensions.get('window').height * 0.08)}px;
   background-color: #FEFEFE;

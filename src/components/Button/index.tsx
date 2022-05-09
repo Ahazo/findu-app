@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import colors from '../../styles/colors';
 import { Container, ButtonText } from './styles';
+import { SquircleView } from 'react-native-figma-squircle';
 
 interface IButton extends TouchableOpacityProps {
   text: string;
@@ -18,16 +19,18 @@ const Button = ({
   ...restOfProps
 }: IButton) => {
   return (
-    <LinearGradient
-      colors={[colors.purple, colors.blue_light]}
-      start={{ x: 0, y: 1 }}
-      end={{ x: 1, y: 0 }}
-      style={[styles.buttonBackground, containerButtonStyle, restOfProps.disabled && styles.disabledButton]}
-    >
-      <Container {...restOfProps} style={[buttonStyle]}>
-        <ButtonText>{text}</ButtonText>
-      </Container>
-    </LinearGradient>
+		<SquircleView 
+			squircleParams={{
+				cornerRadius: 20,
+				cornerSmoothing: 1,
+				fillColor: colors.purple,
+			}}
+			style={[styles.buttonBackground, containerButtonStyle, restOfProps.disabled && styles.disabledButton]}
+		>
+			<Container {...restOfProps} style={[buttonStyle]}>
+				<ButtonText>{text}</ButtonText>
+			</Container>
+		</SquircleView>
   );
 };
 

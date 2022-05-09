@@ -3,7 +3,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import colors from '../styles/colors';
-import CreateBundle from '../pages/App/Profile/Bundle/create';
+import CreateBundle from '../pages/App/Profile/Freelancer/Bundle/create';
 import { Profile } from '../pages/App/Profile';
 import SettingsMenu from '../pages/App/Profile/Settings';
 

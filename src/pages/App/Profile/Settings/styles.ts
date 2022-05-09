@@ -37,8 +37,8 @@ export const ConfigContainer = styled.View`
 export const HelpContainer = styled.View`
 	background-color: rgb(231, 245, 239);
 	width: 100%;
-	height: ${height * 0.13};
-	border-radius: ${height * 0.03};
+	height: ${height * 0.13}px;
+	border-radius: ${height * 0.03}px;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
