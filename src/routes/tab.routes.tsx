@@ -20,7 +20,7 @@ export default function TabRoutes() {
       tabBarOptions={{
         showLabel: false,
         style: {
-          backgroundColor: colors.offWhite,
+          backgroundColor: colors.white,
           height: height * 0.08,
           paddingBottom: height * 0.05,
         },

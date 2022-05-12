@@ -3,6 +3,7 @@ import { Dimensions, TouchableOpacity } from 'react-native';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import fontSizes from '../../styles/fontSizes';
 
 export const Container = styled(TouchableOpacity)`
   width: ${Dimensions.get('window').width * 0.8}px;
@@ -14,6 +15,6 @@ export const Container = styled(TouchableOpacity)`
 export const ButtonText = styled.Text`
   color: ${colors.white};
   font-family: ${fonts.heading};
-  font-size: 16px;
+  font-size: ${fontSizes.subText}px;
   letter-spacing: 1px;
 `;

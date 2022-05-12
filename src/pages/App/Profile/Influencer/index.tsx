@@ -34,13 +34,39 @@ import {
 	AboutTitle,
 	AboutText,
 	BlackFilter,
-} from './styles'
+} from './styles';
+
+const bundles = [
+	{
+		id: '213018',
+		title: 'Logo',
+		area: 'Design',
+		skill: 'Gráfico',
+		image: 'url-falsa'
+	},
+	{
+		id: '123931',
+		title: 'Desenvolvimento web',
+		area: 'Programação',
+		skill: 'React',
+		image: 'url-falsa'
+	},
+	{
+		id: '2321938',
+		title: 'Planta baixa',
+		area: 'Arquitetura',
+		skill: 'Planta',
+		image: 'url-falsa'
+	},
+]
+
 
 const InfluencerProfile = ({user, isPrivate, actions}: IInfluencerProfileProps) => {
 	return (
 		<ScrollView
 			bounces
 			showsVerticalScrollIndicator={false}
+			nestedScrollEnabled
 		>
 			<Container>
 				<ProfileBanner>
@@ -115,7 +141,7 @@ const InfluencerProfile = ({user, isPrivate, actions}: IInfluencerProfileProps) 
 					</Info>
 					<Bundle
 						isPrivate={isPrivate}
-						bundles={[]}
+						bundles={bundles}
 					/>
 				</Content>
 			</Container>
