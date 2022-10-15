@@ -17,7 +17,7 @@ interface INavBarProps {
 	actions?: IAction[];
 	name: string;
 	goBack?: boolean;
-	color: string;
+	color?: string;
 }
 
 const NavBar = ({actions=[], name="", goBack=true, color}: INavBarProps) => {

@@ -25,7 +25,7 @@ const DatePicker = (props: IDatePickerProps) => {
 
 	const isDateValid = (showDateAsLabel || props.inputValue) && props.inputValue.getDate() !== new Date().getDate();
 
-	function handleChange(event: any, date: Date | undefined) {	
+	function handleChange(event: any, date: Date | null) {	
 		if (date) {
 			props.onChange(date);
 			setShowDateAsLabel(true);

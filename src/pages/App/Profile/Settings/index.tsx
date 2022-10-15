@@ -1,27 +1,24 @@
-import { Feather } from '@expo/vector-icons';
 import MaskedView from '@react-native-community/masked-view';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { SquircleView } from 'react-native-figma-squircle';
-import Button from '../../../../components/Button';
 import ConfigItem from '../../../../components/ConfigItem';
 import NavBar from '../../../../components/NavBar';
 import { height, width } from '../../../../constants';
 import { useAuth } from '../../../../context/auth';
 import colors from '../../../../styles/colors';
-import fonts from '../../../../styles/fonts';
-import fontSizes from '../../../../styles/fontSizes';
 import {
 	LabelText,
 	ConfigContainer,
 	NameText,
 	ProfileContainer,
-	HelpContainer
 } from './styles';
 
 const SettingsMenu = () => {
 	const { signOut } = useAuth();
-	
+	const navigation = useNavigation();
+
 	const action = [
 		{
 			iconName: "log-out",
@@ -48,8 +45,8 @@ const SettingsMenu = () => {
 				<ProfileContainer>
 					<MaskedView
 						style={{
-							width: 100,
-							height: 100,
+							width: height * 0.125,
+							height: height * 0.125,
 						}}
 						maskElement={
 							<SquircleView
@@ -86,7 +83,7 @@ const SettingsMenu = () => {
 						}}
 
 						onPress={() => {
-							console.log('vai pra tela de edicao de perfil');
+							navigation.navigate('EditProfile')
 						}}
 					>
 						<Text
@@ -103,18 +100,16 @@ const SettingsMenu = () => {
 				<ConfigContainer>
 					<ConfigItem
 						label="Freelancer"
-						onPress={() => {}}
-					/>
-					<ConfigItem
-						label="Meus Cartões"
-						onPress={() => {}}
+						onPress={() => {
+							navigation.navigate('Freelancer')
+						}}
 					/>
 					<ConfigItem
 						label="Histórico"
 						onPress={() => {}}
 					/>
 					<ConfigItem
-						label="Privacidade"
+						label="Segurança & Privacidade"
 						onPress={() => {}}
 					/>
 					<ConfigItem
@@ -123,11 +118,11 @@ const SettingsMenu = () => {
 					/>
 				</ConfigContainer>
 
-				<HelpContainer>
+				{/* <HelpContainer>
 					<Feather
-						name='help-circle'
+						name='compass'
 						color={colors.green}
-						size={width * 0.13}
+						size={width * 0.07}
 					/>
 					<Text
 						style={{
@@ -139,7 +134,7 @@ const SettingsMenu = () => {
 					>
 						Como podemos te ajudar?
 					</Text>
-				</HelpContainer>
+				</HelpContainer> */}
 			</ScrollView>
 		</>
 	 )

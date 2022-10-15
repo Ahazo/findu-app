@@ -66,7 +66,8 @@ const Address = () => {
 		if (handledCep.length === 8) {
 			Keyboard.dismiss();
 			setIsLoading(true);
-
+			setValue('number', '');
+			
 			const searchCepAndApplyData = async () => {
 				await cepSearch(handledCep)
 					.then((data: any) => {

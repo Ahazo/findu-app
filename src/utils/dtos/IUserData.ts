@@ -1,12 +1,20 @@
+import { IBundle } from "../../components/Bundle";
+
 export interface IUserData {
-  name: string;
+	id: string;
 	username: string;
-	experience: number;
-	followers: number;
-	following: number;
-	projects: number;
-	levelInfo: {
-		label: string;
-		levelNumber: number;
-	};
+	description: string | null;
+	follower_count: number;
+	following_count: number;
+	person: {
+		first_name: string;
+		last_name: string;
+	}
+	freelancer?: {
+		areas: string[];
+		skills: string[];
+		title: string;
+		bundles: IBundle[];
+	} | null;
+	activities: string[];
 }

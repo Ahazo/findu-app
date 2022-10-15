@@ -32,6 +32,7 @@ export const LabelText = styled.Text`
 export const ConfigContainer = styled.View`
 	width: 100%;
 	margin-top: ${height * 0.03}px;
+	margin-bottom: ${height * 0.03}px;
 `;
 
 export const HelpContainer = styled.View`
@@ -42,4 +43,5 @@ export const HelpContainer = styled.View`
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: ${height * 0.03}px;
 `;

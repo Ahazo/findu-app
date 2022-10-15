@@ -3,6 +3,7 @@ import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 
+
 import {
   useFonts,
   Nunito_400Regular,
@@ -21,17 +22,6 @@ export default function App() {
     Nunito_700Bold,
     Nunito_800ExtraBold
   })
-
-  // useEffect(() => {
-  //   async function removeAllLocalStorage() {
-  //     await AsyncStorage.multiRemove([
-  //       '@Ahazo:token',
-  //       '@Ahazo:user'
-  //     ]);
-  //   }
-
-  //   removeAllLocalStorage();
-  // }, []);
 
   if (!isFontsLoaded) {
     return <AppLoading/>

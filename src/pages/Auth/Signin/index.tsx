@@ -11,18 +11,16 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
+	Animated,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import Toast from 'react-native-toast-message';
-
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import ColoredHeader from '../../../components/ColoredHeader';
-import Header from '../../../components/Header';
 
 import { useAuth } from '../../../context/auth';
 
@@ -30,6 +28,7 @@ import { height } from '../../../constants';
 import colors from '../../../styles/colors';
 import fonts from '../../../styles/fonts';
 import { SquircleView } from 'react-native-figma-squircle';
+import fontSizes from '../../../styles/fontSizes';
 
 type FormDataType = {
   username: string;
@@ -46,10 +45,8 @@ const schema = yup.object().shape({
 
 export const SignIn = () => {
   const navigation = useNavigation();
-  const { signIn, userToken } = useAuth();
-
-  const [hasError, setHasError] = useState(false);
-  const [error, setErrorMessage] = useState<string>();
+  const { signIn,  hasError, errorObject } = useAuth();
+	const [errorContainerTop, setErrorContainerTop] = useState(new Animated.Value(0));
 
   const {
     control,
@@ -60,27 +57,27 @@ export const SignIn = () => {
   });
 
   const passwordRef = useRef<TextInput>(null);
-
-  useEffect(() => {
-    if (hasError) {
-      Toast.show({
-        type: 'error',
-        text1: 'Opa :(',
-        text2: error
-      })
-    }
-  }, [hasError])
-
-  async function onSubmit(data: FormDataType) {
+  async function onSubmit(data: any) {
     await signIn({
       username: data.username,
       password: data.password,
     });
 
-    if (!userToken) {
-      setHasError(true);
-      setErrorMessage('Usuario e/ou Senha incorretos')
-    }
+		if (hasError && errorObject) {
+			Animated.sequence([
+				Animated.timing(errorContainerTop, {
+					toValue: -35,
+					duration: 700,
+					useNativeDriver: false
+				}),
+				Animated.delay(5000),
+				Animated.timing(errorContainerTop, {
+					toValue: 0,
+					duration: 700,
+					useNativeDriver: false
+				})
+			]).start()
+		}
   }
 
   return (
@@ -88,7 +85,6 @@ export const SignIn = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <Toast ref={(ref) => Toast.setRef(ref)}/>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
           <ScrollView style={{ flex: 1 }}>
@@ -101,6 +97,32 @@ export const SignIn = () => {
               position="flex-start"
             />
             <View style={styles.contentContainer}>
+							<Animated.View
+								style={[styles.errorContainer, {
+									top: errorContainerTop
+								}]}
+							>
+								<SquircleView
+										squircleParams={{
+											topLeftCornerRadius: 30,
+											topRightCornerRadius: 30,
+											cornerSmoothing: 1,
+											fillColor: colors.red
+										}}
+										style={{
+											width: '100%',
+											justifyContent: 'center',
+											alignItems: 'center',
+											padding: 10,
+										}}
+								>
+									<Text style={{
+										color: colors.white,
+										fontFamily: fonts.semibold,
+										fontSize: fontSizes.text,
+									}}>{errorObject.message}</Text>
+								</SquircleView>
+							</Animated.View>
               <SquircleView
 								squircleParams={{
 									cornerRadius: 30,
@@ -134,7 +156,6 @@ export const SignIn = () => {
                     name="username"
                     defaultValue=""
                   />
-
                   <Controller
                     control={control}
                     render={({ field: { onChange, value } }) => (
@@ -203,6 +224,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: -height * 0.2,
   },
+	errorContainer: {
+    width: Dimensions.get('window').width * 0.75,
+    justifyContent: 'center',
+		position: 'absolute'
+	},
   formContainer: {
     width: Dimensions.get('window').width * 0.85,
     shadowColor: colors.black,

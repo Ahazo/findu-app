@@ -143,6 +143,7 @@ const StepperProvider: React.FC = ({ children }) => {
 		setIsLoading(true);
 		if (!loginData || !personalData || !addressData) {
 			setHasError(true);
+			setIsLoading(false);
 			return;
 		}
 		try {

@@ -21,7 +21,8 @@ const personalSchema = yup.object().shape({
 		.string()
 		.trim()
 		.email('Digite um email válido')
-		.required('Campo Obrigatório'),
+		.required('Campo Obrigatório')
+		.lowercase(),
 	cellphone_number: yup
 		.string()
 		.min(

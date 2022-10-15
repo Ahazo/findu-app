@@ -11,7 +11,7 @@ export default {
   white: '#FFFFFF',
   offWhite: '#FAFAFA',
   grey: '#F1F1F1',
-  black: '#000',
+  black: '#000000',
   heading: '#7742FE',
   body: '#636363',
   body_light: '#8A8A8A',

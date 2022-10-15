@@ -1,95 +1,128 @@
-import { ScrollView } from 'react-native-gesture-handler';
+import { SquircleView } from 'react-native-figma-squircle';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
-import { height } from '../../../constants';
+import { height, width } from '../../../constants';
 import colors from '../../../styles/colors';
 import fonts from '../../../styles/fonts';
 import fontSizes from '../../../styles/fontSizes';
 
-export const Container = styled(ScrollView)`
-  flex: 1;
-	background-color: white;
+export const ProfileBanner = styled.View`
+	background-color: olivedrab;
+	height: ${height * 0.42}px;
 `;
 
-export const ProfileContainer = styled.View`
-	flex-direction: row;
+export const BlackFilter = styled.View`
 	justify-content: flex-start;
 	align-items: center;
-	padding: ${height * 0.01}px ${height * 0.02}px;
+	position: absolute;
+	background: rgba(0, 0, 0, 0.15);
+	height: ${height * 0.42}px;
+	width: ${width}px;
+	z-index: 3;
 `;
 
-export const InfoContainer = styled.View`
-	padding: ${height * 0.015}px;
+export const Container = styled.View``
+
+export const Content = styled(SquircleView)`
+	top: -${height * 0.1}px;
+`
+
+export const ProfilePhoto = styled(SquircleView)`
+	width: ${height * 0.15}px;
+	height: ${height * 0.15}px;
+	z-index: 4;
+`;
+
+export const Info = styled.View`
+	padding: ${height * 0.055}px ${width * 0.125}px 0px ${width * 0.125}px;
+`;
+
+export const Personal = styled.View`
+	flex-direction: row;
+	margin-bottom: ${height * 0.005}px;
+	align-items: center;
 `;
 
 export const Name = styled.Text`
-	color: ${colors.purple};
-	font-size: ${fontSizes.title}px;
+	max-width: ${width * 0.5}px;
+	margin-right: ${width * 0.03}px;
 	font-family: ${fonts.semibold};
-	letter-spacing: 0.3px;
+	font-size: ${fontSizes.title}px;
+	color: ${colors.black};
 `;
 
-export const Description = styled.Text`
-	color: ${colors.body_light};
-	font-size: ${fontSizes.text}px;
+export const Username = styled.Text`
 	font-family: ${fonts.text};
-	letter-spacing: 0.2px;
+	font-size: ${fontSizes.text}px;
+	color: ${colors.body};
 `;
 
-export const ProfileInfoContainer = styled.View`
+export const Role = styled.Text`
+	margin-bottom: ${height * 0.03}px;
+	font-family: ${fonts.text};
+	font-size: ${fontSizes.subText}px;
+	color: ${colors.body};
+`;
+
+export const Stats = styled.View`
 	flex-direction: row;
-	margin-top: 20px;
 	justify-content: space-around;
+	margin-bottom: ${height * 0.03}px;
+`;
+
+export const InfoItem = styled.View`
 	align-items: center;
 `;
 
-export const FollowInfoContainer = styled.View`
-	flex-direction: row;
-	justify-content: space-around;
-	padding: 0 ${height * 0.01}px ${height * 0.01}px ${height * 0.01}px;
+export const InfoTitle = styled.Text`
+	font-family: ${fonts.text};
+	font-size: ${fontSizes.subText}px;
+	color: ${colors.body};
 `;
 
 export const FollowInfo = styled.Text`
-	color: ${colors.body_light};
-	font-size: ${fontSizes.text}px;
 	font-family: ${fonts.text};
-	letter-spacing: 0.2px;
-	padding: 0 ${height * 0.02}px 0 0;
-`
+	font-size: ${fontSizes.subText}px;
+`;
+
+export const FollowersInfo = styled.Text`
+	font-family: ${fonts.text};
+	font-size: ${fontSizes.subText}px;
+`;
 
 export const AboutContainer = styled.View`
-	justify-content: flex-start;
-	align-items: flex-start;
-	padding: ${height * 0.01}px ${height * 0.02}px;
+	margin-bottom: ${height * 0.03}px;
+`;
+
+export const AboutTitle = styled.Text`
+	font-family: ${fonts.semibold};
+	font-size: ${fontSizes.subTitle}px;
+	color: ${colors.black};
+	margin-bottom: ${height * 0.01}px;
 `;
 
 export const AboutText = styled.Text`
-	color: ${colors.body_light};
-	font-size: ${fontSizes.text}px;
 	font-family: ${fonts.text};
-	letter-spacing: 0.2px;
+	font-size: ${fontSizes.subText}px;
+	color: ${colors.body};
 `;
 
-export const BundleContainer = styled(AboutContainer)``;
-
-export const SubTitle = styled.Text`
-	color: ${colors.body};
-	font-size: ${fontSizes.subTitle}px;
-	font-family: ${fonts.heading};
-	letter-spacing: 0.25px;
-	margin-bottom: ${height * 0.005}px;
-`;
-
-export const BoldText = styled.Text`
-	color: ${colors.body};
-	font-size: ${fontSizes.text}px;
-	font-family: ${fonts.semibold};
-	letter-spacing: 0.2px;
+export const AboutButtonContainer = styled(TouchableWithoutFeedback)`
+	height: ${height * 0.2}px;
+	width: ${height * 0.35}px;
+	border-style: dashed;
+	border-width: ${width * 0.008}px;
+	border-radius: 20px;
+	border-color: ${colors.body_light};
+	align-items: center;
+	justify-content: space-around;
+	padding: ${width * 0.05}px;
 `
+export const ActivityContainer = styled.View``;
 
-export const Role = styled.Text`
-	color: ${colors.body_light};
-	font-size: ${fontSizes.text}px;
-	font-family: ${fonts.text};
-	letter-spacing: 0.1px;
-	margin-bottom: ${height * 0.005}px;
-`;
+export const ActivityTitle = styled.Text`
+	font-family: ${fonts.semibold};
+	font-size: ${fontSizes.subTitle}px;
+	color: ${colors.black};
+	margin-bottom: ${height * 0.01}px;
+`

@@ -23,7 +23,7 @@ const Button = ({
 			squircleParams={{
 				cornerRadius: 20,
 				cornerSmoothing: 1,
-				fillColor: colors.purple,
+				fillColor: restOfProps.disabled ? colors.body_light : colors.purple,
 			}}
 			style={[styles.buttonBackground, containerButtonStyle, restOfProps.disabled && styles.disabledButton]}
 		>

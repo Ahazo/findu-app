@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import LottieView from 'lottie-react-native';
-import { Animated, Easing, StyleSheet, View } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 import { height, width } from '../../constants';
 
 const Loading = () => {

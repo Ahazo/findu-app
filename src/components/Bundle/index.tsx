@@ -9,9 +9,8 @@ import { BundleContent, BundleTitle, ButtonContainer, ButtonLabel, CallToAction,
 export interface IBundle {
 	id: string;
 	title: string;
-	area: string;
 	skill: string;
-	image: string;
+	images: string[];
 }
 
 interface IBundleProps {
@@ -133,7 +132,7 @@ const Bundle = ({bundles, isPrivate}: IBundleProps) => {
 					title={bundle.title}
 					area={bundle.area}
 					skill={bundle.skill}
-					bundleId={bundle.id}
+					bundleId={`${bundle.id}`}
 				/>
 			))}
 		</ScrollView>

@@ -14,7 +14,9 @@ interface IConfigItem {
 
 const ConfigItem = (props: IConfigItem) => {
 	return (
-		<Container>
+		<Container
+			onPress={props.onPress}
+		>
 			<Label>
 				{props.label}
 			</Label>

@@ -1,7 +1,7 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { TextInput, TextInputProps, ViewStyle } from 'react-native';
 import { FieldErrors } from 'react-hook-form';
-import { ContainerInput, InputText, InputError } from './styles';
+import { ContainerInput, InputText, InputError, TopPlaceholder } from './styles';
 
 import { Feather } from '@expo/vector-icons';
 import colors from '../../styles/colors';
@@ -23,8 +23,9 @@ interface IInputProps extends TextInputProps {
 	keyboardType?: "numeric" | "default" | "email-address";
   errors: FieldErrors;
 	mask?: "cep" | "cpf" | "cellphone";
-	inputMaskChange: any;	
+	inputMaskChange?: any;	
 	isMultiline?: boolean;
+	placeholderOnTop?: boolean;
 }
 
 const Input: React.ForwardRefRenderFunction<
@@ -43,6 +44,7 @@ const Input: React.ForwardRefRenderFunction<
 		mask,
 		inputMaskChange,
 		isMultiline,
+		placeholderOnTop,
     ...rest
   },
   ref,
@@ -70,14 +72,15 @@ const Input: React.ForwardRefRenderFunction<
 
   return (
     <>
-      <ContainerInput
+      {placeholderOnTop && <TopPlaceholder error={Boolean(errors[inputField])}>{placeholder}</TopPlaceholder>}
+			<ContainerInput
 				squircleParams={{
 					cornerRadius: 25,
 					cornerSmoothing: 1,
 					fillColor: colors.white,
 				}}
 				error={Boolean(errors[inputField])}
-				isMultiline={isMultiline}
+				isMultiline={isMultiline ?? null}
 			>
         {iconName && (
           <Feather
@@ -88,7 +91,7 @@ const Input: React.ForwardRefRenderFunction<
         )}
         <InputText
 					keyboardType={keyboardType ? keyboardType : "default"}
-          placeholder={placeholder}
+          placeholder={placeholderOnTop ? undefined : placeholder}
           value={inputValue}
           ref={inputElementRef}
 					onChangeText={text => handleChange(text)}
@@ -99,9 +102,8 @@ const Input: React.ForwardRefRenderFunction<
 					multiline={isMultiline}
         />
       </ContainerInput>
-      {/* Erro de input */}
       {errors[inputField] && (
-        <InputError>{errors[inputField].message}</InputError>
+        <InputError>{errors[inputField]?.message}</InputError>
       )}
     </>
   );

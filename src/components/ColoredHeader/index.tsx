@@ -5,7 +5,7 @@ import { Container, Logo, BackButton } from './styles';
 import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
-import Feather from '@expo/vector-icons/Feather';
+import { Feather } from '@expo/vector-icons';
 import colors from '../../styles/colors';
 import { useNavigation } from '@react-navigation/core';
 
